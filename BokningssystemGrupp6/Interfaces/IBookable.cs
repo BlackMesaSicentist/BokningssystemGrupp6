@@ -8,6 +8,6 @@ namespace BokningssystemGrupp6.Interfaces
 {
     internal interface IBookable
     {
-        hej
+   
     }
 }
