@@ -73,12 +73,12 @@ Följande koncept ska implementeras i lösningen:
     - Kör “Clean Solution” under “Build” i menyn av Visual Studio. Innan zippning av filer. Detta för att undvika att ni skickar med buildfiler som inte behövs.
   * Länk till publikt github repo
   * Kort dokumentation som beskriver:
-  - Hur man startar och använder programmet
-  - Eventuella kända begränsningar
-  - Val och motiveringar för implementation
-  - Beskrivning av filformat och struktur
-  - Vilken student har huvudansvaret för vilka delar
-  - Detta kan även läggas till i Readme som komplement.
+    - Hur man startar och använder programmet
+    - Eventuella kända begränsningar
+    - Val och motiveringar för implementation
+    - Beskrivning av filformat och struktur
+    - Vilken student har huvudansvaret för vilka delar
+    - Detta kan även läggas till i Readme som komplement.
 
 ## Tips
 Om ni vill prova på att ha er planering av projektet i trello. https://trello.com/ Det är vanligt att man jobbar med en board i arbetslivet. Gustav visar DevOps en mer avancerad variant av Trello. https://dev.azure.com/berggustav/Planera/_boards/board/t/Planera%20Team/Stories
