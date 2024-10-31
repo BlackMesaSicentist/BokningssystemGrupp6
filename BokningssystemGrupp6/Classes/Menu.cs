@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes
 {
-    internal class Sal
+    internal class Menu
     {
     }
 }

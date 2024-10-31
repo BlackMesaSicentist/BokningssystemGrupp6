@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BokningssystemGrupp6.Classes
+namespace BokningssystemGrupp6.Classes.LokalClasses
 {
-    internal class Lokal
+    internal class Grupprum
     {
     }
 }
