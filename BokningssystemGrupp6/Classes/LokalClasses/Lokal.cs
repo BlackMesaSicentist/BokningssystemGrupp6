@@ -14,18 +14,17 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             string? roomName = Console.ReadLine();
             string roomSize = RoomSize();
             Console.WriteLine("Enter how many seats:  ");
-            int size = Convert.ToInt32(Console.ReadLine());
+            int seats = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Do you need a projector? Y/N");
             bool hasProjector = AskUser();
             Console.WriteLine("Do you need a whiteboard? Y/N");
             bool hasWhiteBoard = AskUser();
-
-            Rooms room = new Rooms(roomName, roomSize, size, hasProjector, hasWhiteBoard);
+            Rooms room = new Rooms(roomName, roomSize, seats, hasProjector, hasWhiteBoard);
             rooms.Add(room);
         }
         public static string RoomSize()
         {
-       
+
             Console.WriteLine("1.Grupprum\n2.Medium\n3.Large");
             string? size;
             switch (Console.ReadLine())
@@ -41,7 +40,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     break;
                 default:
                     Console.WriteLine("Invalid choice");
-                    return RoomSize();                    
+                    return RoomSize();
             }
             return size;
         }
@@ -49,7 +48,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         {
             while (true)
             {
-                string response = Console.ReadLine().ToLower();
+                string? response = Console.ReadLine().ToLower();
                 if (response == "y")
                 {
                     return true;
@@ -63,7 +62,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.WriteLine("invalid option");
                 }
 
+            }
         }
+
     }
-  
 }
