@@ -26,12 +26,20 @@ namespace BokningssystemGrupp6.Classes
             EndTime = endTime;
         }
 
+        //Method to list all bookings
         public static void ListAllBookings(List<Bookings> bookingInfo)
         {
-            foreach (Bookings book in bookingInfo)
+            foreach (Bookings booking in bookingInfo)
             {
-                Console.WriteLine();
+                Console.WriteLine($"Användare {booking.UserName} har bokat rum med namn {booking.RoomName} " +
+                    $"med start {booking.StartTime} och slut {booking.EndTime} och den totala bokningstiden är {booking.EndTime - booking.StartTime} timmar \n"); //If needed add "Kl" or date descriptions after variable
             }
+        }
+        //List data from specific booking feed into it
+        public static void ListSpecificBooking(Bookings booking)
+        {
+            Console.WriteLine($"Användare {booking.UserName}, Rum {booking.RoomName}, " +
+                $"Starttid {booking.StartTime}, Sluttid {booking.EndTime}, bokningen är {booking.EndTime - booking.StartTime} timmar");
         }
 
     }
