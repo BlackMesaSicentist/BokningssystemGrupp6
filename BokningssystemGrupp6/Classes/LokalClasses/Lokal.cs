@@ -13,7 +13,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             Console.WriteLine("Enter name of the room: ");
             string? roomName = Console.ReadLine();
             string roomSize = RoomSize();
-            Console.WriteLine("Enter how many seats:  ");
+            Console.WriteLine("Enter how many seats: ");
             int seats = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Do you need a projector? Y/N");
             bool hasProjector = AskUser();
@@ -25,12 +25,13 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public static string RoomSize()
         {
 
-            Console.WriteLine("1.Grupprum\n2.Medium\n3.Large");
+            Console.WriteLine("1.Group room\n2.Medium\n3.Large");
+            string? option;
             string? size;
-            switch (Console.ReadLine())
+            switch (option = Console.ReadLine())
             {
                 case "1":
-                    size = "Grupprum";
+                    size = "Group room";
                     break;
                 case "2":
                     size = "Medium";
