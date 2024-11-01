@@ -26,5 +26,13 @@ namespace BokningssystemGrupp6.Classes
             EndTime = endTime;
         }
 
+        public static void ListAllBookings(List<Bookings> bookingInfo)
+        {
+            foreach (Bookings book in bookingInfo)
+            {
+                Console.WriteLine();
+            }
+        }
+
     }
 }

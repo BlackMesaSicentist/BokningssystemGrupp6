@@ -8,7 +8,7 @@ namespace BokningssystemGrupp6.Classes
 {
     internal class Menu
     {
-        public static Menu MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */)
+        public static Menu MainMenu(List<Rooms> roomInfo, List<Bookings> bookingsInfo)
         {
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
             while (true) // Todo: make an exit condition to break loop, either as a universal method or specific in this menu
@@ -21,7 +21,7 @@ namespace BokningssystemGrupp6.Classes
                     case "1": Rooms.ListAndSortRooms(); break; 
                     case "2": Rooms.CreateARoom(); break;
                     case "3": Bookings.BookARoom(); break;
-                    case "4": Bookings.ListBookings(); break;
+                    case "4": Bookings.ListAllBookings(bookingsInfo); break;
                     case "5": Bookings.UppdateBookings(); break;
                     default:
                     {
