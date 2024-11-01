@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
-    internal class Grupprum: Lokal
+    internal class GroupRoom: Rooms
     {
     }
 }
