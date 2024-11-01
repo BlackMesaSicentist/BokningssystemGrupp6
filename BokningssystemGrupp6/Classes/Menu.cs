@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes
 {
-    public class Menu
+    internal class Menu
     {
         public static Menu MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */)
         {
@@ -18,7 +18,9 @@ namespace BokningssystemGrupp6.Classes
                     "\n4. Se bokningar \n5. Uppdatera en befintlig bokning");
                 switch (menuChoice = Console.ReadLine())
                 {
-                    case "1": 
+                    case "1": Rooms.listAndSortMenu(); break;
+                    case "2": Rooms.CreateARoom(); break;
+                    case "3": Rooms.
                 }
                 
             }
