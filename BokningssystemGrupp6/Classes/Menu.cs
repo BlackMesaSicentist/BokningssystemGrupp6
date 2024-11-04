@@ -21,7 +21,7 @@ namespace BokningssystemGrupp6.Classes
                 switch (menuChoice = Console.ReadLine())
                 {
                     //case "1": Rooms.ListAndSortRooms(); break; 
-                    case "2": Rooms.CreateARoom2(rooms); break;
+                    case "2": Rooms.CreateARoom(rooms); break;
                     //case "3": Bookings.BookARoom(); break;
                     //case "4": Bookings.ListBookings(); break;
                     //case "5": Bookings.UppdateBookings(); break;

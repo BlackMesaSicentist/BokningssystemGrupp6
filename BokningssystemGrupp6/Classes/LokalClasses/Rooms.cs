@@ -10,7 +10,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
     internal class Rooms
     {
 
-        public static void CreateARoom2(List<IRoom> rooms) {
+        public static void CreateARoom(List<IRoom> rooms) {
             Console.WriteLine("Enter name of the room: ");
             string? roomName = Console.ReadLine();
             string roomSize = RoomSize();
@@ -41,51 +41,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
 
             ShowList(rooms);
-            //IRoom room = new IRoom(roomName, roomS)
 
-            //IRoom room = new IRoom(roomName, roomType, )
-            //Rooms room = new Rooms(roomName, roomSize, seats, hasProjector, hasWhiteBoard);
-            //rooms.Add(room);
         }
-        //public static void CreateARoom(List<Rooms> rooms)
-        //{
-        //    Console.WriteLine("Enter name of the room: ");
-        //    string? roomName = Console.ReadLine();
-        //    string roomSize = RoomSize();
-        //    Console.WriteLine("Enter how many seats: ");
-        //    int seats = Convert.ToInt32(Console.ReadLine());
-        //    Console.WriteLine("Do you need a projector? Y/N");
-        //    bool hasProjector = AskUser();
-        //    Console.WriteLine("Do you need a whiteboard? Y/N");
-        //    bool hasWhiteBoard = AskUser();
-        //    Rooms room = new Rooms(roomName, roomSize, seats, hasProjector, hasWhiteBoard);
-        //    rooms.Add(room);
-        //}
-        //public static string RoomSize()
-        //{
-
-        //    Console.WriteLine("1.Large\n2.Medium\n3.Small");
-        //    string? option;
-        //    string? size;
-        //    switch (option = Console.ReadLine())
-        //    {
-        //        case "1":
-        //            size = "Large";
-
-        //            break;
-        //        case "2":
-        //            size = "Medium";
-        //            break;
-        //        case "3":
-        //            size = "Small";
-        //            break;
-        //        default:
-        //            Console.WriteLine("Invalid choice");
-        //            return RoomSize();
-        //    }
-        //    return size;
-        //}
-
         public static string RoomSize()
         {
             Console.WriteLine("Choose room size:\n1.Large\n2.Medium\n3.Small");
@@ -130,7 +87,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
             }
         }
-
 
         public static void ShowList(List<IRoom> rooms)
         {
