@@ -34,22 +34,6 @@ namespace BokningssystemGrupp6.Classes
             return false;
         }
 
-        // Kollar om input är ett decimaltal (behöver inte innehålla decimaler)
-        //public bool IsNumberDecimal(string input)
-        //{
-        //    return decimal.TryParse(input, out _);
-        //}
-
-        // Kollar om input är en positivt decimal
-        //public bool IsDecimalNegative(string input)
-        //{
-        //    if (decimal.TryParse(input, out decimal result))
-        //    {
-        //        return result < 0;
-        //    }
-        //    return false;
-        //}
-
         // Kollar om input är mellan 0 - 5
         public bool IsDecimalBetweenZeroAndFive(string input)
         {
@@ -89,27 +73,12 @@ namespace BokningssystemGrupp6.Classes
         }
 
 
-        // Kollar om kontot finns
-        //public bool AccountExists(List<Account> accountList, string accountNrCheck)
-        //{
-        //    if (int.TryParse(accountNrCheck, out int accountNr))
-        //    {
-        //        return accountList.Any(a => a.AccountNr == accountNr);
-        //    }
-        //    return false;
-        //}
-
         // Convert string to int
         public int ConvertToInt(string input)
         {
             return int.Parse(input);
         }
 
-        // Konverterar string till decimal och avrundar till 2 decimaler
-        //public decimal ConvertToDecimal(string input)
-        //{
-        //    return Math.Round(decimal.Parse(input), 2);
-        //}
 
     }
 
