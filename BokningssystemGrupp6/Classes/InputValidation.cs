@@ -34,20 +34,20 @@ namespace BokningssystemGrupp6.Classes
         }
 
         // Kollar om input är ett decimaltal (behöver inte innehålla decimaler)
-        public bool IsNumberDecimal(string input)
-        {
-            return decimal.TryParse(input, out _);
-        }
+        //public bool IsNumberDecimal(string input)
+        //{
+        //    return decimal.TryParse(input, out _);
+        //}
 
         // Kollar om input är en positivt decimal
-        public bool IsDecimalNegative(string input)
-        {
-            if (decimal.TryParse(input, out decimal result))
-            {
-                return result < 0;
-            }
-            return false;
-        }
+        //public bool IsDecimalNegative(string input)
+        //{
+        //    if (decimal.TryParse(input, out decimal result))
+        //    {
+        //        return result < 0;
+        //    }
+        //    return false;
+        //}
 
         // Kollar om input är mellan 0 - 5
         public bool IsDecimalBetweenZeroAndFive(string input)
@@ -60,7 +60,7 @@ namespace BokningssystemGrupp6.Classes
         }
 
         // Kollar om input är större än ett annat tal
-        public bool IsGreaterThanBalance(string input, decimal accountBalance)
+        public bool IsGreaterThanSeatLimit(string input, int )
         {
             if (decimal.TryParse(input, out decimal result))
             {
