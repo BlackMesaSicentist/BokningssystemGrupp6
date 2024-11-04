@@ -9,10 +9,20 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 {
     internal class Rooms
     {
+        private readonly InputValidation _inputValidation;
+        public Rooms(InputValidation inputValidation)
+        {
+            InputValidation = inputValidation;
+        }
 
-        public static void CreateARoom(List<IRoom> rooms) {
-            Console.WriteLine("Enter name of the room: ");
-            string? roomName = Console.ReadLine();
+        public InputValidation InputValidation { get; }
+
+        public void CreateARoom(List<IRoom> rooms) {
+
+
+            string roomName = RoomName(rooms);
+            //Console.WriteLine("Enter name of the room: ");
+            //string? roomName = Console.ReadLine();
             string roomSize = RoomSize();
             Console.WriteLine("Enter how many seats: ");
             int seats = Convert.ToInt32(Console.ReadLine());
@@ -116,6 +126,46 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
                 Console.WriteLine("----------------------");
             }
+        }
+
+        // Skapa en Idnummer (till skillnad från kontonumret så behöver detta inte vara unikt)
+        private string RoomName(List<IRoom> rooms)
+        {
+            Console.WriteLine("Enter name of the room: ");
+            string nameOk = "";
+            string tempName = Console.ReadLine();
+
+            // Input validering
+            while (true)
+            {
+                // Kollar om input är tom
+                if (_inputValidation.IsEmpty(tempName))
+                {
+                    Console.WriteLine("Valet kan inte vara tomt. Försök igen.");
+                }
+                // Kollar om input är ett nummer
+                else if (!_inputValidation.IsNameUsed(rooms, tempName))
+                {
+                    Console.WriteLine("Valet måste vara ett nummer. Försök igen.");
+                }
+
+                // Kollar om talet är negativt
+                //else if (_inputValidator.IsNumberNegative(tempIdNrStr))
+                //{
+                //    Console.WriteLine("Valet måste vara ett positivt tal. Försök igen");
+                //}
+                //else
+                //{
+                //    // Konverterar string till nummer
+                //    accountIdNrOk = _inputValidator.ConvertToInt(tempIdNrStr);
+                //    break;
+                //}
+
+                // Om input är fel får man mata in ett nytt tal
+                tempName = Console.ReadLine();
+            }
+
+            return nameOk;
         }
 
     }

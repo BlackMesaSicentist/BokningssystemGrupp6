@@ -10,6 +10,16 @@ namespace BokningssystemGrupp6.Classes
 {
     internal class Menu
     {
+
+        private readonly InputValidation _inputValidation;
+        private readonly Rooms _rooms;
+
+        public Menu(InputValidation inputValidation)
+        {
+            _inputValidation = inputValidation;
+            _rooms = new Rooms(inputValidation);
+        }
+
         public static Menu MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<IRoom> rooms)
         {
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement

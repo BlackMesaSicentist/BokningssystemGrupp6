@@ -15,6 +15,8 @@ namespace BokningssystemGrupp6
         static void Main(string[] args)
         {
 
+            InputValidation inputValidation = new InputValidation();
+
 
             List<IRoom> rooms = new List<IRoom>();
             rooms.Add(new LargeRoom("Katt", "Large", 100, 120, true, true));

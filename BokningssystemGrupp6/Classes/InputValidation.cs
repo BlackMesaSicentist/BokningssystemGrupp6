@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BokningssystemGrupp6.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -7,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes
 {
-    // Klass som ansvarar för validering av användarens input
-    public class InputValidator
+    // Class responsible for validation of user input
+    public class InputValidation
     {
 
-        // Kollar om input är tom
+        // Check if input is empty
         public bool IsEmpty(string input)
         {
             return string.IsNullOrWhiteSpace(input);
         }
 
-        // Kollar om input är ett nummer
+        // Check if input is a number
         public bool IsNumber(string input)
         {
             return int.TryParse(input, out _);
         }
 
-        // Kollar om input är en positivt int
+        // Check if input is positive
         public bool IsNumberNegative(string input)
         {
             if (int.TryParse(input, out int result))
@@ -59,25 +60,31 @@ namespace BokningssystemGrupp6.Classes
             return false;
         }
 
-        // Kollar om input är större än ett annat tal
-        public bool IsGreaterThanSeatLimit(string input, int )
+        // Chec if input is larger than seat limit
+        public bool IsGreaterThanSeatLimit(string input, int seatLimit)
         {
-            if (decimal.TryParse(input, out decimal result))
+            if (int.TryParse(input, out int result))
             {
-                return result > accountBalance;
+                return result > seatLimit;
             }
             return false;
         }
-        // Kollar om input är noll
 
+        // Check if input is zero
         public bool IsGreaterThanZero(string input)
         {
-            decimal zeroBalance = 0;
-            if (decimal.TryParse(input, out decimal result))
+            int zeroBalance = 0;
+            if (int.TryParse(input, out int result))
             {
                 return result == zeroBalance;
             }
             return false;
+        }
+
+        // Check if name is used
+        public bool IsNameUsed(List<IRoom> rooms, string input)
+        {
+            return rooms.Any(a => a.RoomName.ToLower() == input.ToLower());
         }
 
         // Kollar om kontot finns
@@ -90,17 +97,17 @@ namespace BokningssystemGrupp6.Classes
         //    return false;
         //}
 
-        // Konverterar string till int
+        // Convert string to int
         public int ConvertToInt(string input)
         {
             return int.Parse(input);
         }
 
         // Konverterar string till decimal och avrundar till 2 decimaler
-        public decimal ConvertToDecimal(string input)
-        {
-            return Math.Round(decimal.Parse(input), 2);
-        }
+        //public decimal ConvertToDecimal(string input)
+        //{
+        //    return Math.Round(decimal.Parse(input), 2);
+        //}
 
     }
 
