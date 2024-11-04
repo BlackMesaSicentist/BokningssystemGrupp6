@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Runtime;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,17 +18,75 @@ namespace BokningssystemGrupp6.Classes
             string? mail = Console.ReadLine();
             Console.WriteLine("Ange val av rum");
             int roomName = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Ange datum DD/MM/ÅÅÅÅ:");
+            Console.WriteLine("Ange datum DD-MM-ÅÅÅÅ:");
             string? date = Console.ReadLine();
-            Console.WriteLine("Ange starttid XX,XX :");
-            double startTime = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Ange sluttid XX,XX :");
-            double endTime = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Ange starttid HH:MM :");
+            string startTime = Console.ReadLine();
+            Console.WriteLine("Ange sluttid HH:MM :");
+            string endTime = Console.ReadLine();
+
+            if (DateTime.TryParseExact(date, "dd-MM-yyyy", new CultureInfo("sv-SE"), DateTimeStyles.None, out DateTime dateTimeStart) && TimeSpan.TryParseExact(startTime, "hh\\:mm", new CultureInfo("sv-SE"), out TimeSpan timeSpanStart))
+            {
+                DateTime combinedDateTimeStart = dateTimeStart.Add(timeSpanStart);
+            }
+            if (DateTime.TryParseExact(date, "dd-MM-yyyy", new CultureInfo("sv-SE"), DateTimeStyles.None, out DateTime dateTimeEnd) && TimeSpan.TryParseExact(endTime, "hh\\:mm", new CultureInfo("sv-SE"), out TimeSpan timeSpanEnd))
+            {
+                DateTime combinedDateTimeEnd = dateTimeEnd.Add(timeSpanEnd);
+            }
+
+            for (int i = 0; i<booked.Count; i++ )
+            {
+
+            foreach (Bookings booking in booked)
+            { 
+                string bookedDate = booking.Date;
+                string bookedStartTime = booking.StartTime;
+                string bookedEndTime = booking.EndTime;
+
+                if (DateTime.TryParseExact(bookedDate, "dd-MM-yyyy", new CultureInfo("sv-SE"), DateTimeStyles.None, out DateTime bookedDateTimeStart) && TimeSpan.TryParseExact(bookedStartTime, "hh\\:mm", new CultureInfo("sv-SE"), out TimeSpan bookedTimeSpanStart))
+                {
+                    DateTime combiDateTimeBookedStart = bookedDateTimeStart.Add(bookedTimeSpanStart);
+                }
+                if (DateTime.TryParseExact(bookedDate, "dd-MM-yyyy", new CultureInfo("sv-SE"), DateTimeStyles.None, out DateTime bookedDateTimeEnd) && TimeSpan.TryParseExact(bookedEndTime, "hh\\:mm", new CultureInfo("sv-SE"), out TimeSpan bookedTimeSpanEnd))
+                {
+                    DateTime combiDateTimeBookedEnd = bookedDateTimeEnd.Add(bookedTimeSpanEnd);
+                }
+
+                    DateTime date1 = new DateTime(2009, 8, 1, 0, 0, 0);
+                    DateTime date2 = new DateTime(2009, 8, 1, 12, 0, 0);
+                    int result = DateTime.Compare(date1, date2);
+                    string relationship;
+
+                    if (result < 0)
+                        relationship = "is earlier than";
+                    else if (result == 0)
+                        relationship = "is the same time as";
+                    else
+                        relationship = "is later than";
+
+                    Console.WriteLine("{0} {1} {2}", date1, relationship, date2);
+
+                    // The example displays the following output for en-us culture:
+                    //    8/1/2009 12:00:00 AM is earlier than 8/1/2009 12:00:00 PM
+
+                }
+
+            }
+
+
+
+            
 
             double totalTime = endTime - startTime;
             Console.WriteLine($"Bokningen är lagd för totalt {totalTime} antal timmar");
 
-            //kolla att bokningen inte krockar med en redan lagd bokning
+
+                //kollar om dagen är fri från tidigare bokningar i den lokalen
+             
+            //om helt fri fortsätt med bokningen
+
+            //kolla att bokningen inte krockar med en redan lagd bokning 
+
             //om bokning krockar
 
             //lägger till bokningen i listan
@@ -53,15 +113,15 @@ namespace BokningssystemGrupp6.Classes
         public string Mail { get; set; }
         public int RoomName { get; set; }
         public string Date { get; set; }
-        public double StartTime { get; set; }
-        public double EndTime { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
 
         public Bookings()
         {
             
         }
 
-        public Bookings(string mail, int roomName, string date, double startTime, double endTime)
+        public Bookings(string mail, int roomName, string date, string startTime, string endTime)
         {
             Mail=mail;
             RoomName = roomName;
