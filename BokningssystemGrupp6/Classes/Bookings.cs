@@ -11,6 +11,7 @@ namespace BokningssystemGrupp6.Classes
     {
         public static void BookARoom(List<Bookings> booked)
         {
+            //hämtar bokningsinformation
             Console.WriteLine("Ange din epost:");
             string? mail = Console.ReadLine();
             Console.WriteLine("Ange val av rum");
@@ -22,10 +23,28 @@ namespace BokningssystemGrupp6.Classes
             Console.WriteLine("Ange sluttid XX,XX :");
             double endTime = Convert.ToDouble(Console.ReadLine());
 
+            double totalTime = endTime - startTime;
+            Console.WriteLine($"Bokningen är lagd för totalt {totalTime} antal timmar");
+
+            //kolla att bokningen inte krockar med en redan lagd bokning
+            //om bokning krockar
+
+            //lägger till bokningen i listan
             booked.Add(new Bookings(mail,roomName,date,startTime,endTime));
 
-            double totalTime = endTime - startTime;
+            //skrivs ut när bokningen är genomförd
+            Console.WriteLine("Grattis, din bokning är nu genomförd!\nHär nedad kan du se all information om din bokning.");
+
+            if (booked.Count > 0)
+            {
+                // skriver ut det sista objektet
+                string lastbooking = booked[booked.Count - 1];
+                Console.WriteLine(lastbooking);
+            }
+
             Console.WriteLine($"Din totala bokningstid är: {totalTime}");
+
+
 
 
         }
