@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using BokningssystemGrupp6.Classes;
 using BokningssystemGrupp6.Classes.LokalClasses;
 
 namespace BokningssystemGrupp6
