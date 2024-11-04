@@ -45,6 +45,13 @@ namespace BokningssystemGrupp6.Classes
                 $"Starttid {booking.StartTime}, Sluttid {booking.EndTime}, bokningen är {booking.EndTime - booking.StartTime} timmar");
         }
 
+        public static void CreateAndDisplayListOfBookings()
+        {
+            Console.WriteLine("Vilket rum vill ni se alla bokningar för?");
+            String specificRoom =
+            List<Bookings> roomSpecificBookings = new List<Bookings>();
+        }
+
         public static void UpdateBooking(List<Bookings> bookingInfo)
         {
             String roomName = ""; // Todo: Call to a method to find specific room or just list them, reuse find user?
