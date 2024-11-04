@@ -16,11 +16,11 @@ namespace BokningssystemGrupp6
         {
 
             InputValidation inputValidation = new InputValidation();
-
+            Menu menu = new Menu (inputValidation);
 
             List<IRoom> rooms = new List<IRoom>();
             rooms.Add(new LargeRoom("Katt", "Large", 100, 120, true, true));
-            rooms.Add(new MediumRoom("Hund Room B", "Medium", 50, 60, true, false));
+            rooms.Add(new MediumRoom("Hund", "Medium", 50, 60, true, false));
             rooms.Add(new SmallRoom("Kanin", "Small", 10, 15));
 
             foreach (var room in rooms)
@@ -73,7 +73,7 @@ namespace BokningssystemGrupp6
 
             Console.WriteLine("Hello, World!");
 
-            Menu.MainMenu( rooms );
+            menu.MainMenu( rooms );
         }
     }
 }

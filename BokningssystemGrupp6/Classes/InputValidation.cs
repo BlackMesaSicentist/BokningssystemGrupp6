@@ -85,7 +85,9 @@ namespace BokningssystemGrupp6.Classes
         public bool IsNameUsed(List<IRoom> rooms, string input)
         {
             return rooms.Any(a => a.RoomName.ToLower() == input.ToLower());
+
         }
+
 
         // Kollar om kontot finns
         //public bool AccountExists(List<Account> accountList, string accountNrCheck)
