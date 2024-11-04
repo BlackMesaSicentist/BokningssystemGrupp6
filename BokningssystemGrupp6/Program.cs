@@ -13,14 +13,14 @@ namespace BokningssystemGrupp6
         static void Main(string[] args)
         {
             //Sample data
-            Rooms Delfinen = new("Delfinen","GroupRoom", 8, false, false);
-            Rooms Hajen = new("Hajen","GroupRoom", 8, false, false);
-            Rooms Valen = new("Valen","Medium",20, false, false);
-            Rooms Maneten = new("Maneten","Medium", 20, true, false);
-            Rooms Krabban = new("Krabban","Large", 40, true, true);
-            Rooms Aborren = new("Aborren","Large", 40, true, true);
-            Rooms Laxen = new("Laxen","Large", 40, true, true);
-            Rooms Korallen = new("Korallen", "Large", 40, true, true);
+            Rooms Delfinen = new Rooms("Delfinen","GroupRoom", 8, false, false);
+            Rooms Hajen = new Rooms("Hajen","GroupRoom", 8, false, false);
+            Rooms Valen = new Rooms("Valen","Medium",20, false, false);
+            Rooms Maneten = new Rooms("Maneten","Medium", 20, true, false);
+            Rooms Krabban = new Rooms("Krabban","Large", 40, true, true);
+            Rooms Aborren = new Rooms("Aborren","Large", 40, true, true);
+            Rooms Laxen = new Rooms("Laxen","Large", 40, true, true);
+            Rooms Korallen = new Rooms("Korallen", "Large", 40, true, true);
 
             RoomsInfo.Add(Delfinen);
             RoomsInfo.Add(Hajen);

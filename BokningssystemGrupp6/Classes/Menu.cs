@@ -21,7 +21,7 @@ namespace BokningssystemGrupp6.Classes
                     case "1": Rooms.ListAndSortRooms(); break; 
                     case "2": Rooms.CreateARoom(); break;
                     case "3": Bookings.BookARoom(); break;
-                    case "4": Bookings.ListAllBookings(bookingsInfo); break;
+                    case "4": Bookings.ListAllBookingsFromList(bookingsInfo); break;
                     case "5": Bookings.UppdateBookings(); break;
                     default:
                     {

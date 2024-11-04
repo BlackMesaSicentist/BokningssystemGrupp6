@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -12,15 +13,15 @@ namespace BokningssystemGrupp6.Classes
     {
         public string UserName { get; set; }
         public string RoomName { get; set; }
-        public double StartTime { get; set; }
-        public double EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         public Bookings()
         {
             
         }
 
-        public Bookings(string userName, string roomName, double startTime, double endTime)
+        public Bookings(string userName, string roomName, DateTime startTime, DateTime endTime)
         {
             UserName = userName;
             RoomName = roomName;
@@ -29,7 +30,7 @@ namespace BokningssystemGrupp6.Classes
         }
 
         //Method to list all bookings
-        public static void ListAllBookings(List<Bookings> bookingInfo)
+        public static void ListAllBookingsFromList(List<Bookings> bookingInfo)
         {
             foreach (Bookings booking in bookingInfo)
             {
@@ -44,24 +45,37 @@ namespace BokningssystemGrupp6.Classes
             Console.WriteLine($"Användare {booking.UserName}, Rum {booking.RoomName}, " +
                 $"Starttid {booking.StartTime}, Sluttid {booking.EndTime}, bokningen är {booking.EndTime - booking.StartTime} timmar");
         }
-
-        public static void CreateAndDisplayListOfBookings()
+        // Display list of bookings for a specific room and a specific 1 year interwall
+        public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo)
         {
             Console.WriteLine("Vilket rum vill ni se alla bokningar för?");
-            String specificRoom =
-            List<Bookings> roomSpecificBookings = new List<Bookings>();
-        }
+            String specificRoom = ""; //Todo: Call to a method to find room, or build one in this method
+            List<Bookings> roomSpecificBookings = new List<Bookings>(); //New list with only bookings with the right parameters
+            Console.WriteLine("Mata in över vilket år du vill se bokningarna i formatet \"yyyy\"");
 
+            String yearInputString = Console.ReadLine();
+            if (DateTime.TryParseExact(yearInputString, "yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime startDate)) //Convert input to datetime
+            {
+                DateTime endDate = new DateTime(startDate.Year, 12, 31, 23, 59, 59);
+
+                foreach (Bookings booking in bookingInfo)
+                {
+                    if (booking.RoomName == specificRoom && booking.StartTime <= startDate && booking.EndTime >= endDate) { roomSpecificBookings.Add(booking); } // Adds bookings to list if the meet the requirmets
+                }
+            }
+            ListAllBookingsFromList(roomSpecificBookings);
+        }
+        //Update an alreade existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo)
         {
             String roomName = ""; // Todo: Call to a method to find specific room or just list them, reuse find user?
             int indexArrayOfSpecificUserBookings = 0;
-            List<Bookings> specificUserBookings = new List<Bookings>();
+            List<Bookings> specificUserBookings = new List<Bookings>(); //New list for all bookings for the specific user
             Boolean isValidInput = false;
 
             do
             {
-                Console.Write("Mata in användarnamnet:");
+                Console.Write("Mata in användarnamnet: ");
                 String userName = Console.ReadLine();
                 if (userName == null)
                 {
@@ -71,39 +85,37 @@ namespace BokningssystemGrupp6.Classes
 
                 foreach (Bookings booking in bookingInfo)
                 {
-                    if (booking.UserName == userName && booking.RoomName == roomName)
+                    if (booking.UserName == userName && booking.RoomName == roomName) // Adds bookings for a specific person and room to list
                     {
                         specificUserBookings.Add(booking);
                         indexArrayOfSpecificUserBookings++;
                     }
                 }
 
-                int[] listOfChoices = new int[indexArrayOfSpecificUserBookings];
-                if (listOfChoices.Length <= 0)
+                if (specificUserBookings.Count <= 0) // Checks if finding any bookings
                 {
                     Console.WriteLine($"Kan inte hitta en booking under användarnamnet: {userName} \nFörsök igen \n");
                     continue;
                 }
 
-                for (int i = 0; i < indexArrayOfSpecificUserBookings; i++)
+                for (int i = 0; i < specificUserBookings.Count; i++) //List bookings
                 {
-                    listOfChoices[i] = i++;
-                    Console.WriteLine($"Alternativ {i++}:");
+                    Console.WriteLine($"Alternativ {i++}: ");
                     ListSpecificBooking(bookingInfo[i]);
                 }
 
                 do
                 {
                     Console.WriteLine("Mata in siffran för motsvarande alternativ");
-                    if (int.TryParse(Console.ReadLine(), out int choice))
+                    if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
                     {
-                        if (choice <= listOfChoices.Length && choice > 0)
+                        if (choice <= specificUserBookings.Count && choice > 0) //CHekc if inside list range
                         {
-                            List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo);
+                            List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo); // Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
                             int index = 0;
                             foreach (Bookings booking in withoutChosenBooking)
                             {
-                                if (booking == specificUserBookings[choice])
+                                if (booking == specificUserBookings[choice]) //If booking chosen remove old and add new booking
                                 {
                                     withoutChosenBooking.RemoveAt(index);
                                     // Implement booking method, depending on method, might need to put this in a while loop in case
