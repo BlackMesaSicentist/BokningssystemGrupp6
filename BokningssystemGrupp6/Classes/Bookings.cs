@@ -122,6 +122,7 @@ namespace BokningssystemGrupp6.Classes
                                     // Implement booking method, depending on method, might need to put this in a while loop in case
                                     bookingInfo.RemoveAt(index);
                                     isValidInput = true;
+                                    break;
                                 }
                                 index++;
                             }
