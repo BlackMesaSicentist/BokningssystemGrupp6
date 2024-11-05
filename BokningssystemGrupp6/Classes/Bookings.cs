@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using BokningssystemGrupp6.Classes.LokalClasses; //Todo: Currently using for searching 
 
 namespace BokningssystemGrupp6.Classes
 {
@@ -131,6 +133,15 @@ namespace BokningssystemGrupp6.Classes
                 while (isValidInput == false);
             }
             while (isValidInput == false);
+        }
+        public static void ListAllRooms(List<Rooms> bookingInfo)
+        {
+            foreach (Bookings booking in bookingInfo)
+            {
+                Console.WriteLine($"Användare {booking.UserName} har bokat rum med namn {booking.RoomName} " +
+                    $"med start {booking.StartTime} och slut {booking.EndTime} och den totala bokningstiden är {booking.EndTime - booking.StartTime} timmar \n"); //If needed add "Kl" or date descriptions after variable
+            }
+
         }
     }
 }
