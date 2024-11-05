@@ -12,7 +12,7 @@ namespace BokningssystemGrupp6.Classes
 {
     public class Bookings
     {
-        public string UserName { get; set; }
+        public string Mail { get; set; }
         public string RoomName { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
@@ -22,9 +22,9 @@ namespace BokningssystemGrupp6.Classes
             
         }
 
-        public Bookings(string userName, string roomName, DateTime startTime, DateTime endTime)
+        public Bookings(string mail, string roomName, DateTime startTime, DateTime endTime)
         {
-            UserName = userName;
+            Mail = mail;
             RoomName = roomName;
             StartTime = startTime;
             EndTime = endTime;
@@ -35,7 +35,7 @@ namespace BokningssystemGrupp6.Classes
         {
             foreach (Bookings booking in bookingInfo)
             {
-                Console.WriteLine($"Användare {booking.UserName} har bokat rum med namn {booking.RoomName} " +
+                Console.WriteLine($"E-Post {booking.Mail} har bokat rum med namn {booking.RoomName} " +
                     $"med start {booking.StartTime} och slut {booking.EndTime} och den totala bokningstiden är {booking.EndTime - booking.StartTime} timmar \n"); //If needed add "Kl" or date descriptions after variable
             }
             
@@ -43,7 +43,7 @@ namespace BokningssystemGrupp6.Classes
         //List data from specific booking feed into it
         public static void ListSpecificBooking(Bookings booking)
         {
-            Console.WriteLine($"Användare {booking.UserName}, Rum {booking.RoomName}, " +
+            Console.WriteLine($"E-Post {booking.Mail}, Rum {booking.RoomName}, " +
                 $"Starttid {booking.StartTime}, Sluttid {booking.EndTime}, bokningen är {booking.EndTime - booking.StartTime} timmar");
         }
         // Display list of bookings for a specific room and a specific 1 year interwall
@@ -76,17 +76,17 @@ namespace BokningssystemGrupp6.Classes
 
             do
             {
-                Console.Write("Mata in användarnamnet: ");
-                String userName = Console.ReadLine();
-                if (userName == null)
+                Console.Write("Mata in e-postadressen: ");
+                String mail = Console.ReadLine();
+                if (mail == null)
                 {
-                    Console.WriteLine("Användarnamnet kan inte vara null \nFörsök igen \n");
+                    Console.WriteLine("E-postadressen kan inte vara null \nFörsök igen \n");
                     continue;
                 }
 
                 foreach (Bookings booking in bookingInfo)
                 {
-                    if (booking.UserName == userName && booking.RoomName == roomName) // Adds bookings for a specific person and room to list
+                    if (booking.Mail == mail && booking.RoomName == roomName) // Adds bookings for a specific person and room to list
                     {
                         specificUserBookings.Add(booking);
                         indexArrayOfSpecificUserBookings++;
@@ -95,7 +95,7 @@ namespace BokningssystemGrupp6.Classes
 
                 if (specificUserBookings.Count <= 0) // Checks if finding any bookings
                 {
-                    Console.WriteLine($"Kan inte hitta en booking under användarnamnet: {userName} \nFörsök igen \n");
+                    Console.WriteLine($"Kan inte hitta en booking under användarnamnet: {mail} \nFörsök igen \n");
                     continue;
                 }
 
