@@ -11,7 +11,7 @@ namespace BokningssystemGrupp6
         //public static List<Rooms> RoomsInfo = new List<Rooms>();
         //public static List<IRoom> rooms2 = new List<IRoom>();
         //Lista för bokningar (string userName, string roomName, double startTime, double endTime)
-        //public static List<Bookings> BookingsInfo = new List<Bookings>();
+        public static List<Bookings> BookingsInfo = new List<Bookings>();
         static void Main(string[] args)
         {
 
