@@ -7,7 +7,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
-using BokningssystemGrupp6.Classes.LokalClasses; //Todo: Currently using for searching 
+using BokningssystemGrupp6.Classes.LokalClasses; //Todo: Currently using for searching for rooms in this class. Remove or move room methods to room
+using BokningssystemGrupp6.Interfaces; // Todo: Currently used to access properties of room. Should probably be removed later
 
 namespace BokningssystemGrupp6.Classes
 {
@@ -134,12 +135,13 @@ namespace BokningssystemGrupp6.Classes
             }
             while (isValidInput == false);
         }
-        public static void ListAllRooms(List<Rooms> bookingInfo)
+        // Todo: Remove or move room methods to room
+        public static void ListAllRooms(List<Rooms> roomsList)
         {
-            foreach (Bookings booking in bookingInfo)
+            foreach (Rooms room in roomsList)
             {
-                Console.WriteLine($"Användare {booking.UserName} har bokat rum med namn {booking.RoomName} " +
-                    $"med start {booking.StartTime} och slut {booking.EndTime} och den totala bokningstiden är {booking.EndTime - booking.StartTime} timmar \n"); //If needed add "Kl" or date descriptions after variable
+                Console.WriteLine($"Användare {} har bokat rum med namn {room.RoomName} " +
+                    $"med start {room.StartTime} och slut {room.EndTime} och den totala bokningstiden är {room.EndTime - room.StartTime} timmar \n"); //If needed add "Kl" or date descriptions after variable
             }
 
         }
