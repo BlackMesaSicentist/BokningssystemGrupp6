@@ -15,7 +15,7 @@ using BokningssystemGrupp6.Interfaces;
 
 namespace BokningssystemGrupp6.Classes
 {
-    public class Bookings
+    public class Bookings: IListable
     {
         public string Mail { get; set; }
         public string RoomName { get; set; }
@@ -95,7 +95,7 @@ namespace BokningssystemGrupp6.Classes
                     Console.WriteLine("Grattis din bokning är genomförd med informationen nedan");
 
                     // skriver ut det sista objektet
-                    ListSpecificBooking(newest);
+                    ListSpecific(newest);
 
                     Console.WriteLine($"Din bokning är totalt {totalTime} timmar.");
 
@@ -106,7 +106,7 @@ namespace BokningssystemGrupp6.Classes
                 {
                     Console.WriteLine("Din valda tid & datum krockar tyvärr med en redan lagd bokning");
                     //skriv ut bokningen den krockar med?
-                    ListSpecificBooking(book);
+                    ListSpecific(book);
                     Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
                     Console.ReadKey();
                     Console.Clear();
@@ -123,7 +123,7 @@ namespace BokningssystemGrupp6.Classes
 
 
         //Method to list all bookings
-        public static void ListAllBookingsFromList(List<Bookings> bookingInfo)
+        public static void ListAll(List<Bookings> bookingInfo)
         {
             foreach (Bookings booking in bookingInfo)
             {
@@ -133,7 +133,7 @@ namespace BokningssystemGrupp6.Classes
             
         }
         //List data from specific booking feed into it
-        public static void ListSpecificBooking(Bookings booking)
+        public static void ListSpecific(Bookings booking)
         {
             Console.WriteLine($"E-Post {booking.Mail}, Rum {booking.RoomName}, " +
                 $"Starttid {booking.DateTimeStart}, Sluttid {booking.DateTimeEnd}, bokningen är {booking.DateTimeEnd - booking.DateTimeStart} timmar");
@@ -156,7 +156,7 @@ namespace BokningssystemGrupp6.Classes
                     if (booking.RoomName == specificRoom && booking.DateTimeStart <= startDate && booking.DateTimeEnd >= endDate) { roomSpecificBookings.Add(booking); } // Adds bookings to list if the meet the requirmets
                 }
             }
-            ListAllBookingsFromList(roomSpecificBookings);
+            ListAll(roomSpecificBookings);
         }
         //Update an alreade existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo)
@@ -194,7 +194,7 @@ namespace BokningssystemGrupp6.Classes
                 for (int i = 0; i < specificUserBookings.Count; i++) //List bookings
                 {
                     Console.WriteLine($"Alternativ {i++}: ");
-                    ListSpecificBooking(bookingInfo[i]);
+                    ListSpecific(bookingInfo[i]);
                 }
 
                 do

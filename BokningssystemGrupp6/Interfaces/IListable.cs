@@ -10,8 +10,11 @@ namespace BokningssystemGrupp6.Interfaces
 
     internal interface IListable
     {
-        ListSpecific();
+        public void ListSpecific()
+        { }
 
-        ListAll();
+        public void ListAll()
+        { }
+
     }
 }
