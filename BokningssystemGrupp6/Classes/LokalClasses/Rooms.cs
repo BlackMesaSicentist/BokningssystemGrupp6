@@ -132,7 +132,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 {
                     if (choice > 0 && choice <= rooms.Count)
                     {
-                        
+                        choice--;
+
                     }
                 }
             }
