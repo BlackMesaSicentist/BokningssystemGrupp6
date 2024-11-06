@@ -115,8 +115,6 @@ namespace BokningssystemGrupp6.Classes
                 }
                 break;
             }
-
-
         }
 
     
@@ -139,10 +137,11 @@ namespace BokningssystemGrupp6.Classes
                 $"Starttid {booking.DateTimeStart}, Sluttid {booking.DateTimeEnd}, bokningen är {booking.DateTimeEnd - booking.DateTimeStart} timmar");
         }
         // Display list of bookings for a specific room and a specific 1 year interwall
-        public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo)
+        public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<IRoom> listOfRoom)
         {
             Console.WriteLine("Vilket rum vill ni se alla bokningar för?");
             String specificRoom = ""; //Todo: Call to a method to find room, or build one in this method
+            Rooms.ChooseASpecificRoom(listOfRoom, specificRoom);
             List<Bookings> roomSpecificBookings = new List<Bookings>(); //New list with only bookings with the right parameters
             Console.WriteLine("Mata in över vilket år du vill se bokningarna i formatet \"yyyy\"");
 
@@ -159,9 +158,10 @@ namespace BokningssystemGrupp6.Classes
             ListAll(roomSpecificBookings);
         }
         //Update an alreade existing booking
-        public static void UpdateBooking(List<Bookings> bookingInfo)
+        public static void UpdateBooking(List<Bookings> bookingInfo, List<IRoom> roomList)
         {
-            String roomName = ""; // Todo: Call to a method to find specific room or just list them, reuse find user?
+            String roomName = "";
+            Rooms.ChooseASpecificRoom(roomList, roomName); //
             List<Bookings> specificUserBookings = new List<Bookings>(); //New list for all bookings for the specific user
             Boolean isValidInput = false;
 
@@ -202,7 +202,7 @@ namespace BokningssystemGrupp6.Classes
                     {
                         if (choice <= specificUserBookings.Count && choice > 0) //CHekc if inside list range
                         {
-                            choice--; //Have to shrink by 1 to actually match index for list
+                            choice--; // Have to shrink by 1 to actually match index for list
                             List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo); // Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
                             int index = 0;
                             foreach (Bookings booking in withoutChosenBooking)

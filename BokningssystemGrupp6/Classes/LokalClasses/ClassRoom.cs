@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
-    internal class ClassRoom: Rooms, IRoom
+    internal class ClassRoom: Rooms, IRoom, IListable
     {
         public int SeatLimit { get; set; }
         public bool HasProjector { get; set; }

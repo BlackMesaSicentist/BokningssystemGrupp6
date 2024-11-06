@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
-    internal abstract class Rooms: IRoom
+    internal abstract class Rooms: IRoom, IListable
     {
         public string RoomName { get; set; }
         public string RoomType { get; set; }
@@ -127,7 +127,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine("----------------------");
             }
         }
-        public static void ChooseASpecificRoom(List<IRoom> rooms)
+        public static void ChooseASpecificRoom(List<IRoom> rooms, String roomName)
         {
             int index = 0;
             foreach (var room in rooms)
@@ -142,8 +142,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 {
                     if (choice > 0 && choice <= rooms.Count)
                     {
-                        choice--;
-
+                        choice--; // Have to shrink by 1 to match list index
+                        roomName = rooms[choice].RoomName;
                     }
                 }
             }
