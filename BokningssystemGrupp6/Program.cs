@@ -21,9 +21,9 @@ namespace BokningssystemGrupp6
             string listRoom = JsonSerializer.Serialize(rooms);
             File.WriteAllText("BokningssystemGrupp6.json", listRoom);
 
-            rooms.Add(new LargeRoom("Katt", "Large", 100, 120, true, true));
-            rooms.Add(new MediumRoom("Hund Room B", "Medium", 50, 60, true, false));
-            rooms.Add(new SmallRoom("Kanin", "Small", 10, 15));
+            rooms.Add(new Hall("Katt", "Large", 100, 120, true, true));
+            rooms.Add(new ClassRoom("Hund Room B", "Medium", 50, 60, true, false));
+            rooms.Add(new GroupRoom("Kanin", "Small", 10, 15));
 
             foreach (var room in rooms)
             {
