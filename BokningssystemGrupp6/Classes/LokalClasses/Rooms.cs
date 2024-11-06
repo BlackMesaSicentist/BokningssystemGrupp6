@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
@@ -18,21 +19,21 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
         public void CreateARoom(List<IRoom> rooms) {
 
+            Console.Clear();
             string roomName = RoomNameInput(rooms);
-            //Console.WriteLine("Enter name of the room: ");
-            //string? roomName = Console.ReadLine();
             var (roomSize, seatLimit) = RoomSize();
-            //string roomSize = RoomSize();
-
             int seats = SeatsInput(rooms, seatLimit);
-
-            //Console.WriteLine("Enter how many seats: ");
-            //int seats = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Do you need a projector? Y/N");
-            bool hasProjector = AskUser();
-            Console.WriteLine("Do you need a whiteboard? Y/N");
-            bool hasWhiteBoard = AskUser();
-
+            bool hasProjector = false;
+            bool hasWhiteBoard = false;
+            // If user selects smallroom skip asking user for projector/whiteboard.
+            if (roomSize != "Small")
+            {
+                Console.WriteLine("Do you need a projector? Y/N");
+                hasProjector = AskUser();
+                Console.WriteLine("Do you need a whiteboard? Y/N");
+                hasWhiteBoard = AskUser();
+            }
+          
             if (roomSize == "Large")
             {
                 Console.WriteLine("Adding a Large Room...");
@@ -49,7 +50,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 rooms.Add(new SmallRoom(roomName, roomSize, seats, seatLimit));
             }
 
-            ShowList(rooms);
 
         }
         public static (string, int) RoomSize()
@@ -74,13 +74,14 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     seatLimit = 15;
                     break;
                 default:
-                    Console.WriteLine("Invalid choice, please choose again.");
+                    Console.WriteLine("Invalid option, please choose again.");
                     return RoomSize(); 
             }
             return (size, seatLimit);
         }
 
-        public static bool AskUser()
+        // Get response from user after asking for projector/whiteboard. Return true/false.
+        public bool AskUser()
         {
             while (true)
             {
@@ -95,14 +96,15 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 }
                 else
                 {
-                    Console.WriteLine("invalid option");
+                    Console.WriteLine("Invalid option, try again.");
                 }
 
             }
         }
 
-        public static void ShowList(List<IRoom> rooms)
+        public void ShowList(List<IRoom> rooms)
         {
+
             foreach (var room in rooms)
             {
                 Console.WriteLine($"Room Type: {room.GetType().Name}");
@@ -136,7 +138,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         {
             Console.WriteLine("Enter name of the room: ");
             string tempName = Console.ReadLine().Trim();
-            Console.WriteLine(tempName);
             // Input validation
             while (true)
             {
@@ -164,11 +165,9 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
         private int SeatsInput(List<IRoom> rooms, int seatLimit)
         {
-            Console.WriteLine("Enter seats amount: ");
+            Console.WriteLine($"Enter seats: (Cant exceed: {seatLimit}) ");
             int seatsOk;
             string tempSeatsStr = Console.ReadLine().Trim();
-
-            Console.WriteLine(tempSeatsStr);
 
 
             while (true)

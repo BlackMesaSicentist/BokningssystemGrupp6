@@ -30,8 +30,7 @@ namespace BokningssystemGrupp6.Classes
                     "\n4. Se bokningar \n5. Uppdatera en befintlig bokning");
                 switch (menuChoice = Console.ReadLine())
                 {
-                    //case "1": Rooms.ListAndSortRooms(); break; 
-                    ////case "2": Rooms.CreateARoom(rooms); break;
+                    case "1": _rooms.ShowList(rooms); break; 
                     case "2": _rooms.CreateARoom(rooms); break;
 
                     //case "3": Bookings.BookARoom(); break;
