@@ -52,9 +52,6 @@ namespace BokningssystemGrupp6
                 Console.WriteLine("----------------------");
             }
 
-            Console.WriteLine("Hello, World!");
-
-            Menu.MainMenu( rooms );
         }
     }
 }
