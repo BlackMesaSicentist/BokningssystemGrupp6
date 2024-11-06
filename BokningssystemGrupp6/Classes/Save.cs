@@ -38,16 +38,16 @@ namespace BokningssystemGrupp6.Classes
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin,
                     UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
             };
-            if(!File.Exists("RoomList.Json") |&)
-            {
-                
-            }
-            else
+         
+            if(File.Exists("RoomList.Json"))
             {
                 string readRoom = File.ReadAllText("RoomList.json");
-                string readBooking = File.ReadAllText("BookingList.json");
-
                 roomList = JsonSerializer.Deserialize<List<IRoom>>(readRoom);
+                
+            }
+            if(File.Exists("BookingsList.Json"))
+            {
+                string readBooking = File.ReadAllText("BookingList.json");
                 bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);
             }
 
