@@ -104,7 +104,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 {
                     Console.WriteLine("invalid option");
                 }
-
             }
         }
 
@@ -145,7 +144,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine($"Alternativ {index++} \nNamn på lokal: {room.RoomName}, Typ av lokal: {room.RoomType}, Hur många personer får plats i lokalen: {room.SeatAmount}");
                 index++;
             }
-            while (true);
+            while (true)
             {
                 Console.WriteLine("Mata in siffran för motsvarande alternativ");
                 if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
@@ -154,11 +153,12 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     {
                         choice--; // Have to shrink by 1 to match list index
                         roomName = rooms[choice].RoomName;
+                        break;
                     }
+                    else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
                 }
+                else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
             }
-
         }
-
     }
 }
