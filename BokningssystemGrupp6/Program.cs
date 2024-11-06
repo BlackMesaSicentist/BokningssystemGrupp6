@@ -32,19 +32,19 @@ namespace BokningssystemGrupp6
                 Console.WriteLine($"Room Type Description: {room.RoomType}");
                 Console.WriteLine($"Seat Amount: {room.SeatAmount}");
 
-                if (room is LargeRoom largeRoom)
+                if (room is Hall largeRoom)
                 {
                     Console.WriteLine($"Seat Limit: {largeRoom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {largeRoom.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {largeRoom.HasWhiteboard}");
                 }
-                else if (room is MediumRoom mediumRoom)
+                else if (room is ClassRoom mediumRoom)
                 {
                     Console.WriteLine($"Seat Limit: {mediumRoom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {mediumRoom.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {mediumRoom.HasWhiteboard}");
                 }
-                else if (room is SmallRoom smallRoom)
+                else if (room is GroupRoom smallRoom)
                 {
                     Console.WriteLine($"Seat Limit: {smallRoom.SeatLimit}");
                 }
