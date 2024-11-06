@@ -14,6 +14,7 @@ namespace BokningssystemGrupp6
     {
         static void Main(string[] args)
         {
+
             //List for bookings (string userName, string roomName, DateTime DateTimeStart, DateTime DateTimeEnd)
             List<Bookings> bookingsInfo = new List<Bookings>();
 
@@ -21,6 +22,7 @@ namespace BokningssystemGrupp6
             List<IRoom> rooms = new List<IRoom>();
 
             Save.UnPackFile(rooms, bookingsInfo);
+            Menu.MainMenu(rooms, bookingsInfo);
 
         }
     }
