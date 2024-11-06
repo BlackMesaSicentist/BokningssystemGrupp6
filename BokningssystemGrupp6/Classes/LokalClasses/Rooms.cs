@@ -7,8 +7,18 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
-    internal class Rooms
+    internal abstract class Rooms: IRoom
     {
+        public string RoomName { get; set; }
+        public string RoomType { get; set; }
+        public int SeatAmount { get; set; }
+
+        protected Rooms(string roomName, string roomType, int seatAmount)
+        {
+            RoomName = roomName;
+            RoomType = roomType;
+            SeatAmount = seatAmount;
+        }
 
         public static void CreateARoom(List<IRoom> rooms) {
             Console.WriteLine("Enter name of the room: ");
@@ -25,19 +35,19 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             {
                 Console.WriteLine("Adding a Large Room...");
                 int seatLimit = 120;
-                rooms.Add(new LargeRoom(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteBoard));
+                rooms.Add(new Hall(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteBoard));
             }
             else if (roomSize == "Medium")
             {
                 Console.WriteLine("Adding a Medium Room...");
                 int seatLimit = 60;
-                rooms.Add(new MediumRoom(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteBoard));
+                rooms.Add(new ClassRoom(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteBoard));
             }
             else if (roomSize == "Small")
             {
                 Console.WriteLine("Adding a Small Room...");
                 int seatLimit = 15;
-                rooms.Add(new SmallRoom(roomName, roomSize, seats, seatLimit));
+                rooms.Add(new GroupRoom(roomName, roomSize, seats, seatLimit));
             }
 
             ShowList(rooms);
@@ -97,19 +107,19 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine($"Room Type Description: {room.RoomType}");
                 Console.WriteLine($"Seat Amount: {room.SeatAmount}");
 
-                if (room is LargeRoom largeRoom)
+                if (room is Hall largeRoom)
                 {
                     Console.WriteLine($"Seat Limit: {largeRoom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {largeRoom.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {largeRoom.HasWhiteboard}");
                 }
-                else if (room is MediumRoom mediumRoom)
+                else if (room is ClassRoom mediumRoom)
                 {
                     Console.WriteLine($"Seat Limit: {mediumRoom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {mediumRoom.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {mediumRoom.HasWhiteboard}");
                 }
-                else if (room is SmallRoom smallRoom)
+                else if (room is GroupRoom smallRoom)
                 {
                     Console.WriteLine($"Seat Limit: {smallRoom.SeatLimit}");
                 }
