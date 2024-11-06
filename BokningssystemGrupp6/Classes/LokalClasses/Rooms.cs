@@ -117,6 +117,27 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine("----------------------");
             }
         }
+        public static void ChooseASpecificRoom(List<IRoom> rooms)
+        {
+            int index = 0;
+            foreach (var room in rooms)
+            {
+                Console.WriteLine($"Alternativ {index++} \nNamn på lokal: {room.RoomName}, Typ av lokal: {room.RoomType}, Hur många personer får plats i lokalen: {room.SeatAmount}");
+                index++;
+            }
+            while (true);
+            {
+                Console.WriteLine("Mata in siffran för motsvarande alternativ");
+                if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
+                {
+                    if (choice > 0 && choice <= rooms.Count)
+                    {
+                        
+                    }
+                }
+            }
+
+        }
 
     }
 }

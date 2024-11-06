@@ -70,7 +70,6 @@ namespace BokningssystemGrupp6.Classes
         public static void UpdateBooking(List<Bookings> bookingInfo)
         {
             String roomName = ""; // Todo: Call to a method to find specific room or just list them, reuse find user?
-            int indexArrayOfSpecificUserBookings = 0;
             List<Bookings> specificUserBookings = new List<Bookings>(); //New list for all bookings for the specific user
             Boolean isValidInput = false;
 
@@ -89,7 +88,6 @@ namespace BokningssystemGrupp6.Classes
                     if (booking.Mail == mail && booking.RoomName == roomName) // Adds bookings for a specific person and room to list
                     {
                         specificUserBookings.Add(booking);
-                        indexArrayOfSpecificUserBookings++;
                     }
                 }
 
@@ -112,6 +110,7 @@ namespace BokningssystemGrupp6.Classes
                     {
                         if (choice <= specificUserBookings.Count && choice > 0) //CHekc if inside list range
                         {
+                            choice--; //Have to shrink by 1 to actually match index for list
                             List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo); // Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
                             int index = 0;
                             foreach (Bookings booking in withoutChosenBooking)
