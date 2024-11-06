@@ -23,52 +23,62 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public static void CreateARoom(List<IRoom> rooms) {
             Console.WriteLine("Enter name of the room: ");
             string? roomName = Console.ReadLine();
-            string roomSize = RoomSize();
+            var roomSize = RoomSize();
             Console.WriteLine("Enter how many seats: ");
             int seats = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Do you need a projector? Y/N");
-            bool hasProjector = AskUser();
-            Console.WriteLine("Do you need a whiteboard? Y/N");
-            bool hasWhiteBoard = AskUser();
+            bool hasProjector = false;
+            bool hasWhiteboard = false;
+            
+            if (roomSize != "Group room")
+            {
+                Console.WriteLine("Do you need a projector? Y/N");
+                hasProjector = AskUser();
+                Console.WriteLine("Do you need a whiteboard? Y/N");
+                hasWhiteboard = AskUser();
+            }
 
-            if (roomSize == "Large")
+            if (roomSize == "Hall")
             {
-                Console.WriteLine("Adding a Large Room...");
+                Console.WriteLine("Adding Hall...");
                 int seatLimit = 120;
-                rooms.Add(new Hall(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteBoard));
+                rooms.Add(new Hall(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteboard));
+                Save.SaveFile(rooms);
             }
-            else if (roomSize == "Medium")
+            else if (roomSize == "Classroom")
             {
-                Console.WriteLine("Adding a Medium Room...");
+                Console.WriteLine("Adding a classroom...");
                 int seatLimit = 60;
-                rooms.Add(new ClassRoom(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteBoard));
+                rooms.Add(new ClassRoom(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteboard));
+                Save.SaveFile(rooms);
             }
-            else if (roomSize == "Small")
+            else if (roomSize == "Group room")
             {
-                Console.WriteLine("Adding a Small Room...");
+                Console.WriteLine("Adding a group room...");
                 int seatLimit = 15;
                 rooms.Add(new GroupRoom(roomName, roomSize, seats, seatLimit));
+                Save.SaveFile(rooms);
+
             }
 
-            ShowList(rooms);
+            ListAll(rooms);
 
         }
         public static string RoomSize()
         {
-            Console.WriteLine("Choose room size:\n1.Large\n2.Medium\n3.Small");
+            Console.WriteLine("Choose room size:\n1.Hall\n2.Classroom\n3.Group Room");
             string? option;
-            string size = ""; 
+            string size = "";
 
             switch (option = Console.ReadLine())
             {
                 case "1":
-                    size = "Large";
+                    size = "Hall";
                     break;
                 case "2":
-                    size = "Medium";
+                    size = "Classroom";
                     break;
                 case "3":
-                    size = "Small";
+                    size = "Group room";
                     break;
                 default:
                     Console.WriteLine("Invalid choice, please choose again.");
@@ -98,7 +108,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
         }
 
-        public static void ShowList(List<IRoom> rooms)
+        public static void ListAll(List<IRoom> rooms)
         {
             foreach (var room in rooms)
             {
@@ -107,21 +117,21 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine($"Room Type Description: {room.RoomType}");
                 Console.WriteLine($"Seat Amount: {room.SeatAmount}");
 
-                if (room is Hall largeRoom)
+                if (room is Hall hall)
                 {
-                    Console.WriteLine($"Seat Limit: {largeRoom.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {largeRoom.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {largeRoom.HasWhiteboard}");
+                    Console.WriteLine($"Seat Limit: {hall.SeatLimit}");
+                    Console.WriteLine($"Has Projector: {hall.HasProjector}");
+                    Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
                 }
-                else if (room is ClassRoom mediumRoom)
+                else if (room is ClassRoom classroom)
                 {
-                    Console.WriteLine($"Seat Limit: {mediumRoom.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {mediumRoom.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {mediumRoom.HasWhiteboard}");
+                    Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
+                    Console.WriteLine($"Has Projector: {classroom.HasProjector}");
+                    Console.WriteLine($"Has Whiteboard: {classroom.HasWhiteboard}");
                 }
-                else if (room is GroupRoom smallRoom)
+                else if (room is GroupRoom grouproom)
                 {
-                    Console.WriteLine($"Seat Limit: {smallRoom.SeatLimit}");
+                    Console.WriteLine($"Seat Limit: {grouproom.SeatLimit}");
                 }
 
                 Console.WriteLine("----------------------");

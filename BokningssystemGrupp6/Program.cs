@@ -3,9 +3,23 @@ using System.Text.Json;
 using BokningssystemGrupp6.Classes;
 using BokningssystemGrupp6.Classes.LokalClasses;
 using BokningssystemGrupp6.Interfaces;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+//Av: Angelica Bergström, David Berglin, Adam Axelsson-Hedman, Alexander Bullerjahn
 
 namespace BokningssystemGrupp6
 {
+
+    //Student student1 = new Student(24, "Bob", "Slob");
+
+    //String text = JsonSerializer.Serialize(student1);
+    //Console.WriteLine(text);
+
+    //        Student student2 = new Student();
+    //student2 = JsonSerializer.Deserialize<Student>(text);
+
+    //        Console.WriteLine(student2.FirstName);
+
     internal class Program
     {
         //Lista för bokningar (string userName, string roomName, double startTime, double endTime)
@@ -25,32 +39,16 @@ namespace BokningssystemGrupp6
             rooms.Add(new ClassRoom("Hund Room B", "Medium", 50, 60, true, false));
             rooms.Add(new GroupRoom("Kanin", "Small", 10, 15));
 
-            foreach (var room in rooms)
+            var options = new JsonSerializerOptions()
             {
-                Console.WriteLine($"Room Type: {room.GetType().Name}");
-                Console.WriteLine($"Room Name: {room.RoomName}");
-                Console.WriteLine($"Room Type Description: {room.RoomType}");
-                Console.WriteLine($"Seat Amount: {room.SeatAmount}");
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin,
+                UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
+            };
 
-                if (room is Hall largeRoom)
-                {
-                    Console.WriteLine($"Seat Limit: {largeRoom.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {largeRoom.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {largeRoom.HasWhiteboard}");
-                }
-                else if (room is ClassRoom mediumRoom)
-                {
-                    Console.WriteLine($"Seat Limit: {mediumRoom.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {mediumRoom.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {mediumRoom.HasWhiteboard}");
-                }
-                else if (room is GroupRoom smallRoom)
-                {
-                    Console.WriteLine($"Seat Limit: {smallRoom.SeatLimit}");
-                }
+            File.ReadAllText("JsonTest.json", lista);
 
-                Console.WriteLine("----------------------");
-            }
+            string read = File.ReadAllText("JsonTest.json");
+            UserSettings loadedSettings = JsonSerializer.Deserialize<UserSettings>(loadedJson);
 
         }
     }
