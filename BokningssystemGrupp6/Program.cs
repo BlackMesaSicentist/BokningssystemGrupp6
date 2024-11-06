@@ -17,9 +17,9 @@ namespace BokningssystemGrupp6
 
 
             List<IRoom> rooms = new List<IRoom>();
-            rooms.Add(new LargeRoom("Katt", "Large", 100, 120, true, true));
-            rooms.Add(new MediumRoom("Hund Room B", "Medium", 50, 60, true, false));
-            rooms.Add(new SmallRoom("Kanin", "Small", 10, 15));
+            rooms.Add(new Hall("Katt", "Large", 100, 120, true, true));
+            rooms.Add(new ClassRoom("Hund Room B", "Medium", 50, 60, true, false));
+            rooms.Add(new GroupRoom("Kanin", "Small", 10, 15));
 
             foreach (var room in rooms)
             {
@@ -28,19 +28,19 @@ namespace BokningssystemGrupp6
                 Console.WriteLine($"Room Type Description: {room.RoomType}");
                 Console.WriteLine($"Seat Amount: {room.SeatAmount}");
 
-                if (room is LargeRoom largeRoom)
+                if (room is Hall largeRoom)
                 {
                     Console.WriteLine($"Seat Limit: {largeRoom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {largeRoom.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {largeRoom.HasWhiteboard}");
                 }
-                else if (room is MediumRoom mediumRoom)
+                else if (room is ClassRoom mediumRoom)
                 {
                     Console.WriteLine($"Seat Limit: {mediumRoom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {mediumRoom.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {mediumRoom.HasWhiteboard}");
                 }
-                else if (room is SmallRoom smallRoom)
+                else if (room is GroupRoom smallRoom)
                 {
                     Console.WriteLine($"Seat Limit: {smallRoom.SeatLimit}");
                 }
