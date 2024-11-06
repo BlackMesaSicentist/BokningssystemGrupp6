@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 namespace BokningssystemGrupp6.Interfaces
 {
 
-    internal interface IBookable
+    internal interface IListable
     {
-        
+        public void ListSpecific()
+        { }
+
+        public void ListAll()
+        { }
+
     }
 }

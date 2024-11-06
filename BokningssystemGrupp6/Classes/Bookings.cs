@@ -2,49 +2,141 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using BokningssystemGrupp6.Classes.LokalClasses;
+using BokningssystemGrupp6.Interfaces;
 
 namespace BokningssystemGrupp6.Classes
 {
-    public class Bookings
+    public class Bookings: IListable
     {
         public string Mail { get; set; }
         public string RoomName { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime DateTimeStart { get; set; }
+        public DateTime DateTimeEnd { get; set; }
+
 
         public Bookings()
         {
-            
+
         }
 
-        public Bookings(string mail, string roomName, DateTime startTime, DateTime endTime)
+        public Bookings(string mail, string roomName, DateTime dateTimeStart, DateTime dateTimeEnd)
         {
             Mail = mail;
             RoomName = roomName;
-            StartTime = startTime;
-            EndTime = endTime;
+            DateTimeStart = dateTimeStart;
+            DateTimeEnd = dateTimeEnd;
+        }
+        //Method to create booking
+        public static void BookARoom(List<Bookings> booked,List<IRoom> rooms)
+        {
+
+            //hämtar bokningsinformation
+            Console.Write("Ange din epost:");
+            string? mail = Console.ReadLine();
+            Console.WriteLine("Ange val av rum"); //val av rum
+            foreach (var r in rooms)
+            {
+                int i = 1;
+                Console.WriteLine($"{i}. {r.RoomName}");
+                i++;
+            }
+            int roomNumber = Convert.ToInt32(Console.ReadLine())-1;
+            Console.Clear();
+            string roomName = rooms[roomNumber].RoomName;
+            Console.Write("Ange start datum & tid du önskar för bokningen \n(DD-MM-ÅÅÅÅ HH:MM) :");
+            string startTime = Console.ReadLine();
+            Console.Write("Ange slut datum & tid du önskar för bokningen \n(DD-MM-ÅÅÅÅ HH:MM) :");
+            string endTime = Console.ReadLine();
+            Console.Clear();
+
+            DateTime dateTimeStart = DateTime.Parse(startTime);
+            DateTime dateTimeEnd = DateTime.Parse(endTime);
+
+            TimeSpan totalTime = dateTimeEnd - dateTimeStart;
+
+            //försök att omvandla input till ett DateTime-objekt
+            try
+            {
+                DateTime dateTimeS = DateTime.Parse(startTime);
+                DateTime dateTimeE = DateTime.Parse(endTime);
+
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Felaktigt format, vänligen ange datum och tid i rätt format.");
+                Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+                Console.ReadKey();
+                Console.Clear();
+
+            }
+
+            //kollar om dagen är fri från tidigare bokningar i den lokalen
+
+            foreach (Bookings book in booked)
+            {
+                bool check = dateTimeStart < book.DateTimeEnd && book.DateTimeStart < dateTimeEnd;
+                //om bokningen ej krockar
+                if (check == false)
+                {
+                    //lägger till bokningen i listan
+                    booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
+                    Bookings newest = booked[booked.Count];
+
+                    //skrivs ut när bokningen är genomförd
+                    Console.WriteLine("Grattis din bokning är genomförd med informationen nedan");
+
+                    // skriver ut det sista objektet
+                    ListSpecific(newest);
+
+                    Console.WriteLine($"Din bokning är totalt {totalTime} timmar.");
+
+                }
+
+                //kollar att bokningen krockar med en redan lagd bokning 
+                else if (check != false)
+                {
+                    Console.WriteLine("Din valda tid & datum krockar tyvärr med en redan lagd bokning");
+                    //skriv ut bokningen den krockar med?
+                    ListSpecific(book);
+                    Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+                    Console.ReadKey();
+                    Console.Clear();
+
+                    
+                }
+                break;
+            }
+
+
         }
 
+    
+
+
         //Method to list all bookings
-        public static void ListAllBookingsFromList(List<Bookings> bookingInfo)
+        public static void ListAll(List<Bookings> bookingInfo)
         {
             foreach (Bookings booking in bookingInfo)
             {
                 Console.WriteLine($"E-Post {booking.Mail} har bokat rum med namn {booking.RoomName} " +
-                    $"med start {booking.StartTime} och slut {booking.EndTime} och den totala bokningstiden är {booking.EndTime - booking.StartTime} timmar \n"); //If needed add "Kl" or date descriptions after variable
+                    $"med start {booking.DateTimeStart} och slut {booking.DateTimeEnd} och den totala bokningstiden är {booking.DateTimeEnd - booking.DateTimeStart} timmar \n"); //If needed add "Kl" or date descriptions after variable
             }
             
         }
         //List data from specific booking feed into it
-        public static void ListSpecificBooking(Bookings booking)
+        public static void ListSpecific(Bookings booking)
         {
             Console.WriteLine($"E-Post {booking.Mail}, Rum {booking.RoomName}, " +
-                $"Starttid {booking.StartTime}, Sluttid {booking.EndTime}, bokningen är {booking.EndTime - booking.StartTime} timmar");
+                $"Starttid {booking.DateTimeStart}, Sluttid {booking.DateTimeEnd}, bokningen är {booking.DateTimeEnd - booking.DateTimeStart} timmar");
         }
         // Display list of bookings for a specific room and a specific 1 year interwall
         public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo)
@@ -61,10 +153,10 @@ namespace BokningssystemGrupp6.Classes
 
                 foreach (Bookings booking in bookingInfo)
                 {
-                    if (booking.RoomName == specificRoom && booking.StartTime <= startDate && booking.EndTime >= endDate) { roomSpecificBookings.Add(booking); } // Adds bookings to list if the meet the requirmets
+                    if (booking.RoomName == specificRoom && booking.DateTimeStart <= startDate && booking.DateTimeEnd >= endDate) { roomSpecificBookings.Add(booking); } // Adds bookings to list if the meet the requirmets
                 }
             }
-            ListAllBookingsFromList(roomSpecificBookings);
+            ListAll(roomSpecificBookings);
         }
         //Update an alreade existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo)
@@ -100,7 +192,7 @@ namespace BokningssystemGrupp6.Classes
                 for (int i = 0; i < specificUserBookings.Count; i++) //List bookings
                 {
                     Console.WriteLine($"Alternativ {i++}: ");
-                    ListSpecificBooking(bookingInfo[i]);
+                    ListSpecific(bookingInfo[i]);
                 }
 
                 do
