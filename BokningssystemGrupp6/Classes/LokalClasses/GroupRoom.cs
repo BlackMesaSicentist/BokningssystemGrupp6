@@ -11,6 +11,10 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
     {
         public int SeatLimit { get; set; }
 
+        public GroupRoom()
+        {
+            
+        }
         public GroupRoom(string roomName, string roomType, int seatAmount, int seatLimit)
             : base(roomName, roomType, seatAmount)
         {

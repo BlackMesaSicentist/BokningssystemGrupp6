@@ -39,14 +39,14 @@ namespace BokningssystemGrupp6.Classes
                     UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
             };
             //reads list for rooms
-            if(File.Exists("RoomList.Json"))
+            if(File.Exists("RoomList.json"))
             {
                 string readRoom = File.ReadAllText("RoomList.json");
                 roomList = JsonSerializer.Deserialize<List<Rooms>>(readRoom);
                 
             }
             //reads list for bookings
-            if (File.Exists("BookingsList.Json"))
+            if (File.Exists("BookingsList.json"))
             {
                 string readBooking = File.ReadAllText("BookingList.json");
                 bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
     //Rooms inherits interface IRoom and IListable
-    internal abstract class Rooms: IRoom, IListable
+    public abstract class Rooms: IRoom, IListable
     {
         //Properties for Rooms
         public string RoomName { get; set; }
@@ -16,6 +16,10 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public int SeatAmount { get; set; }
 
         //Construktor for Rooms
+        protected Rooms()
+        {
+            
+        }
         protected Rooms(string roomName, string roomType, int seatAmount)
         {
             RoomName = roomName;

@@ -17,9 +17,9 @@ namespace BokningssystemGrupp6.Classes
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
             while (menu1)
             {
-                Console.WriteLine("Välkommen till bokningssystemet för skolans lokaler! \nFollowing options:" +
-                    "\n1. Rooms information. \n2. Create a room \n3. Book a room " +
-                    "\n4. Show bookings \n5. Update existing booking \n6. Update existing booking");
+                Console.WriteLine("WELCOME!\n You are now able to book rooms for the school premises!" +
+                    "\n\n1. Rooms information \n2. Create a room \n3. Book a room " +
+                    "\n4. Show bookings \n5. Update existing booking \n6. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
                     case "1": Rooms.ListAll(rooms); break; //Rooms information.

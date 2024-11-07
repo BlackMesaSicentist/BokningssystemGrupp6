@@ -25,11 +25,10 @@ namespace BokningssystemGrupp6.Classes
         public DateTime DateTimeEnd { get; set; }
 
         //Construktor for Bookings      
-        //public Bookings()//<---------------------------MÅSTE VI HA DENNA?
-        //{
-
-        //}
-
+        public Bookings()
+        {
+            
+        }
         public Bookings(string mail, string roomName, DateTime dateTimeStart, DateTime dateTimeEnd)
         {
             Mail = mail;
@@ -53,9 +52,9 @@ namespace BokningssystemGrupp6.Classes
             }
             int roomNumber = Convert.ToInt32(Console.ReadLine())-1;
             string roomName = rooms[roomNumber].RoomName;
-            Console.Write("Input start date and time for booking.\n(DD-MM-ÅÅÅÅ HH:MM) :");
+            Console.Write("Input start date and time for booking.\n(ÅÅÅÅ-MM-DD HH:MM:00) :");
             string startTime = Console.ReadLine();
-            Console.Write("Input end date and time for booking. \n(DD-MM-ÅÅÅÅ HH:MM) :");
+            Console.Write("Input end date and time for booking. \n(ÅÅÅÅ-MM-DD HH:MM:00) :");
             string endTime = Console.ReadLine();
             Console.Clear();
 
@@ -132,7 +131,7 @@ namespace BokningssystemGrupp6.Classes
                 $"\nBooking starts at: {booking.DateTimeStart} \nBooking ends at: {booking.DateTimeEnd} \nTotal duration for this booking is: {booking.DateTimeEnd - booking.DateTimeStart}");
         }
         //Method to display list of bookings for a specific room and a specific 1 year interwall
-        public  void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
+        public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
         {
             Console.WriteLine("Show bookings for which room?");
             String specificRoom = ""; //Todo: Call to a method to find room, or build one in this method

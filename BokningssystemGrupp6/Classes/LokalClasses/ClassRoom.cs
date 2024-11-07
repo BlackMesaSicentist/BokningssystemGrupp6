@@ -13,6 +13,10 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public bool HasProjector { get; set; }
         public bool HasWhiteboard { get; set; }
 
+        public ClassRoom()
+        {
+            
+        }
         public ClassRoom(string roomName, string roomType, int seatAmount, int seatLimit, bool hasProjector, bool hasWhiteboard)
             : base(roomName, roomType, seatAmount)
         {
