@@ -21,9 +21,11 @@ namespace BokningssystemGrupp6.Classes
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
                 // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
                 // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                // Converts (Deserialize) JSON to usable list 
+                Converters = { new RoomsConverter() }
 
             };
 
@@ -50,9 +52,11 @@ namespace BokningssystemGrupp6.Classes
             //To be able to read ÅÄÖ
             var options = new JsonSerializerOptions()
             {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
                 // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
                 // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                // Converts (Deserialize) JSON to usable list using Polymorphic Deserialization
+                Converters = { new RoomsConverter() }
             };
             //reads list for bookings
             if (File.Exists("BookingsList.json"))
@@ -76,7 +80,14 @@ namespace BokningssystemGrupp6.Classes
         {
 
             //To be able to read ÅÄÖ
-            var options = new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA) };
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
+                Converters = { new RoomsConverter() }
+
+            };
             //If file exist we deserialize to templist
             if (File.Exists("RoomList.json"))
             {
@@ -90,27 +101,30 @@ namespace BokningssystemGrupp6.Classes
                 }
                 else
                 {
-                    var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom);
+                    //* var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom);
                     //Emptying the list so we don't get duplicates when we add in the end
                     roomList.Clear();
 
-                    foreach (var element in tempList)
-                    {
-                        var roomType = element.GetProperty("RoomType").GetString();
-                        var json = element.GetRawText();
+                    // Deserializer
+                    var tempList = JsonSerializer.Deserialize<List<Rooms>>(readRoom, options);
+                    roomList.AddRange(tempList);
 
-                        Rooms room = roomType
-                        switch
-                        {
-                            "Hall" => JsonSerializer.Deserialize<Hall>(json),
-                            "Classroom" => JsonSerializer.Deserialize<Classroom>(json),
-                            "Group room" => JsonSerializer.Deserialize<GroupRoom>(json),
-                            _ =>
-                            throw new JsonException($"Unknown room type: {roomType}")
-                        };
-                        //Adds back to list
-                        roomList.Add(room);
-                    }
+                    //* foreach (var element in tempList)
+                    //* {
+                    //*    var roomType = element.GetProperty("RoomType").GetString();
+                    //*    var json = element.GetRawText();
+
+                    //*    Rooms room = roomType 
+                    //*    switch
+                    //*    {
+                    //*        "Hall" => JsonSerializer.Deserialize<Hall>(json, options),
+                    //*        "Classroom" => JsonSerializer.Deserialize<Classroom>(json, options),
+                    //*        "Group room" => JsonSerializer.Deserialize<GroupRoom>(json, options),
+                    //*        _ => throw new JsonException($"Unknown room type: {roomType}")
+                    //*    };
+                    //*    //Adds back to list
+                    //*    roomList.Add(room);
+                    //* }
                 }
             }
         }
