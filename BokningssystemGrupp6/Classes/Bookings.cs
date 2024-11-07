@@ -52,9 +52,9 @@ namespace BokningssystemGrupp6.Classes
             }
             int roomNumber = Convert.ToInt32(Console.ReadLine())-1;
             string roomName = rooms[roomNumber].RoomName;
-            Console.Write("Input start date and time for booking.\n(ÅÅÅÅ-MM-DD HH:MM:00) :");
+            Console.Write("Input start date and time for booking.\n(ÅÅÅÅ-MM-DD HH:MM):");
             string startTime = Console.ReadLine();
-            Console.Write("Input end date and time for booking. \n(ÅÅÅÅ-MM-DD HH:MM:00) :");
+            Console.Write("Input end date and time for booking. \n(ÅÅÅÅ-MM-DD HH:MM):");
             string endTime = Console.ReadLine();
             Console.Clear();
 
@@ -76,51 +76,73 @@ namespace BokningssystemGrupp6.Classes
 
 
             }
-            //checks if the day is free from previous bookings in that venue
-            foreach (Bookings book in booked)
+            if (booked.Count == 0)
             {
-                bool check = dateTimeStart < book.DateTimeEnd && book.DateTimeStart < dateTimeEnd;
-                //free from previous bookings
-                if (check == false)
+                //adds the booking to the list
+                booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
+
+                //is printed when the booking is completed
+                Console.WriteLine("Your booking is noted with the following information: ");
+
+                // skriver ut det sista objektet
+                ListAll(booked);
+
+                //calculates and prints the bookings duration and the last booking made
+                TimeSpan totalTime = dateTimeEnd - dateTimeStart;
+                Console.WriteLine($"Total duration for your booking is: {totalTime}.");
+                Save.SaveFile(booked);
+            }
+            else 
+            {
+                //checks if the day is free from previous bookings in that venue
+                foreach (Bookings book in booked)
                 {
-                    //adds the booking to the list
-                    booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
-                    Bookings newest = booked[booked.Count];
+                    bool check = dateTimeStart < book.DateTimeEnd && book.DateTimeStart < dateTimeEnd;
+                    //free from previous bookings
+                    if (check == false)
+                    {
+                        //adds the booking to the list
+                        booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
+                        Bookings newest = booked[booked.Count];
 
-                    //is printed when the booking is completed
-                    Console.WriteLine("Your booking is noted with the following information: ");
+                        //is printed when the booking is completed
+                        Console.WriteLine("Your booking is noted with the following information: ");
 
-                    // skriver ut det sista objektet
-                    ListSpecific(newest);
+                        // skriver ut det sista objektet
+                        ListSpecific(newest);
 
-                    //calculates and prints the bookings duration and the last booking made
-                    TimeSpan totalTime = dateTimeEnd - dateTimeStart;
-                    Console.WriteLine($"Total duration for your booking is: {totalTime}.");
-                    Save.SaveFile(booked);
+                        //calculates and prints the bookings duration and the last booking made
+                        TimeSpan totalTime = dateTimeEnd - dateTimeStart;
+                        Console.WriteLine($"Total duration for your booking is: {totalTime}.");
+                        Save.SaveFile(booked);
+                    }
+                    //if the booking conflicts with a previously made booking
+                    else if (check != false)
+                    {
+                        Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
+                        //prints the booking it conflicts with
+                        ListSpecific(book);
+                        Console.WriteLine("\nPress any key to return to menu");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    break;
                 }
-                //if the booking conflicts with a previously made booking
-                else if (check != false)
-                {
-                    Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
-                    //prints the booking it conflicts with
-                    ListSpecific(book);
-                    Console.WriteLine("\nPress any key to return to menu");
-                    Console.ReadKey();
-                    Console.Clear();
-
-                    
-                }
-                break;
             }
         }
 
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
+            Console.WriteLine("ALL BOOKINGS");
+            Console.WriteLine("{0,-9}{1,-15}{2,-10}{3,-15}{4,-15}{5,-15}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+            Console.WriteLine(new string('-', 100));
+                int i = 1;
             foreach (Bookings booking in bookingInfo)
             {
-                Console.WriteLine($"Email: {booking.Mail} has booked room:{booking.RoomName} " +
-                    $"\nBooking starts at:{booking.DateTimeStart} \nBooking ends at:{booking.DateTimeEnd} Total duration for this booking is:{booking.DateTimeEnd - booking.DateTimeStart}. \n"); //If needed add "Kl" or date descriptions after variable
+                Console.WriteLine("{0,-3}{1,-15}{2,-10}{3,-15}{4,-15}{5,-15}", i+".",
+                    booking.Mail, booking.RoomName, booking.DateTimeStart, booking.DateTimeEnd, booking.DateTimeEnd - booking.DateTimeStart);
+                i++;
             }
             
         }
@@ -134,10 +156,11 @@ namespace BokningssystemGrupp6.Classes
         public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
         {
             Console.WriteLine("Show bookings for which room?");
-            String specificRoom = ""; //Todo: Call to a method to find room, or build one in this method
-            Rooms.ChooseASpecificRoom(listOfRoom, specificRoom);
+
+            String specificRoom = Rooms.ChooseASpecificRoom(listOfRoom);
+
             List<Bookings> roomSpecificBookings = new List<Bookings>(); //New list with only bookings with the right parameters
-            Console.WriteLine("Mata in över vilket år du vill se bokningarna i formatet \"yyyy\"");
+            Console.WriteLine("Enter the year off the bookings you want to display in the format yyyy");
 
             String yearInputString = Console.ReadLine();
             if (DateTime.TryParseExact(yearInputString, "yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime startDate)) //Convert input to datetime
@@ -154,18 +177,18 @@ namespace BokningssystemGrupp6.Classes
         //Update an alreade existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
         {
-            String roomName = "";
-            Rooms.ChooseASpecificRoom(roomList, roomName); //
+            String roomName = Rooms.ChooseASpecificRoom(roomList);
+            
             List<Bookings> specificUserBookings = new List<Bookings>(); //New list for all bookings for the specific user
             Boolean isValidInput = false;
 
             do
             {
-                Console.Write("Mata in e-postadressen: ");
+                Console.Write("Input email: ");
                 String mail = Console.ReadLine();
-                if (mail == null)
+                if (string.IsNullOrWhiteSpace(mail))
                 {
-                    Console.WriteLine("E-postadressen kan inte vara null \nFörsök igen \n");
+                    Console.WriteLine("Email cant be null. \nTry again.\n");
                     continue;
                 }
 
@@ -179,13 +202,13 @@ namespace BokningssystemGrupp6.Classes
 
                 if (specificUserBookings.Count <= 0) // Checks if finding any bookings
                 {
-                    Console.WriteLine($"Kan inte hitta en booking under användarnamnet: {mail} \nFörsök igen \n");
+                    Console.WriteLine($"Cant find any bookings under the email:{mail} \nTry again.\n");
                     continue;
                 }
 
                 for (int i = 0; i < specificUserBookings.Count; i++) //List bookings
                 {
-                    Console.WriteLine($"Alternativ {i++}: ");
+                    Console.WriteLine($"Alternativ {i + 1}: ");
                     ListSpecific(bookingInfo[i]);
                 }
 
@@ -194,7 +217,7 @@ namespace BokningssystemGrupp6.Classes
                     Console.WriteLine("Mata in siffran för motsvarande alternativ");
                     if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
                     {
-                        if (choice <= specificUserBookings.Count && choice > 0) //CHekc if inside list range
+                        if (choice <= specificUserBookings.Count && choice > 0) //Check if inside list range
                         {
                             choice--; // Have to shrink by 1 to actually match index for list
                             List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo); // Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
@@ -232,39 +255,59 @@ namespace BokningssystemGrupp6.Classes
 
                                     }
 
-                                    //kollar om dagen är fri från tidigare bokningar i den lokalen
+                                    
 
-                                    foreach (Bookings book in withoutChosenBooking)
+                                    if (withoutChosenBooking.Count == 0)
                                     {
-                                        bool check = dateTimeStart < book.DateTimeEnd && book.DateTimeStart < dateTimeEnd;
-                                        //om bokningen ej krockar
-                                        if (check == false)
+                                        //adds the booking to the list
+                                        withoutChosenBooking.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
+
+                                        //is printed when the booking is completed
+                                        Console.WriteLine("Your booking is noted with the following information: ");
+
+                                        // skriver ut det sista objektet
+                                        ListAll(withoutChosenBooking);
+
+                                        //calculates and prints the bookings duration and the last booking made
+                                        Console.WriteLine($"Total duration for your booking is: {totalTime}.");
+
+                                        break;
+                                    }
+                                    else 
+                                    { 
+                                        //kollar om dagen är fri från tidigare bokningar i den lokalen
+                                        foreach (Bookings book in withoutChosenBooking)
                                         {
-                                            //lägger till bokningen i listan
-                                            withoutChosenBooking.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
-                                            Bookings newest = withoutChosenBooking[withoutChosenBooking.Count];
+                                            bool check = dateTimeStart < book.DateTimeEnd && book.DateTimeStart < dateTimeEnd;
+                                            //om bokningen ej krockar
+                                            if (check == false)
+                                            {
+                                                //lägger till bokningen i listan
+                                                withoutChosenBooking.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
+                                                Bookings newest = withoutChosenBooking[withoutChosenBooking.Count];
 
-                                            //skrivs ut när bokningen är genomförd
-                                            Console.WriteLine("Grattis din bokning är genomförd med informationen nedan");
+                                                //skrivs ut när bokningen är genomförd
+                                                Console.WriteLine("Grattis din bokning är genomförd med informationen nedan");
 
-                                            // skriver ut det sista objektet
-                                            ListSpecific(newest);
+                                                // skriver ut det sista objektet
+                                                ListSpecific(newest);
 
-                                            Console.WriteLine($"Din bokning är totalt {totalTime} timmar.");
+                                                Console.WriteLine($"Din bokning är totalt {totalTime} timmar.");
 
-                                        }
+                                            }
 
-                                        //kollar att bokningen krockar med en redan lagd bokning 
-                                        else if (check != false)
-                                        {
-                                            Console.WriteLine("Din valda tid & datum krockar tyvärr med en redan lagd bokning");
-                                            //skriv ut bokningen den krockar med?
-                                            ListSpecific(book);
-                                            Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
-                                            Console.ReadKey();
-                                            Console.Clear();
-
-
+                                            //kollar att bokningen krockar med en redan lagd bokning 
+                                            else if (check != false)
+                                            {
+                                                Console.WriteLine("Din valda tid & datum krockar tyvärr med en redan lagd bokning");
+                                                //skriv ut bokningen den krockar med?
+                                                ListSpecific(book);
+                                                Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+                                                Console.ReadKey();
+                                                Console.Clear();
+                                            }
+                                            
+                       
                                         }
                                         break;
                                     }
