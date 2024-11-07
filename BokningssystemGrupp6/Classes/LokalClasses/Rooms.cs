@@ -46,12 +46,18 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             // Seats
             int seats = SeatsInput(rooms, seatLimit);
 
-
-            Console.WriteLine("Do you need a projector? Y/N");
-            bool hasProjector = AskUser();
-            Console.WriteLine("Do you need a whiteboard? Y/N");
-            bool hasWhiteBoard = AskUser();
-
+            // Projector and whiteboard select
+            bool hasProjector = false;
+            bool hasWhiteBoard = false;
+            // If user selects group room skip asking user for projector/whiteboard.
+            if (roomSizeSelect != 3)
+            {
+                Console.WriteLine("Do you need a projector? Y/N");
+                hasProjector = AskUser();
+                Console.WriteLine("Do you need a whiteboard? Y/N");
+                hasWhiteBoard = AskUser();
+            }
+            
             if (roomSizeSelect == 1)
             {
                 Console.WriteLine("Adding a Large Room...");
