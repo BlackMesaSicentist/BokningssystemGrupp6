@@ -15,7 +15,8 @@ namespace BokningssystemGrupp6.Classes
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             bool menu1 = true;
-            String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
+            // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
+            String? menuChoice; 
             while (menu1)
             {
                 Console.WriteLine("\n       WELCOME!\nYou are now able to book rooms on the school premises!" +

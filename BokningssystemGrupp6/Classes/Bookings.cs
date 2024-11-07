@@ -126,7 +126,6 @@ namespace BokningssystemGrupp6.Classes
                 }
             }
         }
-
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
