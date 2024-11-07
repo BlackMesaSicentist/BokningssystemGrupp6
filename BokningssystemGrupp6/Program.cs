@@ -22,12 +22,13 @@ namespace BokningssystemGrupp6
             };
 
 
-            // Load rooms data from JSON, Adds rooms if empty
+            // Load rooms data from JSON
             List<IRoom> rooms = JsonFunctions.LoadRoomsFromJson(options) ?? new List<IRoom>
             {
-                new Hall("Katt", "Hall", 100, 120, true, true),
-                new ClassRoom("Hund", "Class room", 50, 60, true, false),
-                new GroupRoom("Kanin", "Group room", 10, 15)
+                // testing data
+                //new Hall("Katt", "Hall", 100, 120, true, true),
+                //new ClassRoom("Hund", "Class room", 50, 60, true, false),
+                //new GroupRoom("Kanin", "Group room", 10, 15)
             };
 
             InputValidation inputValidation = new InputValidation();
