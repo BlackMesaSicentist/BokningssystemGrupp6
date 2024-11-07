@@ -81,12 +81,8 @@ namespace BokningssystemGrupp6.Classes
                 //is printed when the booking is completed
                 Console.WriteLine("Your booking is noted with the following information: ");
 
-                // skriver ut det sista objektet
-                ListAll(booked);
-
                 //calculates and prints the bookings duration and the last booking made
-                TimeSpan totalTime = dateTimeEnd - dateTimeStart;
-                Console.WriteLine($"Total duration for your booking is: {totalTime}.");
+                ListAll(booked); 
             }
             else 
             {
@@ -100,17 +96,23 @@ namespace BokningssystemGrupp6.Classes
                         //adds the booking to the list
                         booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
                         Save.SaveFile(booked);
-                        Bookings newest = booked[booked.Count];
+                        if (booked.Count > 0)
+                        {
+                            //is printed when the booking is completed
+                            Bookings lastBooking = booked[booked.Count - 1];
+                            Console.WriteLine($"\nYour booking is noted with the following information: ");
 
-                        //is printed when the booking is completed
-                        Console.WriteLine("Your booking is noted with the following information: ");
+                            // skriver ut det sista objektet
+                            ListSpecific(lastBooking);
 
-                        // skriver ut det sista objektet
-                        ListSpecific(newest);
-
-                        //calculates and prints the bookings duration and the last booking made
-                        TimeSpan totalTime = dateTimeEnd - dateTimeStart;
-                        Console.WriteLine($"\nTotal duration for your booking is: {totalTime}.");
+                            //calculates and prints the bookings duration and the last booking made
+                            TimeSpan totalTime = dateTimeEnd - dateTimeStart;
+                            Console.WriteLine($"\nTotal duration for your booking is: {totalTime}.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("List is empty.");
+                        }
                     }
                     //if the booking conflicts with a previously made booking
                     else if (check != false)
@@ -128,7 +130,7 @@ namespace BokningssystemGrupp6.Classes
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
-            Console.WriteLine("\nALL BOOKINGS");
+            Console.WriteLine("ALL BOOKINGS");
             Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-26}{4,-24}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
             Console.WriteLine(new string('-', 100));
                 int i = 1;
@@ -143,8 +145,12 @@ namespace BokningssystemGrupp6.Classes
         //Method to list data from specific booking feed into it
         public static void ListSpecific(Bookings booking)
         {
-            Console.WriteLine($"Email: {booking.Mail}, Room: {booking.RoomName}, " +
-                $"\nBooking starts at: {booking.DateTimeStart} \nBooking ends at: {booking.DateTimeEnd} \nTotal duration for this booking is: {booking.DateTimeEnd - booking.DateTimeStart}");
+            Console.WriteLine($"" +
+                $"\nEmail: {booking.Mail}" +
+                $"\nRoom: {booking.RoomName}" +
+                $"\nBooking starts at: {booking.DateTimeStart} " +
+                $"\nBooking ends at: {booking.DateTimeEnd} " +
+                $"\nTotal duration for this booking is: {booking.DateTimeEnd - booking.DateTimeStart}");
         }
         //Method to display list of bookings for a specific room and a specific 1 year interwall
         public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
