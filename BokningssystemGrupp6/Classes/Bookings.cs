@@ -44,9 +44,10 @@ namespace BokningssystemGrupp6.Classes
             Console.Write("Enter your email:");
             string? mail = Console.ReadLine();
             Console.WriteLine("Select room:");
+            int i = 1;
             foreach (var r in rooms)
             {
-                int i = 1;
+                
                 Console.WriteLine($"{i}. {r.RoomName}");
                 i++;
             }
@@ -103,7 +104,7 @@ namespace BokningssystemGrupp6.Classes
                     {
                         //adds the booking to the list
                         booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
-                        Bookings newest = booked[booked.Count];
+                        Bookings newest = booked[booked.Count - 1];
 
                         //is printed when the booking is completed
                         Console.WriteLine("Your booking is noted with the following information: ");

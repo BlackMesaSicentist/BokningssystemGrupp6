@@ -29,6 +29,15 @@ namespace BokningssystemGrupp6.Classes
 
             };
 
+            var options2 = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
+                // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
+                // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                // Converts (Deserialize) JSON to usable list 
+
+            };
             if (listToSave is List<Rooms>)
             {
                 string listRoom = JsonSerializer.Serialize(listToSave, options);
@@ -39,7 +48,7 @@ namespace BokningssystemGrupp6.Classes
 
             if (listToSave is List<Bookings>)
             {
-                string listBooking = JsonSerializer.Serialize(listToSave, options);
+                string listBooking = JsonSerializer.Serialize(listToSave, options2);
                 File.WriteAllText("BookingList.json", listBooking);
                 // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
                 // File.WriteAllText("BookingList.json", listRoom, Encoding.UTF8);
@@ -47,19 +56,19 @@ namespace BokningssystemGrupp6.Classes
 
         }
         //Method to unpack lists
-        public static void UnPackFileBooking(List<Bookings> bookingList)
+        public static void UnPackFileBooking(ref List<Bookings> bookingList)
         {
             //To be able to read ÅÄÖ
             var options = new JsonSerializerOptions()
             {
+                WriteIndented = true,
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
                 // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
                 // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-                // Converts (Deserialize) JSON to usable list using Polymorphic Deserialization
-                Converters = { new RoomsConverter() }
+
             };
             //reads list for bookings
-            if (File.Exists("BookingsList.json"))
+            if (File.Exists("BookingList.json"))
             {
                 string readBooking = File.ReadAllText("BookingList.json");
                 // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
@@ -71,20 +80,23 @@ namespace BokningssystemGrupp6.Classes
                 }
                 else
                 {
-                    bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);
+                    bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking, options);
                 }
             }
 
+            
+
         }
-        public static void UnpackFileRooms(List<Rooms> roomList)
+        public static void UnPackFileRooms(ref List<Rooms> roomList)
         {
 
             //To be able to read ÅÄÖ
             var options = new JsonSerializerOptions
             {
                 WriteIndented = true,
-
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
+                // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
+                // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
                 Converters = { new RoomsConverter() }
 
             };
@@ -107,7 +119,10 @@ namespace BokningssystemGrupp6.Classes
 
                     // Deserializer
                     var tempList = JsonSerializer.Deserialize<List<Rooms>>(readRoom, options);
-                    roomList.AddRange(tempList);
+                    if (tempList != null)
+                    {
+                        roomList.AddRange(tempList);
+                    }
 
                     //* foreach (var element in tempList)
                     //* {
