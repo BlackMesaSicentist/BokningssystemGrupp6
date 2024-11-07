@@ -23,7 +23,7 @@ namespace BokningssystemGrupp6.Classes
         }
 
 
-        public void MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<Rooms> rooms, List<Bookings>bookingsInfo)
+        public void MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<IRoom> rooms, List<Bookings>bookingsInfo)
         {
             bool menu1 = true;
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement

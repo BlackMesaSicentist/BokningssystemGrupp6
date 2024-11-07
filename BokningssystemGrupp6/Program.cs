@@ -20,7 +20,7 @@ namespace BokningssystemGrupp6
             Menu menu = new Menu(inputValidation);
 
             //List for rooms (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
-            List<Rooms> rooms = new List<Rooms>();
+            List<IRoom> rooms = new List<IRoom>();
 
             //List for bookings (string userName, string roomName, DateTime DateTimeStart, DateTime DateTimeEnd)
             List<Bookings> bookingsInfo = new List<Bookings>();

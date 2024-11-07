@@ -25,11 +25,11 @@ namespace BokningssystemGrupp6.Classes
                 // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
                 // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
                 // Converts (Deserialize) JSON to usable list 
-                Converters = { new RoomsConverter() }
+                Converters = { new IRoomConverter() }
 
             };
 
-            if (listToSave is List<Rooms>)
+            if (listToSave is List<IRoom>)
             {
                 string listRoom = JsonSerializer.Serialize(listToSave, options);
                 File.WriteAllText("RoomList.json", listRoom);
@@ -56,7 +56,7 @@ namespace BokningssystemGrupp6.Classes
                 // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
                 // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
                 // Converts (Deserialize) JSON to usable list using Polymorphic Deserialization
-                Converters = { new RoomsConverter() }
+                Converters = { new IRoomConverter() }
             };
             //reads list for bookings
             if (File.Exists("BookingsList.json"))
@@ -76,7 +76,7 @@ namespace BokningssystemGrupp6.Classes
             }
 
         }
-        public static void UnpackFileRooms(List<Rooms> roomList)
+        public static void UnpackFileRooms(List<IRoom> roomList)
         {
 
             //To be able to read ÅÄÖ
@@ -85,7 +85,7 @@ namespace BokningssystemGrupp6.Classes
                 WriteIndented = true,
 
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
-                Converters = { new RoomsConverter() }
+                Converters = { new IRoomConverter() }
 
             };
             //If file exist we deserialize to templist
@@ -106,7 +106,7 @@ namespace BokningssystemGrupp6.Classes
                     roomList.Clear();
 
                     // Deserializer
-                    var tempList = JsonSerializer.Deserialize<List<Rooms>>(readRoom, options);
+                    var tempList = JsonSerializer.Deserialize<List<IRoom>>(readRoom, options);
                     roomList.AddRange(tempList);
 
                     //* foreach (var element in tempList)

@@ -34,7 +34,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             SeatAmount = seatAmount;
         }
 
-        public void CreateARoom(List<Rooms> rooms) {
+        public void CreateARoom(List<IRoom> rooms) {
 
             Console.Clear();
 
@@ -92,7 +92,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
 
 
-        private string RoomNameInput(List<Rooms> rooms)
+        private string RoomNameInput(List<IRoom> rooms)
         {
             Console.WriteLine("Enter name of the room: ");
             string tempName = Console.ReadLine().Trim();
@@ -154,7 +154,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
 
 
-        private int SeatsInput(List<Rooms> rooms, int seatLimit)
+        private int SeatsInput(List<IRoom> rooms, int seatLimit)
         {
             Console.WriteLine($"Enter seats: (Cant exceed: {seatLimit}) ");
             int seatsOk;
@@ -215,7 +215,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
         }
         // show all rooms + properties
-        public static void ListAll(List<Rooms> rooms)
+        public static void ListAll(List<IRoom> rooms)
         {
 
 
@@ -247,7 +247,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine("----------------------");
             }
         }
-        public static String ChooseASpecificRoom(List<Rooms> rooms)
+        public static String ChooseASpecificRoom(List<IRoom> rooms)
         
 
         // What is this used for or should be used for?

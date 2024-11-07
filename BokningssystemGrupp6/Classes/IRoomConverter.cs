@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes
 {
-    public class RoomsConverter : JsonConverter<Rooms>
+    public class IRoomConverter : JsonConverter<IRoom>
     {
-        public override Rooms Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override IRoom Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             // Read the JSON object
             using (JsonDocument doc = JsonDocument.ParseValue(ref reader))
@@ -22,7 +22,7 @@ namespace BokningssystemGrupp6.Classes
                 // Extract the RoomType to determine the class type
                 string roomType = root.GetProperty("RoomType").GetString();
 
-                Rooms room = roomType switch
+                IRoom room = roomType switch
                 {
                     "Hall" => JsonSerializer.Deserialize<Hall>(root.GetRawText(), options),
                     "Classroom" => JsonSerializer.Deserialize<Classroom>(root.GetRawText(), options),
@@ -34,7 +34,7 @@ namespace BokningssystemGrupp6.Classes
             }
         }
 
-        public override void Write(Utf8JsonWriter writer, Rooms value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, IRoom value, JsonSerializerOptions options)
         {
             JsonSerializer.Serialize(writer, value, value.GetType(), options);
         }

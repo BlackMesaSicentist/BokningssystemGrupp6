@@ -67,7 +67,7 @@ namespace BokningssystemGrupp6.Classes
         }
 
         // Check if name is used
-        public bool IsNameUsed(List<Rooms> rooms, string input)
+        public bool IsNameUsed(List<IRoom> rooms, string input)
         {
             return rooms.Any(a => a.RoomName.ToLower() == input.ToLower());
 

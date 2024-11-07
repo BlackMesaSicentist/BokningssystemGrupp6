@@ -37,7 +37,7 @@ namespace BokningssystemGrupp6.Classes
             DateTimeEnd = dateTimeEnd;
         }
         //Method to create booking
-        public static void BookARoom(List<Bookings> booked,List<Rooms> rooms)
+        public static void BookARoom(List<Bookings> booked,List<IRoom> rooms)
         {
 
             //retrieve booking information
@@ -153,7 +153,7 @@ namespace BokningssystemGrupp6.Classes
                 $"\nBooking starts at: {booking.DateTimeStart} \nBooking ends at: {booking.DateTimeEnd} \nTotal duration for this booking is: {booking.DateTimeEnd - booking.DateTimeStart}");
         }
         //Method to display list of bookings for a specific room and a specific 1 year interwall
-        public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
+        public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<IRoom> listOfRoom)
         {
             Console.WriteLine("Show bookings for which room?");
 
@@ -175,7 +175,7 @@ namespace BokningssystemGrupp6.Classes
             ListAll(roomSpecificBookings);
         }
         //Update an alreade existing booking
-        public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
+        public static void UpdateBooking(List<Bookings> bookingInfo, List<IRoom> roomList)
         {
             String roomName = Rooms.ChooseASpecificRoom(roomList);
             

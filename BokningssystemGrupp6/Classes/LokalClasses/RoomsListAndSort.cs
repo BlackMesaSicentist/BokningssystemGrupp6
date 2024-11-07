@@ -16,7 +16,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
 
 
-        public void RoomsListAndSortStart(List<Rooms> rooms)
+        public void RoomsListAndSortStart(List<IRoom> rooms)
         {
             Console.WriteLine("List of rooms\nSelect list option:\n0. Show all rooms\n1. Show halls\n2. Show classrooms\n3. Show group rooms\n4. Rooms in order of number of seats, large - small\n5. Rooms in order of number of seats, small - large\n6. Rooms with projector\n7. Rooms with whiteboard\n8. Go back\n");
 
@@ -95,23 +95,23 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             RoomInfoWithSort(rooms);
         }
 
-        private void RoomInfoWithSort(List<Rooms> rooms)
+        private void RoomInfoWithSort(List<IRoom> rooms)
         {
-            List<Rooms> sortRoomList = rooms;
+            List<IRoom> sortRoomList = rooms;
 
             switch (sortOption)
             {
                 case 1: // Show halls
                     Console.WriteLine("Show halls\n");
-                    sortRoomList = rooms.OfType<Hall>().Cast<Rooms>().ToList();
+                    sortRoomList = rooms.OfType<Hall>().Cast<IRoom>().ToList();
                     break;
                 case 2: // Show classrooms
                     Console.WriteLine("Show classrooms\n");
-                    sortRoomList = rooms.OfType<Classroom>().Cast<Rooms>().ToList();
+                    sortRoomList = rooms.OfType<Classroom>().Cast<IRoom>().ToList();
                     break;
                 case 3: // Show group rooms
                     Console.WriteLine("Show group rooms\n");
-                    sortRoomList = rooms.OfType<GroupRoom>().Cast<Rooms>().ToList();
+                    sortRoomList = rooms.OfType<GroupRoom>().Cast<IRoom>().ToList();
                     break;
                 case 4: // Rooms in order of number of seats, large - small
                     Console.WriteLine("Rooms in order of number of seats, large - small\n");
@@ -123,11 +123,11 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     break;
                 case 6: // Rooms with projector
                     Console.WriteLine("Rooms with projector\n");
-                    sortRoomList = rooms.Where(room => room is Hall hall && hall.HasProjector).Cast<Rooms>().ToList();
+                    sortRoomList = rooms.Where(room => room is Hall hall && hall.HasProjector).Cast<IRoom>().ToList();
                     break;
                 case 7: // Rooms with whiteboard
                     Console.WriteLine("Rooms with whiteboard\n");
-                    sortRoomList = rooms.Where(room => room is Hall hall && hall.HasWhiteboard).Cast<Rooms>().ToList();
+                    sortRoomList = rooms.Where(room => room is Hall hall && hall.HasWhiteboard).Cast<IRoom>().ToList();
                     break;
                 case 8: // Show all rooms
                     Console.WriteLine("Show all rooms\n");
