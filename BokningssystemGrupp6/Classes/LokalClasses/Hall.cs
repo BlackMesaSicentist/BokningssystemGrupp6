@@ -13,10 +13,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public bool HasProjector { get; set; }
         public bool HasWhiteboard { get; set; }
 
-        public Hall()
-        {
-            
-        }
+        public Hall(): base (){}
+
         public Hall(string roomName, string roomType, int seatAmount, int seatLimit, bool hasProjector, bool hasWhiteboard)
             : base(roomName, roomType, seatAmount)
         {

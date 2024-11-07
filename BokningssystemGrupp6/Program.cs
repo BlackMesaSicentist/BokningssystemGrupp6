@@ -5,6 +5,7 @@ using BokningssystemGrupp6.Classes.LokalClasses;
 using BokningssystemGrupp6.Interfaces;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using System.Collections.Generic;
 //Av: Angelica Bergström, David Berglin, Adam Axelsson-Hedman, Alexander Bullerjahn
 
 namespace BokningssystemGrupp6
@@ -21,7 +22,8 @@ namespace BokningssystemGrupp6
             List<Bookings> bookingsInfo = new List<Bookings>();
 
             //Method to deserialize lists
-            Save.UnPackFile(rooms, bookingsInfo);
+            Save.UnpackFileRooms(rooms);
+            Save.UnPackFileBooking(bookingsInfo);
 
             //Method to show and use menu
             Menu.MainMenu(rooms, bookingsInfo);
