@@ -44,7 +44,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             //string? roomName = Console.ReadLine();
 
             // Room type / size / seat limit
-            var (roomSizeSelect, roomSizeName, seatLimit) = RoomSize();
+            var (roomSizeSelect, roomType, seatLimit) = RoomSize();
 
 
             //Console.WriteLine("Enter how many seats: ");
@@ -68,21 +68,21 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             {
                 Console.WriteLine("Adding Hall...");
                
-                rooms.Add(new Hall(roomName, roomSizeName, seats, seatLimit, hasProjector, hasWhiteboard));
+                rooms.Add(new Hall(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 2)
             {
                 Console.WriteLine("Adding a classroom...");
               
-                rooms.Add(new Classroom(roomName, roomSizeName, seats, seatLimit, hasProjector, hasWhiteboard));
+                rooms.Add(new Classroom(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 3)
             {
                 Console.WriteLine("Adding a group room...");
                 
-                rooms.Add(new GroupRoom(roomName, roomSizeName, seats, seatLimit));
+                rooms.Add(new GroupRoom(roomName, roomType, seats, seatLimit));
                 Save.SaveFile(rooms);
 
             }
