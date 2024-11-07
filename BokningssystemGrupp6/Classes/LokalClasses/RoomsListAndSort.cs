@@ -107,7 +107,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     break;
                 case 2: // Show classrooms
                     Console.WriteLine("Show classrooms\n");
-                    sortRoomList = rooms.OfType<Classroom>().Cast<Rooms>().ToList();
+                    sortRoomList = rooms.OfType<Classroomawda>().Cast<Rooms>().ToList();
                     break;
                 case 3: // Show group rooms
                     Console.WriteLine("Show group rooms\n");
@@ -153,7 +153,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.WriteLine($"Has Projector: {hall.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
                 }
-                else if (room is Classroom classroom)
+                else if (room is Classroomawda classroom)
                 {
                     Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {classroom.HasProjector}");
