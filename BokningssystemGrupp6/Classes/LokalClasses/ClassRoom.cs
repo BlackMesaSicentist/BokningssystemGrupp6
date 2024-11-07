@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
-    internal class ClassRoom: Rooms, IRoom, IListable
+    internal class Classroom: Rooms, IRoom, IListable
     {
         public int SeatLimit { get; set; }
         public bool HasProjector { get; set; }
         public bool HasWhiteboard { get; set; }
 
-        public ClassRoom() :base (){ }
-        public ClassRoom(string roomName, string roomType, int seatAmount, int seatLimit, bool hasProjector, bool hasWhiteboard)
+        public Classroom() :base (){ }
+        public Classroom(string roomName, string roomType, int seatAmount, int seatLimit, bool hasProjector, bool hasWhiteboard)
             : base(roomName, roomType, seatAmount)
         {
             SeatLimit = seatLimit;

@@ -76,7 +76,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             else if (roomSizeSelect == 2)
             {
                 Console.WriteLine("Adding a Classroom...");
-                rooms.Add(new ClassRoom(roomName, roomSizeName, seats, seatLimit, hasProjector, hasWhiteBoard));
+                rooms.Add(new Classroom(roomName, roomSizeName, seats, seatLimit, hasProjector, hasWhiteBoard));
                 Save.SaveFile(rooms);
             }
             // Adding Group room
@@ -138,7 +138,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     break;
                 case "2":
                     roomSelect = 2;
-                    sizeName = "Class room";
+                    sizeName = "Classroom";
                     seatLimit = 60;
                     break;
                 case "3":
@@ -230,7 +230,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.WriteLine($"Has Projector: {hall.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
                 }
-                else if (room is ClassRoom classroom)
+                else if (room is Classroom classroom)
                 {
                     Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {classroom.HasProjector}");

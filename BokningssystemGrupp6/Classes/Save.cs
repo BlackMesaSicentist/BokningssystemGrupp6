@@ -68,7 +68,7 @@ namespace BokningssystemGrupp6.Classes
             switch
         { 
             "Hall" => JsonSerializer.Deserialize<Hall>(json),
-            "Classroom"=> JsonSerializer.Deserialize<ClassRoom>(json),
+            "Classroom"=> JsonSerializer.Deserialize<Classroom>(json),
             "Group room" => JsonSerializer.Deserialize<GroupRoom>(json), 
             _ => throw new JsonException("$Unknown room type: { roomType }") };
         roomList.Add(room);
