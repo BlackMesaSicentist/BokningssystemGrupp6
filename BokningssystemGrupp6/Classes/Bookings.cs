@@ -38,7 +38,7 @@ namespace BokningssystemGrupp6.Classes
             DateTimeEnd = dateTimeEnd;
         }
         //Method to create booking
-        public static void BookARoom(List<Bookings> booked,List<IRoom> rooms)
+        public static void BookARoom(List<Bookings> booked,List<Rooms> rooms)
         {
 
             //retrieve booking information
@@ -52,7 +52,6 @@ namespace BokningssystemGrupp6.Classes
                 i++;
             }
             int roomNumber = Convert.ToInt32(Console.ReadLine())-1;
-            Console.Clear();
             string roomName = rooms[roomNumber].RoomName;
             Console.Write("Input start date and time for booking.\n(DD-MM-ÅÅÅÅ HH:MM) :");
             string startTime = Console.ReadLine();
@@ -133,7 +132,7 @@ namespace BokningssystemGrupp6.Classes
                 $"\nBooking starts at: {booking.DateTimeStart} \nBooking ends at: {booking.DateTimeEnd} \nTotal duration for this booking is: {booking.DateTimeEnd - booking.DateTimeStart}");
         }
         //Method to display list of bookings for a specific room and a specific 1 year interwall
-        public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<IRoom> listOfRoom)
+        public  void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
         {
             Console.WriteLine("Show bookings for which room?");
             String specificRoom = ""; //Todo: Call to a method to find room, or build one in this method
@@ -154,7 +153,7 @@ namespace BokningssystemGrupp6.Classes
             ListAll(roomSpecificBookings);
         }
         //Update an alreade existing booking
-        public static void UpdateBooking(List<Bookings> bookingInfo, List<IRoom> roomList)
+        public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
         {
             String roomName = "";
             Rooms.ChooseASpecificRoom(roomList, roomName); //

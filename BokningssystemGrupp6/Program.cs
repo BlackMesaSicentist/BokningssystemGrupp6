@@ -14,19 +14,17 @@ namespace BokningssystemGrupp6
     {
         static void Main(string[] args)
         {
+            //List for rooms (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
+            List<Rooms> rooms = new List<Rooms>();
 
             //List for bookings (string userName, string roomName, DateTime DateTimeStart, DateTime DateTimeEnd)
             List<Bookings> bookingsInfo = new List<Bookings>();
-
-            //List for rooms (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
-            List<IRoom> rooms = new List<IRoom>();
 
             //Method to deserialize lists
             Save.UnPackFile(rooms, bookingsInfo);
 
             //Method to show and use menu
             Menu.MainMenu(rooms, bookingsInfo);
-
         }
     }
 }

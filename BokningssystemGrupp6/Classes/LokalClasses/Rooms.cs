@@ -23,7 +23,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             SeatAmount = seatAmount;
         }
         //Method to create a room with the use of IRoom list
-        public static void CreateARoom(List<IRoom> rooms) 
+        public static void CreateARoom(List<Rooms> rooms) 
         {
             //retrieves information needed to create a new room
             Console.WriteLine("Enter name of the room: ");
@@ -34,7 +34,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             bool hasProjector = false;
             bool hasWhiteboard = false;
             
-            if (roomSize != "Group room")//<-------VARFÖR KAN INTE GRUPPRUM HA PROJEKTOR? :)
+            if (roomSize != "Group room")
             {
                 Console.WriteLine("Do you need a projector? Y/N");
                 hasProjector = AskUser();
@@ -65,7 +65,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
             }
 
-            ListAll(rooms);
+            
 
         }
         public static string RoomSize()
@@ -112,7 +112,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
         }
 
-        public static void ListAll(List<IRoom> rooms)
+        public static void ListAll(List<Rooms> rooms)
         {
             foreach (var room in rooms)
             {
@@ -141,7 +141,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine("----------------------");
             }
         }
-        public static void ChooseASpecificRoom(List<IRoom> rooms, String roomName)
+        public static void ChooseASpecificRoom(List<Rooms> rooms, String roomName)
         {
             int index = 0;
             foreach (var room in rooms)

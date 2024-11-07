@@ -16,7 +16,7 @@ namespace BokningssystemGrupp6.Classes
         //Method to save lists
         public static void SaveFile<T>(List<T> listToSave)
         {
-            if (listToSave is List<IRoom>)
+            if (listToSave is List<Rooms>)
             {
                 string listRoom = JsonSerializer.Serialize(listToSave);
                 File.WriteAllText("RoomList.json", listRoom);
@@ -30,7 +30,7 @@ namespace BokningssystemGrupp6.Classes
 
         }
         //Method to unpack lists
-        public static void UnPackFile(List<IRoom> roomList, List<Bookings> bookingList)
+        public static void UnPackFile(List<Rooms> roomList, List<Bookings> bookingList)
         {
             //To be able to read ÅÄÖ
             var options = new JsonSerializerOptions()
@@ -42,7 +42,7 @@ namespace BokningssystemGrupp6.Classes
             if(File.Exists("RoomList.Json"))
             {
                 string readRoom = File.ReadAllText("RoomList.json");
-                roomList = JsonSerializer.Deserialize<List<IRoom>>(readRoom);
+                roomList = JsonSerializer.Deserialize<List<Rooms>>(readRoom);
                 
             }
             //reads list for bookings
