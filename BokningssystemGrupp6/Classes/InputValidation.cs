@@ -1,4 +1,5 @@
-﻿using BokningssystemGrupp6.Interfaces;
+﻿using BokningssystemGrupp6.Classes.LokalClasses;
+using BokningssystemGrupp6.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +67,7 @@ namespace BokningssystemGrupp6.Classes
         }
 
         // Check if name is used
-        public bool IsNameUsed(List<IRoom> rooms, string input)
+        public bool IsNameUsed(List<Rooms> rooms, string input)
         {
             return rooms.Any(a => a.RoomName.ToLower() == input.ToLower());
 

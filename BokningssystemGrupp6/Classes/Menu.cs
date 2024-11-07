@@ -20,29 +20,30 @@ namespace BokningssystemGrupp6.Classes
             _rooms = new Rooms(inputValidation);
         }
 
-        public Menu MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<IRoom> rooms, List<Bookings>bookingsInfo)
+        public void MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<Rooms> rooms, List<Bookings>bookingsInfo)
         {
+            bool menu1 = true;
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
-            while (true) // Todo: make an exit condition to break loop, either as a universal method or specific in this menu
+            while (menu1)
             {
-                Console.WriteLine("Välkommen till bokningssystemet för skolans lokaler! \nDu har följande alternativ:" +
-                    "\n1. Lista och filtrerar lokaler efter egenskaper \n2. Skapa en sal \n3. Boka en sal " +
-                    "\n4. Se bokningar \n5. Uppdatera en befintlig bokning");
+                Console.WriteLine("WELCOME!\n You are now able to book rooms for the school premises!" +
+                    "\n\n1. Rooms information \n2. Create a room \n3. Book a room " +
+                    "\n4. Show bookings \n5. Update existing booking \n6. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
                     case "1": Rooms.ListAll(rooms); break; //Rooms information.
                     case "2": _rooms.CreateARoom(rooms); break; //Create a room
                     case "3": Bookings.BookARoom(bookingsInfo, rooms); break; //Book a room
                     case "4": Bookings.ListAll(bookingsInfo); break; //Show bookings
-                    case "5": Bookings.UpdateBooking(bookingsInfo,rooms); break; //Update existing booking
+                    case "5": Bookings.UpdateBooking(bookingsInfo, rooms); break; //Update existing booking
                     case "6": menu1 = false; break; //End program
                     default:
-                    {
-                        Console.WriteLine("Invalid option, press \"Enter\"to try again");
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
-                    }
+                        {
+                            Console.WriteLine("Invalid option, press \"Enter\"to try again");
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
+                        }
                 }
             }
         }
