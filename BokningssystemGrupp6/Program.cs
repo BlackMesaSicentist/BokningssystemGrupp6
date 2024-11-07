@@ -32,17 +32,6 @@ namespace BokningssystemGrupp6
             File.WriteAllText("BokningssystemGrupp6.json", listRoom);
 
 
-            
-            
-
-     
-
-
-
-            File.WriteAllText("BokningssystemGrupp6.json", listRoom);
-
-
-
             Console.WriteLine("Program.cs");
 
             menu.MainMenu(rooms, BookingsInfo);
