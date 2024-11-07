@@ -15,18 +15,20 @@ using BokningssystemGrupp6.Interfaces;
 
 namespace BokningssystemGrupp6.Classes
 {
+    //Bookings inherits interface IListable
     public class Bookings: IListable
     {
+        //Properties for Bookings
         public string Mail { get; set; }
         public string RoomName { get; set; }
         public DateTime DateTimeStart { get; set; }
         public DateTime DateTimeEnd { get; set; }
 
+        //Construktor for Bookings      
+        //public Bookings()//<---------------------------MÅSTE VI HA DENNA?
+        //{
 
-        public Bookings()
-        {
-
-        }
+        //}
 
         public Bookings(string mail, string roomName, DateTime dateTimeStart, DateTime dateTimeEnd)
         {
@@ -58,12 +60,9 @@ namespace BokningssystemGrupp6.Classes
             string endTime = Console.ReadLine();
             Console.Clear();
 
+            //convert the input to a DateTime object
             DateTime dateTimeStart = DateTime.Parse(startTime);
             DateTime dateTimeEnd = DateTime.Parse(endTime);
-
-            TimeSpan totalTime = dateTimeEnd - dateTimeStart;
-
-            //convert the input to a DateTime object
             try
             {
                 DateTime dateTimeS = DateTime.Parse(startTime);
@@ -77,10 +76,9 @@ namespace BokningssystemGrupp6.Classes
                 Console.ReadKey();
                 Console.Clear();
 
+
             }
-
             //checks if the day is free from previous bookings in that venue
-
             foreach (Bookings book in booked)
             {
                 bool check = dateTimeStart < book.DateTimeEnd && book.DateTimeStart < dateTimeEnd;
@@ -91,21 +89,22 @@ namespace BokningssystemGrupp6.Classes
                     booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
                     Bookings newest = booked[booked.Count];
 
-                    //skrivs ut när bokningen är genomförd
+                    //is printed when the booking is completed
                     Console.WriteLine("Your booking is noted with the following information: ");
 
                     // skriver ut det sista objektet
                     ListSpecific(newest);
 
-                    Console.WriteLine($"Total hours for your booking: {totalTime}.");
+                    //calculates and prints the bookings duration and the last booking made
+                    TimeSpan totalTime = dateTimeEnd - dateTimeStart;
+                    Console.WriteLine($"Total duration for your booking is: {totalTime}.");
                     Save.SaveFile(booked);
                 }
-
-                //kollar att bokningen krockar med en redan lagd bokning 
+                //if the booking conflicts with a previously made booking
                 else if (check != false)
                 {
                     Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
-                    //skriv ut bokningen den krockar med?
+                    //prints the booking it conflicts with
                     ListSpecific(book);
                     Console.WriteLine("\nPress any key to return to menu");
                     Console.ReadKey();
@@ -117,26 +116,23 @@ namespace BokningssystemGrupp6.Classes
             }
         }
 
-    
-
-
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
             foreach (Bookings booking in bookingInfo)
             {
                 Console.WriteLine($"Email: {booking.Mail} has booked room:{booking.RoomName} " +
-                    $"starting:{booking.DateTimeStart} ending:{booking.DateTimeEnd} total amount of hours in booking:{booking.DateTimeEnd - booking.DateTimeStart}. \n"); //If needed add "Kl" or date descriptions after variable
+                    $"\nBooking starts at:{booking.DateTimeStart} \nBooking ends at:{booking.DateTimeEnd} Total duration for this booking is:{booking.DateTimeEnd - booking.DateTimeStart}. \n"); //If needed add "Kl" or date descriptions after variable
             }
             
         }
-        //List data from specific booking feed into it
+        //Method to list data from specific booking feed into it
         public static void ListSpecific(Bookings booking)
         {
             Console.WriteLine($"Email: {booking.Mail}, Room: {booking.RoomName}, " +
-                $"Start: {booking.DateTimeStart}, End: {booking.DateTimeEnd}, booking is {booking.DateTimeEnd - booking.DateTimeStart} hours.");
+                $"\nBooking starts at: {booking.DateTimeStart} \nBooking ends at: {booking.DateTimeEnd} \nTotal duration for this booking is: {booking.DateTimeEnd - booking.DateTimeStart}");
         }
-        // Display list of bookings for a specific room and a specific 1 year interwall
+        //Method to display list of bookings for a specific room and a specific 1 year interwall
         public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<IRoom> listOfRoom)
         {
             Console.WriteLine("Show bookings for which room?");

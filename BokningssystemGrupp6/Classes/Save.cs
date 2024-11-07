@@ -13,7 +13,7 @@ namespace BokningssystemGrupp6.Classes
 {
     internal class Save
     {
-
+        //Method to save lists
         public static void SaveFile<T>(List<T> listToSave)
         {
             if (listToSave is List<IRoom>)
@@ -29,23 +29,24 @@ namespace BokningssystemGrupp6.Classes
             }
 
         }
-
+        //Method to unpack lists
         public static void UnPackFile(List<IRoom> roomList, List<Bookings> bookingList)
         {
-
+            //To be able to read ÅÄÖ
             var options = new JsonSerializerOptions()
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin,
                     UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
             };
-         
+            //reads list for rooms
             if(File.Exists("RoomList.Json"))
             {
                 string readRoom = File.ReadAllText("RoomList.json");
                 roomList = JsonSerializer.Deserialize<List<IRoom>>(readRoom);
                 
             }
-            if(File.Exists("BookingsList.Json"))
+            //reads list for bookings
+            if (File.Exists("BookingsList.Json"))
             {
                 string readBooking = File.ReadAllText("BookingList.json");
                 bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);

@@ -7,20 +7,25 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
+    //Rooms inherits interface IRoom and IListable
     internal abstract class Rooms: IRoom, IListable
     {
+        //Properties for Rooms
         public string RoomName { get; set; }
         public string RoomType { get; set; }
         public int SeatAmount { get; set; }
 
+        //Construktor for Rooms
         protected Rooms(string roomName, string roomType, int seatAmount)
         {
             RoomName = roomName;
             RoomType = roomType;
             SeatAmount = seatAmount;
         }
-
-        public static void CreateARoom(List<IRoom> rooms) {
+        //Method to create a room with the use of IRoom list
+        public static void CreateARoom(List<IRoom> rooms) 
+        {
+            //retrieves information needed to create a new room
             Console.WriteLine("Enter name of the room: ");
             string? roomName = Console.ReadLine();
             var roomSize = RoomSize();
@@ -29,7 +34,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             bool hasProjector = false;
             bool hasWhiteboard = false;
             
-            if (roomSize != "Group room")
+            if (roomSize != "Group room")//<-------VARFÖR KAN INTE GRUPPRUM HA PROJEKTOR? :)
             {
                 Console.WriteLine("Do you need a projector? Y/N");
                 hasProjector = AskUser();

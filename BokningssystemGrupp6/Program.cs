@@ -21,7 +21,10 @@ namespace BokningssystemGrupp6
             //List for rooms (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
             List<IRoom> rooms = new List<IRoom>();
 
+            //Method to deserialize lists
             Save.UnPackFile(rooms, bookingsInfo);
+
+            //Method to show and use menu
             Menu.MainMenu(rooms, bookingsInfo);
 
         }
