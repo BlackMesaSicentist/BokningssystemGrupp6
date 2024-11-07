@@ -7,35 +7,29 @@ using Microsoft.VisualBasic;
 
 namespace BokningssystemGrupp6
 {
+
     internal class Program
     {
-        //Lista för bokningar (string userName, string roomName, double startTime, double endTime)
-        public static List<Bookings> BookingsInfo = new List<Bookings>();
         static void Main(string[] args)
         {
 
             InputValidation inputValidation = new InputValidation();
             Menu menu = new Menu(inputValidation);
 
-            string listBooking = JsonSerializer.Serialize(BookingsInfo);
-            File.WriteAllText("BokningssystemGrupp6.json", listBooking);
-
-            //Lista för lokaler (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
-            List<IRoom> rooms = new List<IRoom>();
-
-            rooms.Add(new Hall("Katt", "Hall", 100, 120, true, true));
-            rooms.Add(new ClassRoom("Hund", "Class room", 50, 60, true, false));
-            rooms.Add(new GroupRoom("Kanin", "Group room", 10, 15));
 
 
-            string listRoom = JsonSerializer.Serialize(rooms);
-            File.WriteAllText("BokningssystemGrupp6.json", listRoom);
+            //List for rooms (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
+            List<Rooms> rooms = new List<Rooms>();
 
+            //List for bookings (string userName, string roomName, DateTime DateTimeStart, DateTime DateTimeEnd)
+            List<Bookings> bookingsInfo = new List<Bookings>();
 
-            Console.WriteLine("Program.cs");
+            //Method to deserialize lists
+            Save.UnpackFileRooms(rooms);
+            Save.UnPackFileBooking(bookingsInfo);
 
-            menu.MainMenu(rooms, BookingsInfo);
-
+            //Method to show and use menu
+            menu.MainMenu(rooms, bookingsInfo);
         }
     }
 }

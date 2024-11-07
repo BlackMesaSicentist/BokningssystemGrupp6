@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Interfaces
 {
-    // Interface for room properties
+    //Interface for rooms properties
     public interface IRoom
     {
         string RoomName { get; set; }

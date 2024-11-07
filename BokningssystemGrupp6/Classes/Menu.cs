@@ -30,14 +30,15 @@ namespace BokningssystemGrupp6.Classes
                     "\n4. Se bokningar \n5. Uppdatera en befintlig bokning");
                 switch (menuChoice = Console.ReadLine())
                 {
-                    case "1": //Rooms.ListAndSortRooms(); break; 
-                    case "2": _rooms.CreateARoom(rooms); break;
-                    case "3": //Bookings.BookARoom(bookingsInfo); break;
-                    case "4": //Bookings.ListBookings(); break;
-                    case "5": //Bookings.UppdateBookings(); break;
+                    case "1": Rooms.ListAll(rooms); break; //Rooms information.
+                    case "2": _rooms.CreateARoom(rooms); break; //Create a room
+                    case "3": Bookings.BookARoom(bookingsInfo, rooms); break; //Book a room
+                    case "4": Bookings.ListAll(bookingsInfo); break; //Show bookings
+                    case "5": Bookings.UpdateBooking(bookingsInfo,rooms); break; //Update existing booking
+                    case "6": menu1 = false; break; //End program
                     default:
                     {
-                        Console.WriteLine("Inte ett giltigt val, tryck på \"Enter\" och försök igen");
+                        Console.WriteLine("Invalid option, press \"Enter\"to try again");
                         Console.ReadKey();
                         Console.Clear();
                         break;

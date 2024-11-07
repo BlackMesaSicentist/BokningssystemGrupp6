@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
-    internal class Rooms: IRoom, IListable
+    //Rooms inherits interface IRoom and IListable
+    public class Rooms: IRoom, IListable
     {
 
         private readonly InputValidation _inputValidation;
@@ -16,10 +18,16 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             _inputValidation = inputValidation;
         }
 
+        //Properties for Rooms
         public string RoomName { get; set; }
         public string RoomType { get; set; }
         public int SeatAmount { get; set; }
 
+        //Construktor for Rooms
+        protected Rooms()
+        {
+            
+        }
         protected Rooms(string roomName, string roomType, int seatAmount)
         {
             RoomName = roomName;
@@ -27,7 +35,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             SeatAmount = seatAmount;
         }
 
-        public void CreateARoom(List<IRoom> rooms) {
+        public void CreateARoom(List<Rooms> rooms) {
 
             Console.Clear();
 
@@ -57,28 +65,34 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine("Do you need a whiteboard? Y/N");
                 hasWhiteBoard = AskUser();
             }
+            // Adding Hall
             if (roomSizeSelect == 1)
             {
-                Console.WriteLine("Adding a Large Room...");
+                Console.WriteLine("Adding a Hall...");
                 rooms.Add(new Hall(roomName, roomSizeName, seats, seatLimit, hasProjector, hasWhiteBoard));
+                Save.SaveFile(rooms);
             }
+            // Adding Classroom
             else if (roomSizeSelect == 2)
             {
-                Console.WriteLine("Adding a Medium Room...");
+                Console.WriteLine("Adding a Classroom...");
                 rooms.Add(new ClassRoom(roomName, roomSizeName, seats, seatLimit, hasProjector, hasWhiteBoard));
+                Save.SaveFile(rooms);
             }
+            // Adding Group room
             else if (roomSizeSelect == 3)
             {
-                Console.WriteLine("Adding a Small Room...");
+                Console.WriteLine("Adding a Group room...");
                 rooms.Add(new GroupRoom(roomName, roomSizeName, seats, seatLimit));
+                Save.SaveFile(rooms);
             }
 
-            ShowList(rooms);
+            
 
         }
 
 
-        private string RoomNameInput(List<IRoom> rooms)
+        private string RoomNameInput(List<Rooms> rooms)
         {
             Console.WriteLine("Enter name of the room: ");
             string tempName = Console.ReadLine().Trim();
@@ -110,7 +124,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
         public static (int, string, int) RoomSize()
         {
-            Console.WriteLine("Choose room size:\n1.Large\n2.Medium\n3.Small");
+            Console.WriteLine("Choose room size:\n1.Hall\n2.Classroom\n3.Group Room");
             string? option;
             int roomSelect;
             string sizeName = "";
@@ -140,7 +154,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
 
 
-        private int SeatsInput(List<IRoom> rooms, int seatLimit)
+        private int SeatsInput(List<Rooms> rooms, int seatLimit)
         {
             Console.WriteLine($"Enter seats: (Cant exceed: {seatLimit}) ");
             int seatsOk;
@@ -198,11 +212,10 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 {
                     Console.WriteLine("invalid option");
                 }
-
             }
         }
 
-        public static void ShowList(List<IRoom> rooms)
+        public static void ListAll(List<Rooms> rooms)
         {
             foreach (var room in rooms)
             {
@@ -211,21 +224,21 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine($"Room Type Description: {room.RoomType}");
                 Console.WriteLine($"Seat Amount: {room.SeatAmount}");
 
-                if (room is Hall largeRoom)
+                if (room is Hall hall)
                 {
-                    Console.WriteLine($"Seat Limit: {largeRoom.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {largeRoom.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {largeRoom.HasWhiteboard}");
+                    Console.WriteLine($"Seat Limit: {hall.SeatLimit}");
+                    Console.WriteLine($"Has Projector: {hall.HasProjector}");
+                    Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
                 }
-                else if (room is ClassRoom mediumRoom)
+                else if (room is ClassRoom classroom)
                 {
-                    Console.WriteLine($"Seat Limit: {mediumRoom.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {mediumRoom.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {mediumRoom.HasWhiteboard}");
+                    Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
+                    Console.WriteLine($"Has Projector: {classroom.HasProjector}");
+                    Console.WriteLine($"Has Whiteboard: {classroom.HasWhiteboard}");
                 }
-                else if (room is GroupRoom smallRoom)
+                else if (room is GroupRoom grouproom)
                 {
-                    Console.WriteLine($"Seat Limit: {smallRoom.SeatLimit}");
+                    Console.WriteLine($"Seat Limit: {grouproom.SeatLimit}");
                 }
 
                 Console.WriteLine("----------------------");
@@ -233,7 +246,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
 
         // What is this used for or should be used for?
-        public static void ChooseASpecificRoom(List<IRoom> rooms, String roomName)
+        public static void ChooseASpecificRoom(List<Rooms> rooms, String roomName)
         {
             int index = 0;
             foreach (var room in rooms)
@@ -241,7 +254,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine($"Alternativ {index++} \nNamn på lokal: {room.RoomName}, Typ av lokal: {room.RoomType}, Hur många personer får plats i lokalen: {room.SeatAmount}");
                 index++;
             }
-            while (true);
+            while (true)
             {
                 Console.WriteLine("Mata in siffran för motsvarande alternativ");
                 if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
@@ -250,11 +263,12 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     {
                         choice--; // Have to shrink by 1 to match list index
                         roomName = rooms[choice].RoomName;
+                        break;
                     }
+                    else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
                 }
+                else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
             }
-
         }
-
     }
 }
