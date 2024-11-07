@@ -21,10 +21,9 @@ namespace BokningssystemGrupp6
             //List for bookings (string userName, string roomName, DateTime DateTimeStart, DateTime DateTimeEnd)
             List<Bookings> bookingsInfo = new List<Bookings>();
 
-            //Method to deserialize lists
+            //Methods to deserialize lists
             Save.UnpackFileRooms(rooms);
             Save.UnPackFileBooking(ref bookingsInfo);
-            //Save.UnPackFileBooking(bookingsInfo);
 
             //Method to show and use menu
             Menu.MainMenu(rooms, bookingsInfo);

@@ -15,8 +15,9 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         //If room has a projector
         public bool HasProjector { get; set; } 
         //If room has a whiteboard
-        public bool HasWhiteboard { get; set; } 
+        public bool HasWhiteboard { get; set; }
 
+        //Json deserializer requiers an empty constructor
         public Hall(): base (){}
 
         public Hall(string roomName, string roomType, int seatAmount, int seatLimit, bool hasProjector, bool hasWhiteboard)

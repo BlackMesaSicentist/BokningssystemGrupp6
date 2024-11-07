@@ -53,7 +53,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine("Does the venue have a whiteboard? Y/N");
                 hasWhiteboard = AskUser();
             }
-
+            //different types of venue
             if (roomSize == "Hall")
             {
                 Console.WriteLine("Adding Hall...");
@@ -76,11 +76,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Save.SaveFile(rooms);
 
             }
-
-            
-
         }
-
+        //Method to determine size
         public static string RoomSize()
         {
             Console.WriteLine("Choose room size:\n1.Hall\n2.Classroom\n3.Group Room");
@@ -90,13 +87,13 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             switch (option = Console.ReadLine())
             {
                 case "1":
-                    size = "Hall";
+                    size = "Hall, max 120 seats";
                     break;
                 case "2":
-                    size = "Classroom";
+                    size = "Classroom, max 60 seats";
                     break;
                 case "3":
-                    size = "Group room";
+                    size = "Group room, max 15 seats";
                     break;
                 default:
                     Console.WriteLine("Invalid choice, please choose again.");
@@ -104,7 +101,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
             return size;
         }
-
+        //Method to ask user yes or no
         public static bool AskUser()
         {
             while (true)
@@ -124,7 +121,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 }
             }
         }
-        // show all rooms + properties
+        //Method to show all rooms + properties
         public static void ListAll(List<Rooms> rooms)
         {
 
@@ -134,18 +131,17 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
                 Console.WriteLine($"Room Name: {room.RoomName}");
                 Console.WriteLine($"Room Type: {room.GetType().Name}");
-                Console.WriteLine($"Room Type Description: {room.RoomType}");
                 Console.WriteLine($"Seat Amount: {room.SeatAmount}");
 
                 if (room is Hall hall)
                 {
-                    Console.WriteLine($"Seat Limit: {hall.SeatLimit}");
+                    Console.WriteLine($"Seat Limit: {hall.SeatLimit}"); //<-----------------VART TAR VI IN SEATLIMIT?
                     Console.WriteLine($"Has Projector: {hall.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
                 }
                 else if (room is ClassRoom classroom)
                 {
-                    Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
+                    Console.WriteLine($"Seat Limit: {classroom.SeatLimit}"); //<-----------------VART TAR VI IN SEATLIMIT?
                     Console.WriteLine($"Has Projector: {classroom.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {classroom.HasWhiteboard}");
                 }
@@ -153,34 +149,36 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 {
                     Console.WriteLine($"Seat Limit: {grouproom.SeatLimit}");
                 }
-
                 Console.WriteLine("----------------------");
             }
         }
+        //Method to show specific rooms
         public static String ChooseASpecificRoom(List<Rooms> rooms)
         {
             String roomName;
-            int index = 0;
-            foreach (var room in rooms)
+            int i = 1;
+            foreach (var r in rooms)
             {
-                Console.WriteLine($"Alternativ {index + 1} \nNamn på lokal: {room.RoomName}, Typ av lokal: {room.RoomType}, Hur många personer får plats i lokalen: {room.SeatAmount}");
-                index++;
+                Console.WriteLine($"{i}. {r.RoomName}");
+                i++;
             }
             while (true)
             {
-                Console.WriteLine("Mata in siffran för motsvarande alternativ");
-                if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
+                Console.WriteLine("\nEnter the number for the corresponding option");
+                string roomNum = Console.ReadLine();
+                
+                if (int.TryParse(roomNum, out int choice)) //Input choiche form list
                 {
                     if (choice > 0 && choice <= rooms.Count)
                     {
-                        choice--; // Have to shrink by 1 to match list index
-                        roomName = rooms[choice].RoomName;
+                        roomName = rooms[choice-1].RoomName;
                         return roomName;
                     }
-                    else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
+                    else { Console.WriteLine($"\n{choice} is not a valid choice, please try again"); continue; }
                 }
-                else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
+                else { Console.WriteLine($"\n{choice} is not a valid choice, please try again"); continue; }
             }
         }
+
     }
 }

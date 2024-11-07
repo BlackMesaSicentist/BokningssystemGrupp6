@@ -128,7 +128,7 @@ namespace BokningssystemGrupp6.Classes
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
-            Console.WriteLine("ALL BOOKINGS");
+            Console.WriteLine("\nALL BOOKINGS");
             Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-26}{4,-24}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
             Console.WriteLine(new string('-', 100));
                 int i = 1;
@@ -149,12 +149,12 @@ namespace BokningssystemGrupp6.Classes
         //Method to display list of bookings for a specific room and a specific 1 year interwall
         public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
         {
-            Console.WriteLine("Show bookings for which room?");
+            Console.WriteLine("Show bookings for which room?\n");
 
             String specificRoom = Rooms.ChooseASpecificRoom(listOfRoom);
 
             List<Bookings> roomSpecificBookings = new List<Bookings>(); //New list with only bookings with the right parameters
-            Console.WriteLine("Enter the year off the bookings you want to display in the format yyyy");
+            Console.WriteLine("\nEnter the year off the bookings you want to display in the format yyyy");
 
             String yearInputString = Console.ReadLine();
             if (DateTime.TryParseExact(yearInputString, "yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime startDate)) //Convert input to datetime

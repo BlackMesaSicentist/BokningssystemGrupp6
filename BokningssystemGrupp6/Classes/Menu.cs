@@ -13,12 +13,13 @@ namespace BokningssystemGrupp6.Classes
         /*Might need list of Rooms and Bookings depending on what the methods need */
         public static void MainMenu(List<Rooms> rooms, List<Bookings>bookingsInfo)
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
             bool menu1 = true;
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
             while (menu1)
             {
                 Console.WriteLine("\n       WELCOME!\nYou are now able to book rooms on the school premises!" +
-                    "\n\n1. Create a room \n2. Book a room \n3. Different rooms \n4. Show bookings \n5. Update existing booking \n6. Show booking for specific year" +
+                    "\n\n1. Create a room \n2. Book a room \n3. Show rooms \n4. Show bookings \n5. Update existing booking \n6. Show booking for specific year" +
                     "\n7. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {

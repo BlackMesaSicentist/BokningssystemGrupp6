@@ -13,7 +13,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public bool HasProjector { get; set; } //If the room has a projector
         public bool HasWhiteboard { get; set; } //If the rom has a whiteboard
 
-        public ClassRoom() :base (){ } //Json deserializer requiers an empty constructor
+        //Json deserializer requiers an empty constructor
+        public ClassRoom() :base (){ }
         public ClassRoom(string roomName, string roomType, int seatAmount, int seatLimit, bool hasProjector, bool hasWhiteboard)
             : base(roomName, roomType, seatAmount)
         {
