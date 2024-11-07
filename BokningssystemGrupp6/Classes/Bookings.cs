@@ -52,9 +52,9 @@ namespace BokningssystemGrupp6.Classes
             }
             int roomNumber = Convert.ToInt32(Console.ReadLine())-1;
             string roomName = rooms[roomNumber].RoomName;
-            Console.Write("Input start date and time for booking.\n(ÅÅÅÅ-MM-DD HH:MM):");
+            Console.Write("Input start date and time for booking.\n(YYYY-MM-DD HH:MM):");
             string startTime = Console.ReadLine();
-            Console.Write("Input end date and time for booking. \n(ÅÅÅÅ-MM-DD HH:MM):");
+            Console.Write("Input end date and time for booking. \n(YYYY-MM-DD HH:MM):");
             string endTime = Console.ReadLine();
             Console.Clear();
 
@@ -184,11 +184,11 @@ namespace BokningssystemGrupp6.Classes
 
             do
             {
-                Console.Write("Input email: ");
+                Console.Write("\nInput email: ");
                 String mail = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(mail))
                 {
-                    Console.WriteLine("Email cant be null. \nTry again.\n");
+                    Console.WriteLine("\nEmail cant be null. \nTry again.\n");
                     continue;
                 }
 
@@ -202,44 +202,46 @@ namespace BokningssystemGrupp6.Classes
 
                 if (specificUserBookings.Count <= 0) // Checks if finding any bookings
                 {
-                    Console.WriteLine($"Cant find any bookings under the email:{mail} \nTry again.\n");
+                    Console.WriteLine($"\nCant find any bookings under the email:{mail} \nTry again.\n");
                     continue;
                 }
 
                 for (int i = 0; i < specificUserBookings.Count; i++) //List bookings
                 {
-                    Console.WriteLine($"Alternativ {i + 1}: ");
+                    Console.WriteLine($"{i + 1}: ");
                     ListSpecific(bookingInfo[i]);
                 }
 
                 do
                 {
-                    Console.WriteLine("Mata in siffran för motsvarande alternativ");
+                    Console.WriteLine("Enter the number for the corresponding option");
                     if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
                     {
                         if (choice <= specificUserBookings.Count && choice > 0) //Check if inside list range
                         {
-                            choice--; // Have to shrink by 1 to actually match index for list
-                            List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo); // Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
+                            // Have to shrink by 1 to actually match index for list
+                            choice--; 
+                            // Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
+                            List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo);
                             int index = 0;
                             foreach (Bookings booking in withoutChosenBooking)
                             {
-                                if (booking == specificUserBookings[choice]) //If booking chosen remove old and add new booking
+                                //If booking is chosen removes old and adds new booking
+                                if (booking == specificUserBookings[choice]) 
                                 {
                                     withoutChosenBooking.RemoveAt(index);
                                     
-                                    Console.Write("Ange start datum & tid du önskar för bokningen \n(DD-MM-ÅÅÅÅ HH:MM) :");
+                                    Console.Write("Input start date and time for booking. \n(YYYY-MM-DD HH:MM):");
                                     string startTime = Console.ReadLine();
-                                    Console.Write("Ange slut datum & tid du önskar för bokningen \n(DD-MM-ÅÅÅÅ HH:MM) :");
+                                    Console.Write("Input end date and time for booking. \n(YYYY-MM-DD HH:MM):");
                                     string endTime = Console.ReadLine();
                                     Console.Clear();
 
+                                    //Converts the input to a DateTime object
                                     DateTime dateTimeStart = DateTime.Parse(startTime);
                                     DateTime dateTimeEnd = DateTime.Parse(endTime);
 
                                     TimeSpan totalTime = dateTimeEnd - dateTimeStart;
-
-                                    //försök att omvandla input till ett DateTime-objekt
                                     try
                                     {
                                         DateTime dateTimeS = DateTime.Parse(startTime);
@@ -248,15 +250,10 @@ namespace BokningssystemGrupp6.Classes
                                     }
                                     catch (FormatException)
                                     {
-                                        Console.WriteLine("Felaktigt format, vänligen ange datum och tid i rätt format.");
-                                        Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
-                                        Console.ReadKey();
-                                        Console.Clear();
+                                        Console.WriteLine("Incorrect format, please enter the date and time in the correct format.");
+                                        Rooms.BackToMenu();
 
                                     }
-
-                                    
-
                                     if (withoutChosenBooking.Count == 0)
                                     {
                                         //adds the booking to the list
