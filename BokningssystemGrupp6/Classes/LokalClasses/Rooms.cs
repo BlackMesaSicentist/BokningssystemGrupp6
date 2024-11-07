@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
@@ -27,22 +28,14 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             SeatAmount = seatAmount;
         }
 
-        public void CreateARoom(List<IRoom> rooms) {
+        public void CreateARoom(List<IRoom> rooms, JsonSerializerOptions options) {
 
             Console.Clear();
 
             // Room name
             string roomName = RoomNameInput(rooms);
-            //Console.WriteLine("Enter name of the room: ");
-            //string? roomName = Console.ReadLine();
-
             // Room type / size / seat limit
             var (roomSizeSelect, roomSizeName, seatLimit) = RoomSize();
-
-
-            //Console.WriteLine("Enter how many seats: ");
-            //int seats = Convert.ToInt32(Console.ReadLine());
-
             // Seats
             int seats = SeatsInput(rooms, seatLimit);
 
@@ -74,8 +67,9 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 rooms.Add(new GroupRoom(roomName, roomSizeName, seats, seatLimit));
             }
 
+            
             ShowList(rooms);
-
+            JsonFunctions.SaveRoomsToJson(rooms, options); // Call the Save function after adding a new room
         }
 
 

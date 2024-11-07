@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes
@@ -20,9 +21,13 @@ namespace BokningssystemGrupp6.Classes
             _rooms = new Rooms(inputValidation);
         }
 
-        public void MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<IRoom> rooms, List<Bookings>bookingsInfo)
+        public void MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<IRoom> rooms, List<Bookings>bookingsInfo, JsonSerializerOptions options)
         {
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
+
+            // Reload the rooms list from the JSON file at the start of the program
+            JsonFunctions.ReloadRoomsFromJson(ref rooms, options);
+
             while (true) // Todo: make an exit condition to break loop, either as a universal method or specific in this menu
             {
                 Console.WriteLine("Välkommen till bokningssystemet för skolans lokaler! \nDu har följande alternativ:" +
@@ -31,7 +36,7 @@ namespace BokningssystemGrupp6.Classes
                 switch (menuChoice = Console.ReadLine())
                 {
                     case "1": //Rooms.ListAndSortRooms(); break; 
-                    case "2": _rooms.CreateARoom(rooms); break;
+                    case "2": _rooms.CreateARoom(rooms, options); break;
                     case "3": //Bookings.BookARoom(bookingsInfo); break;
                     case "4": //Bookings.ListBookings(); break;
                     case "5": //Bookings.UppdateBookings(); break;
