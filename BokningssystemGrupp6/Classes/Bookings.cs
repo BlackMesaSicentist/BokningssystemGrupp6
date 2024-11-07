@@ -117,10 +117,18 @@ namespace BokningssystemGrupp6.Classes
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
+            Console.WriteLine("ALL BOOKINGS");
+            Console.WriteLine("{0,-15}{1,-15}{2,-10}{3,-15}{4,-15}", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+            Console.WriteLine(new string('-', 100));
             foreach (Bookings booking in bookingInfo)
             {
-                Console.WriteLine($"Email: {booking.Mail} has booked room:{booking.RoomName} " +
-                    $"\nBooking starts at:{booking.DateTimeStart} \nBooking ends at:{booking.DateTimeEnd} Total duration for this booking is:{booking.DateTimeEnd - booking.DateTimeStart}. \n"); //If needed add "Kl" or date descriptions after variable
+                int i = 0;
+                //Console.WriteLine($"Email: {booking.Mail} has booked room:{booking.RoomName} " +
+                //    $"\nBooking starts at:{booking.DateTimeStart} \nBooking ends at:{booking.DateTimeEnd} Total duration for this booking is:{booking.DateTimeEnd - booking.DateTimeStart}. \n"); 
+                //If needed add "Kl" or date descriptions after variable
+                Console.WriteLine("{0,-15}{1,-15}{2,-10}{3,-15}{4,-15}",i+".",
+                    booking.Mail, booking.RoomName, booking.DateTimeStart, booking.DateTimeEnd, booking.DateTimeEnd - booking.DateTimeStart);
+                i++;
             }
             
         }
@@ -137,7 +145,7 @@ namespace BokningssystemGrupp6.Classes
             String specificRoom = ""; //Todo: Call to a method to find room, or build one in this method
             Rooms.ChooseASpecificRoom(listOfRoom, specificRoom);
             List<Bookings> roomSpecificBookings = new List<Bookings>(); //New list with only bookings with the right parameters
-            Console.WriteLine("Mata in över vilket år du vill se bokningarna i formatet \"yyyy\"");
+            Console.WriteLine("Enter the year off the bookings you want to display in the format yyyy");
 
             String yearInputString = Console.ReadLine();
             if (DateTime.TryParseExact(yearInputString, "yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime startDate)) //Convert input to datetime
@@ -161,11 +169,11 @@ namespace BokningssystemGrupp6.Classes
 
             do
             {
-                Console.Write("Mata in e-postadressen: ");
+                Console.Write("Input email: ");
                 String mail = Console.ReadLine();
                 if (mail == null)
                 {
-                    Console.WriteLine("E-postadressen kan inte vara null \nFörsök igen \n");
+                    Console.WriteLine("Email cant be null. \nTry again.\n");
                     continue;
                 }
 
@@ -179,7 +187,7 @@ namespace BokningssystemGrupp6.Classes
 
                 if (specificUserBookings.Count <= 0) // Checks if finding any bookings
                 {
-                    Console.WriteLine($"Kan inte hitta en booking under användarnamnet: {mail} \nFörsök igen \n");
+                    Console.WriteLine($"Cant find any bookings under the email:{mail} \nTry again.\n");
                     continue;
                 }
 
@@ -194,7 +202,7 @@ namespace BokningssystemGrupp6.Classes
                     Console.WriteLine("Mata in siffran för motsvarande alternativ");
                     if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
                     {
-                        if (choice <= specificUserBookings.Count && choice > 0) //CHekc if inside list range
+                        if (choice <= specificUserBookings.Count && choice > 0) //Check if inside list range
                         {
                             choice--; // Have to shrink by 1 to actually match index for list
                             List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo); // Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates

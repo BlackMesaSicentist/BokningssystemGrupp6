@@ -73,6 +73,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             
 
         }
+
         public static string RoomSize()
         {
             Console.WriteLine("Choose room size:\n1.Hall\n2.Classroom\n3.Group Room");
@@ -116,7 +117,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 }
             }
         }
-
+        // show all rooms + properties
         public static void ListAll(List<Rooms> rooms)
         {
             foreach (var room in rooms)
