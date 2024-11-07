@@ -120,8 +120,11 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         // show all rooms + properties
         public static void ListAll(List<Rooms> rooms)
         {
+
+
             foreach (var room in rooms)
             {
+
                 Console.WriteLine($"Room Type: {room.GetType().Name}");
                 Console.WriteLine($"Room Name: {room.RoomName}");
                 Console.WriteLine($"Room Type Description: {room.RoomType}");
@@ -147,12 +150,13 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine("----------------------");
             }
         }
-        public static void ChooseASpecificRoom(List<Rooms> rooms, String roomName)
+        public static String ChooseASpecificRoom(List<Rooms> rooms)
         {
+            String roomName;
             int index = 0;
             foreach (var room in rooms)
             {
-                Console.WriteLine($"Alternativ {index++} \nNamn på lokal: {room.RoomName}, Typ av lokal: {room.RoomType}, Hur många personer får plats i lokalen: {room.SeatAmount}");
+                Console.WriteLine($"Alternativ {index + 1} \nNamn på lokal: {room.RoomName}, Typ av lokal: {room.RoomType}, Hur många personer får plats i lokalen: {room.SeatAmount}");
                 index++;
             }
             while (true)
@@ -164,7 +168,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     {
                         choice--; // Have to shrink by 1 to match list index
                         roomName = rooms[choice].RoomName;
-                        break;
+                        return roomName;
                     }
                     else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
                 }
