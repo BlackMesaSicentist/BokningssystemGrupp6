@@ -38,7 +38,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             int seats = Convert.ToInt32(Console.ReadLine());
             bool hasProjector = false;
             bool hasWhiteboard = false;
-            
+            // if group room isnt picked, ask user for projector/whiteboard
             if (roomSize != "Group room")
             {
                 Console.WriteLine("Do you need a projector? Y/N");

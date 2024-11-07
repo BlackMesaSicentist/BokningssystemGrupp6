@@ -10,9 +10,12 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
     //Hall inherits from Rooms and interface IRoom and IListable
     internal class Hall: Rooms, IRoom, IListable
     {
-        public int SeatLimit { get; set; } //Maximum amount of seats allowed
-        public bool HasProjector { get; set; } //If room has a projector
-        public bool HasWhiteboard { get; set; } //If room has a whiteboard
+        //Maximum amount of seats allowed
+        public int SeatLimit { get; set; } 
+        //If room has a projector
+        public bool HasProjector { get; set; } 
+        //If room has a whiteboard
+        public bool HasWhiteboard { get; set; } 
 
         public Hall(): base (){}
 

@@ -51,31 +51,33 @@ namespace BokningssystemGrupp6.Classes
         public static void UnpackFileRooms(List<Rooms> roomList)
         {
 
-        //To be able to read ÅÄÖ
-        var options = new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA) };
-        //If file exist we deserialize to templist
+            //To be able to read ÅÄÖ
+            var options = new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA) };
+            //If file exist we deserialize to templist
             if (File.Exists("RoomList.json"))
             {
-            string readRoom = File.ReadAllText("RoomList.json");
-            var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom);
-            //
-            roomList.Clear(); 
-            
-            foreach (var element in tempList)
-            {
-                var roomType = element.GetProperty("RoomType").GetString(); 
-                var json = element.GetRawText();
+                string readRoom = File.ReadAllText("RoomList.json");
+                var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom);
+                //Emptying the list so we don't get duplicates when we add in the end
+                roomList.Clear(); 
+               
+                foreach (var element in tempList)
+                {
+                    var roomType = element.GetProperty("RoomType").GetString(); 
+                    var json = element.GetRawText();
 
-        Rooms room = roomType
-            switch
-        { 
-            "Hall" => JsonSerializer.Deserialize<Hall>(json),
-            "Classroom"=> JsonSerializer.Deserialize<ClassRoom>(json),
-            "Group room" => JsonSerializer.Deserialize<GroupRoom>(json), 
-            _ => throw new JsonException($"Unknown room type: { roomType }") };
-            roomList.Add(room);
+                    Rooms room = roomType
+                    switch
+                    { 
+                        "Hall" => JsonSerializer.Deserialize<Hall>(json),
+                        "Classroom"=> JsonSerializer.Deserialize<ClassRoom>(json),
+                        "Group room" => JsonSerializer.Deserialize<GroupRoom>(json), 
+                        _ => throw new JsonException($"Unknown room type: { roomType }") 
+                    };
+                    //Adds back to list
+                    roomList.Add(room);
+                }
             }
-        }
         }
     }
 }
