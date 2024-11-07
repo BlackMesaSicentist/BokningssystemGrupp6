@@ -34,7 +34,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             SeatAmount = seatAmount;
         }
 
-        public void CreateARoom(List<IRoom> rooms) {
+        public void CreateARoom(List<Rooms> rooms) {
 
             Console.Clear();
 
@@ -55,34 +55,34 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
             // Projector and whiteboard select
             bool hasProjector = false;
-            bool hasWhiteBoard = false;
+            bool hasWhiteboard = false;
             // If user selects group room skip asking user for projector/whiteboard.
             if (roomSizeSelect != 3)
             {
                 Console.WriteLine("Do you need a projector? Y/N");
                 hasProjector = AskUser();
                 Console.WriteLine("Do you need a whiteboard? Y/N");
-                hasWhiteBoard = AskUser();
+                hasWhiteboard = AskUser();
             }
             if (roomSizeSelect == 1)
             {
                 Console.WriteLine("Adding Hall...");
                
-                rooms.Add(new Hall(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteboard));
+                rooms.Add(new Hall(roomName, roomSizeName, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 2)
             {
                 Console.WriteLine("Adding a classroom...");
               
-                rooms.Add(new ClassRoom(roomName, roomSize, seats, seatLimit, hasProjector, hasWhiteboard));
+                rooms.Add(new Classroom(roomName, roomSizeName, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 3)
             {
                 Console.WriteLine("Adding a group room...");
                 
-                rooms.Add(new GroupRoom(roomName, roomSize, seats, seatLimit));
+                rooms.Add(new GroupRoom(roomName, roomSizeName, seats, seatLimit));
                 Save.SaveFile(rooms);
 
             }
@@ -230,7 +230,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.WriteLine($"Has Projector: {hall.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
                 }
-                else if (room is ClassRoom classroom)
+                else if (room is Classroom classroom)
                 {
                     Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {classroom.HasProjector}");
