@@ -44,9 +44,9 @@ namespace BokningssystemGrupp6.Classes
             Console.Write("Enter your email:");
             string? mail = Console.ReadLine();
             Console.WriteLine("Select room:");
+            int i = 1;
             foreach (var r in rooms)
             {
-                int i = 1;
                 Console.WriteLine($"{i}. {r.RoomName}");
                 i++;
             }
@@ -70,16 +70,13 @@ namespace BokningssystemGrupp6.Classes
             catch (FormatException)
             {
                 Console.WriteLine("Invalid format, please input date and time in correct format.");
-                Console.WriteLine("\nPress any key to return to menu.");
-                Console.ReadKey();
-                Console.Clear();
-
-
+                Rooms.BackToMenu();
             }
             if (booked.Count == 0)
             {
-                //adds the booking to the list
+                //adds the booking to the list??
                 booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
+                Save.SaveFile(booked);
 
                 //is printed when the booking is completed
                 Console.WriteLine("Your booking is noted with the following information: ");
@@ -90,7 +87,6 @@ namespace BokningssystemGrupp6.Classes
                 //calculates and prints the bookings duration and the last booking made
                 TimeSpan totalTime = dateTimeEnd - dateTimeStart;
                 Console.WriteLine($"Total duration for your booking is: {totalTime}.");
-                Save.SaveFile(booked);
             }
             else 
             {
@@ -103,6 +99,7 @@ namespace BokningssystemGrupp6.Classes
                     {
                         //adds the booking to the list
                         booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
+                        Save.SaveFile(booked);
                         Bookings newest = booked[booked.Count];
 
                         //is printed when the booking is completed
@@ -113,8 +110,7 @@ namespace BokningssystemGrupp6.Classes
 
                         //calculates and prints the bookings duration and the last booking made
                         TimeSpan totalTime = dateTimeEnd - dateTimeStart;
-                        Console.WriteLine($"Total duration for your booking is: {totalTime}.");
-                        Save.SaveFile(booked);
+                        Console.WriteLine($"\nTotal duration for your booking is: {totalTime}.");
                     }
                     //if the booking conflicts with a previously made booking
                     else if (check != false)
@@ -122,9 +118,7 @@ namespace BokningssystemGrupp6.Classes
                         Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
                         //prints the booking it conflicts with
                         ListSpecific(book);
-                        Console.WriteLine("\nPress any key to return to menu");
-                        Console.ReadKey();
-                        Console.Clear();
+                        Rooms.BackToMenu();
                     }
                     break;
                 }
@@ -135,12 +129,12 @@ namespace BokningssystemGrupp6.Classes
         public static void ListAll(List<Bookings> bookingInfo)
         {
             Console.WriteLine("ALL BOOKINGS");
-            Console.WriteLine("{0,-9}{1,-15}{2,-10}{3,-15}{4,-15}{5,-15}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+            Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-25}{4,-24}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
             Console.WriteLine(new string('-', 100));
                 int i = 1;
             foreach (Bookings booking in bookingInfo)
             {
-                Console.WriteLine("{0,-3}{1,-15}{2,-10}{3,-15}{4,-15}{5,-15}", i+".",
+                Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", i+".",
                     booking.Mail, booking.RoomName, booking.DateTimeStart, booking.DateTimeEnd, booking.DateTimeEnd - booking.DateTimeStart);
                 i++;
             }

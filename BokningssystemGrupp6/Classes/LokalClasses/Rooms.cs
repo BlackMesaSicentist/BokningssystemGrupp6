@@ -27,6 +27,13 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             RoomType = roomType;
             SeatAmount = seatAmount;
         }
+        //Method to get back to menu
+        public static void BackToMenu()
+        {
+            Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+            Console.ReadKey();
+            Console.Clear();
+        }
         //Method to create a room with the use of IRoom list
         public static void CreateARoom(List<Rooms> rooms) 
         {
@@ -41,9 +48,9 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             // if group room isnt picked, ask user for projector/whiteboard
             if (roomSize != "Group room")
             {
-                Console.WriteLine("Do you need a projector? Y/N");
+                Console.WriteLine("Does the venue have a projector? Y/N");
                 hasProjector = AskUser();
-                Console.WriteLine("Do you need a whiteboard? Y/N");
+                Console.WriteLine("Does the venue have a whiteboard? Y/N");
                 hasWhiteboard = AskUser();
             }
 
@@ -125,8 +132,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             foreach (var room in rooms)
             {
 
-                Console.WriteLine($"Room Type: {room.GetType().Name}");
                 Console.WriteLine($"Room Name: {room.RoomName}");
+                Console.WriteLine($"Room Type: {room.GetType().Name}");
                 Console.WriteLine($"Room Type Description: {room.RoomType}");
                 Console.WriteLine($"Seat Amount: {room.SeatAmount}");
 

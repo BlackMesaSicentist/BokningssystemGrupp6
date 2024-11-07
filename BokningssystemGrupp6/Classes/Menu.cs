@@ -17,20 +17,19 @@ namespace BokningssystemGrupp6.Classes
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
             while (menu1)
             {
-                Console.WriteLine("WELCOME!\n You are now able to book rooms for the school premises!" +
-                    "\n\n1. Rooms information \n2. Create a room \n3. Book a room " +
-                    "\n4. Show bookings \n5. Update existing booking \n6. Show booking for specific year" +
+                Console.WriteLine("\n       WELCOME!\nYou are now able to book rooms on the school premises!" +
+                    "\n\n1. Create a room \n2. Book a room \n3. Different rooms \n4. Show bookings \n5. Update existing booking \n6. Show booking for specific year" +
                     "\n7. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
-                    case "1": Rooms.ListAll(rooms); break; //Rooms information.
-                    case "2": Rooms.CreateARoom(rooms); break; //Create a room
-                    case "3": Bookings.BookARoom(bookingsInfo, rooms); break; //Book a room
-                    case "4": Bookings.ListAll(bookingsInfo); break; //Show bookings
-                    case "5": Bookings.UpdateBooking(bookingsInfo,rooms); break; //Update existing booking
+                    case "1": Console.Clear(); Rooms.CreateARoom(rooms); Rooms.BackToMenu(); break; //Create a room
+                    case "2": Console.Clear(); Bookings.BookARoom(bookingsInfo, rooms); Rooms.BackToMenu(); break; //Book a room
+                    case "3": Console.Clear(); Rooms.ListAll(rooms); Rooms.BackToMenu(); break; //Rooms information.
+                    case "4": Console.Clear(); Bookings.ListAll(bookingsInfo); Rooms.BackToMenu(); break; //Show bookings
+                    case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo,rooms); Rooms.BackToMenu(); break; //Update existing booking
                     //Show bookings on a specific room at a specific year
-                    case "6": Bookings.CreateAndDisplayListOfBookingsSpecificRoomAndDate(bookingsInfo, rooms); break;       
-                    case "7": menu1 = false; break; //End program
+                    case "6": Console.Clear(); Bookings.CreateAndDisplayListOfBookingsSpecificRoomAndDate(bookingsInfo, rooms); Rooms.BackToMenu(); break;       
+                    case "7": menu1 = false; break; //Ends program
                     default:
                     {
                         Console.WriteLine("Invalid option, press \"Enter\"to try again");
