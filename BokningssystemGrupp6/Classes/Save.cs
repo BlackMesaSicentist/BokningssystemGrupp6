@@ -22,18 +22,25 @@ namespace BokningssystemGrupp6.Classes
             {
                 WriteIndented = true,
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
+                // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
+                // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+
             };
 
             if (listToSave is List<Rooms>)
             {
                 string listRoom = JsonSerializer.Serialize(listToSave, options);
                 File.WriteAllText("RoomList.json", listRoom);
+                // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
+                // File.WriteAllText("RoomList.json", listRoom, Encoding.UTF8);
             }
 
             if (listToSave is List<Bookings>)
             {
                 string listBooking = JsonSerializer.Serialize(listToSave, options);
                 File.WriteAllText("BookingList.json", listBooking);
+                // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
+                // File.WriteAllText("BookingList.json", listRoom, Encoding.UTF8);
             }
 
         }
@@ -43,13 +50,16 @@ namespace BokningssystemGrupp6.Classes
             //To be able to read ÅÄÖ
             var options = new JsonSerializerOptions()
             {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin,
-                    UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
+                // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
+                // Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             };
             //reads list for bookings
             if (File.Exists("BookingsList.json"))
             {
                 string readBooking = File.ReadAllText("BookingList.json");
+                // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
+                // string readBooking = File.ReadAllText("BookingList.json", Encoding.UTF8);
                 if (String.IsNullOrEmpty(readBooking)) //Check if file contains no data
                 {
                     //Todo: remove and replace with something better than just that text
@@ -71,6 +81,8 @@ namespace BokningssystemGrupp6.Classes
             if (File.Exists("RoomList.json"))
             {
                 string readRoom = File.ReadAllText("RoomList.json");
+                // Encoder using UTF-8 instead of Unicode, less specific and wider character support. 
+                // string readBooking = File.ReadAllText("RoomList.json", Encoding.UTF8);
                 if (String.IsNullOrEmpty(readRoom)) //Check if file contains no data
                 {
                     //Todo: remove and replace with something better than just that text
