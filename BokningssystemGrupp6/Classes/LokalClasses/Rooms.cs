@@ -75,7 +75,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             {
                 Console.WriteLine("Adding a classroom...");
               
-                rooms.Add(new Classroomawda(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
+                rooms.Add(new Classroom(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 3)
@@ -233,7 +233,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.WriteLine($"Has Projector: {hall.HasProjector}");
                     Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
                 }
-                else if (room is Classroomawda classroom)
+                else if (room is Classroom classroom)
                 {
                     Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
                     Console.WriteLine($"Has Projector: {classroom.HasProjector}");
