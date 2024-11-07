@@ -43,7 +43,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             //Console.WriteLine("Enter name of the room: ");
             //string? roomName = Console.ReadLine();
 
-            // Room type / size / seat limit
+            // Room type int / list type / seat limit
             var (roomSizeSelect, roomType, seatLimit) = RoomSize();
 
 

@@ -13,12 +13,15 @@ namespace BokningssystemGrupp6.Classes
 
         private readonly InputValidation _inputValidation;
         private readonly Rooms _rooms;
+        private readonly RoomsListAndSort _roomsListAndSort;
 
         public Menu(InputValidation inputValidation)
         {
             _inputValidation = inputValidation;
             _rooms = new Rooms(inputValidation);
+            _roomsListAndSort = new RoomsListAndSort(inputValidation);
         }
+
 
         public void MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<Rooms> rooms, List<Bookings>bookingsInfo)
         {
@@ -37,6 +40,7 @@ namespace BokningssystemGrupp6.Classes
                     case "4": Bookings.ListAll(bookingsInfo); break; //Show bookings
                     case "5": Bookings.UpdateBooking(bookingsInfo,rooms); break; //Update existing booking
                     case "6": menu1 = false; break; //End program
+                    case "7": _roomsListAndSort.RoomsListAndSortStart(rooms); break;
                     default:
                     {
                         Console.WriteLine("Invalid option, press \"Enter\"to try again");
