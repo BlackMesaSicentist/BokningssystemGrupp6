@@ -10,8 +10,17 @@ namespace BokningssystemGrupp6.Classes
 {
     internal class Menu
     {
-        /*Might need list of Rooms and Bookings depending on what the methods need */
-        public static void MainMenu(List<Rooms> rooms, List<Bookings>bookingsInfo)
+
+        private readonly InputValidation _inputValidation;
+        private readonly Rooms _rooms;
+
+        public Menu(InputValidation inputValidation)
+        {
+            _inputValidation = inputValidation;
+            _rooms = new Rooms(inputValidation);
+        }
+
+        public Menu MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<Rooms> rooms, List<Bookings>bookingsInfo)
         {
             bool menu1 = true;
             String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
@@ -23,7 +32,7 @@ namespace BokningssystemGrupp6.Classes
                 switch (menuChoice = Console.ReadLine())
                 {
                     case "1": Rooms.ListAll(rooms); break; //Rooms information.
-                    case "2": Rooms.CreateARoom(rooms); break; //Create a room
+                    case "2": _rooms.CreateARoom(rooms); break; //Create a room
                     case "3": Bookings.BookARoom(bookingsInfo, rooms); break; //Book a room
                     case "4": Bookings.ListAll(bookingsInfo); break; //Show bookings
                     case "5": Bookings.UpdateBooking(bookingsInfo,rooms); break; //Update existing booking

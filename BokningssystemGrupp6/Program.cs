@@ -15,6 +15,12 @@ namespace BokningssystemGrupp6
     {
         static void Main(string[] args)
         {
+
+            InputValidation inputValidation = new InputValidation();
+            Menu menu = new Menu(inputValidation);
+
+            string listBooking = JsonSerializer.Serialize(BookingsInfo);
+            File.WriteAllText("BokningssystemGrupp6.json", listBooking);
             //List for rooms (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
             List<Rooms> rooms = new List<Rooms>();
 
