@@ -67,7 +67,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             if (roomSizeSelect == 1)
             {
                 Console.WriteLine("Adding Hall...");
-               
+
                 rooms.Add(new Hall(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
