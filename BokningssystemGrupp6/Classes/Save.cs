@@ -44,39 +44,60 @@ namespace BokningssystemGrupp6.Classes
             if (File.Exists("BookingsList.json"))
             {
                 string readBooking = File.ReadAllText("BookingList.json");
-                bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);
+                if (String.IsNullOrEmpty(readBooking)) //Check if file contains no data
+                {
+                    //Todo: remove and replace with something better than just that text
+                    Console.WriteLine("BookingList Json is empty!");
+                }
+                else
+                {
+                    bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);
+                }
             }
 
         }
         public static void UnpackFileRooms(List<Rooms> roomList)
         {
 
-
-        var options = new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA) }; 
-        
-        if (File.Exists("RoomList.json"))
+            //To be able to read ÅÄÖ
+            var options = new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA) };
+            //If file exist we deserialize to templist
+            if (File.Exists("RoomList.json"))
             {
-            string readRoom = File.ReadAllText("RoomList.json");
-        var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom);
-        roomList.Clear(); 
-            
-            foreach (var element in tempList)
-            {
-                var roomType = element.GetProperty("RoomType").GetString(); var json = element.GetRawText();
+                string readRoom = File.ReadAllText("RoomList.json");
+                if (String.IsNullOrEmpty(readRoom)) //Check if file contains no data
+                {
+                    //Todo: remove and replace with something better than just that text
+                    Console.WriteLine("RoomList Json is empty!");
+                }
+                else
+                {
+                    var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom);
+                    //Emptying the list so we don't get duplicates when we add in the end
+                    roomList.Clear();
 
-        Rooms room = roomType
-            switch
-        { 
-            "Hall" => JsonSerializer.Deserialize<Hall>(json),
-            "Classroom"=> JsonSerializer.Deserialize<Classroom>(json),
-            "Group room" => JsonSerializer.Deserialize<GroupRoom>(json), 
-            _ => throw new JsonException("$Unknown room type: { roomType }") };
-        roomList.Add(room);
+                    foreach (var element in tempList)
+                    {
+                        var roomType = element.GetProperty("RoomType").GetString();
+                        var json = element.GetRawText();
+
+                        Rooms room = roomType
+                        switch
+                        {
+                            "Hall" => JsonSerializer.Deserialize<Hall>(json),
+                            "Classroom" => JsonSerializer.Deserialize<Classroom>(json),
+                            "Group room" => JsonSerializer.Deserialize<GroupRoom>(json),
+                            _ => throw new JsonException($"Unknown room type: {roomType}")
+                        };
+                        //Adds back to list
+                        roomList.Add(room);
+                    }
+                }
             }
-        }
         }
     }
 }
+
 
 ////Method to save lists
 ////public static void SaveFile<T>(List<T> listToSave)

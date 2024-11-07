@@ -138,7 +138,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     break;
                 case "2":
                     roomSelect = 2;
-                    sizeName = "Class room";
+                    sizeName = "Classroom";
                     seatLimit = 60;
                     break;
                 case "3":
