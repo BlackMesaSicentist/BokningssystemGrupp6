@@ -62,7 +62,8 @@ namespace BokningssystemGrupp6.Classes
             
             foreach (var element in tempList)
             {
-                var roomType = element.GetProperty("RoomType").GetString(); var json = element.GetRawText();
+                var roomType = element.GetProperty("RoomType").GetString(); 
+                var json = element.GetRawText();
 
         Rooms room = roomType
             switch
@@ -70,8 +71,8 @@ namespace BokningssystemGrupp6.Classes
             "Hall" => JsonSerializer.Deserialize<Hall>(json),
             "Classroom"=> JsonSerializer.Deserialize<ClassRoom>(json),
             "Group room" => JsonSerializer.Deserialize<GroupRoom>(json), 
-            _ => throw new JsonException("$Unknown room type: { roomType }") };
-        roomList.Add(room);
+            _ => throw new JsonException($"Unknown room type: { roomType }") };
+            roomList.Add(room);
             }
         }
         }
