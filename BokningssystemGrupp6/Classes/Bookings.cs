@@ -129,7 +129,7 @@ namespace BokningssystemGrupp6.Classes
         public static void ListAll(List<Bookings> bookingInfo)
         {
             Console.WriteLine("ALL BOOKINGS");
-            Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-25}{4,-24}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+            Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-26}{4,-24}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
             Console.WriteLine(new string('-', 100));
                 int i = 1;
             foreach (Bookings booking in bookingInfo)

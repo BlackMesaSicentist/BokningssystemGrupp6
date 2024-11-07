@@ -23,7 +23,8 @@ namespace BokningssystemGrupp6
 
             //Method to deserialize lists
             Save.UnpackFileRooms(rooms);
-            Save.UnPackFileBooking(bookingsInfo);
+            Save.UnPackFileBooking(ref bookingsInfo);
+            //Save.UnPackFileBooking(bookingsInfo);
 
             //Method to show and use menu
             Menu.MainMenu(rooms, bookingsInfo);
