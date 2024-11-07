@@ -18,15 +18,21 @@ namespace BokningssystemGrupp6.Classes
         //Method to save lists
         public static void SaveFile<T>(List<T> listToSave)
         {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
+            };
+
             if (listToSave is List<Rooms>)
             {
-                string listRoom = JsonSerializer.Serialize(listToSave);
+                string listRoom = JsonSerializer.Serialize(listToSave, options);
                 File.WriteAllText("RoomList.json", listRoom);
             }
 
             if (listToSave is List<Bookings>)
             {
-                string listBooking = JsonSerializer.Serialize(listToSave);
+                string listBooking = JsonSerializer.Serialize(listToSave, options);
                 File.WriteAllText("BookingList.json", listBooking);
             }
 
@@ -87,7 +93,8 @@ namespace BokningssystemGrupp6.Classes
                             "Hall" => JsonSerializer.Deserialize<Hall>(json),
                             "Classroom" => JsonSerializer.Deserialize<Classroom>(json),
                             "Group room" => JsonSerializer.Deserialize<GroupRoom>(json),
-                            _ => throw new JsonException($"Unknown room type: {roomType}")
+                            _ =>
+                            throw new JsonException($"Unknown room type: {roomType}")
                         };
                         //Adds back to list
                         roomList.Add(room);
