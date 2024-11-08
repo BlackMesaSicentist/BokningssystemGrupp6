@@ -187,6 +187,10 @@ namespace BokningssystemGrupp6.Classes
                     {
                         Console.WriteLine("The time must be in the shown date time format (YYYY-MM-DD HH:MM). Try again.");
                     }
+                    else if (!_inputValidation.IsDateTimeAfterCompareTime(endTimeStr, dateTimeStart))
+                    { 
+                        Console.WriteLine("End time must be after the start time. Try Again");
+                    }
                     // Check if the booking is longer than 24 hours
                     else if (!_inputValidation.IsBookingTooLong(endTimeStr, dateTimeStart))
                     {
