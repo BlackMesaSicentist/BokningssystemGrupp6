@@ -20,7 +20,7 @@ namespace BokningssystemGrupp6.Classes
             while (menu1)
             {
                 Console.WriteLine("\n       WELCOME!\nYou are now able to book rooms on the school premises!" +
-                    "\n\n1. Create a room \n2. Book a room \n3. Show rooms \n4. Show bookings \n5. Update existing booking \n6. Show booking for specific year" +
+                    "\n\n1. Create a room \n2. Book a room \n3. Show rooms \n4. Show bookings \n5. Update existing booking \n" +
                     "\n7. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
