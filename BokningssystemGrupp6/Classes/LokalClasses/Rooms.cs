@@ -33,13 +33,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             RoomType = roomType;
             SeatAmount = seatAmount;
         }
-        //Method to get back to menu
-        //public static void BackToMenu()
-        //{
-        //    Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
-        //    Console.ReadKey();
-        //    Console.Clear();
-        //}
+   
         public void CreateARoom(List<Rooms> rooms) {
 
             Console.Clear();
@@ -73,21 +67,21 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             //different types of venue
             if (roomSizeSelect == 1)
             {
-                Console.WriteLine("Adding Hall...");
+                Console.WriteLine("\nNew hall has been added");
 
                 rooms.Add(new Hall(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 2)
             {
-                Console.WriteLine("Adding a classroom...");
+                Console.WriteLine("\nNew classroom has been added");
               
                 rooms.Add(new Classroom(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 3)
             {
-                Console.WriteLine("Adding a group room...");
+                Console.WriteLine("\nNew group room has been added");
                 
                 rooms.Add(new GroupRoom(roomName, roomType, seats, seatLimit));
                 Save.SaveFile(rooms);
@@ -128,7 +122,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         //Method to determine size
         public static (int, string, int) RoomSize()
         {
-            Console.WriteLine("Choose room size:\n1.Hall\n2.Classroom\n3.Group Room");
+            Console.WriteLine("Choose room size:\n1.Hall, 120 seat limit \n2.Classroom, 60 seat limit \n3.Group Room, 15 seat limit ");
             string? option;
             int roomSelect;
             string sizeName = "";

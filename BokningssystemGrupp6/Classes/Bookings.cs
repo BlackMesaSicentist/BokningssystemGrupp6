@@ -133,8 +133,8 @@ namespace BokningssystemGrupp6.Classes
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
-            Console.WriteLine("\nALL BOOKINGS");
-            Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-26}{4,-24}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+            Console.WriteLine("ALL BOOKINGS");
+            Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
             Console.WriteLine(new string('-', 100));
                 int i = 1;
             foreach (Bookings booking in bookingInfo)
@@ -143,7 +143,6 @@ namespace BokningssystemGrupp6.Classes
                     booking.Mail, booking.RoomName, booking.DateTimeStart, booking.DateTimeEnd, booking.DateTimeEnd - booking.DateTimeStart);
                 i++;
             }
-            
         }
         //Method to list data from specific booking feed into it
         public static void ListSpecific(Bookings booking)
@@ -165,22 +164,23 @@ namespace BokningssystemGrupp6.Classes
             //menu selection depending on how the user wants the information to display
             Console.WriteLine(new string('-', 100));
             Console.WriteLine("" +
-                "\n1. Show all bookings from specific year\n" +
-                "2. Show all bookings from specific room\n" +
-                "\nEnter the number for the corresponding option\n");
-
-            //New list with only bookings with the right parameters
-            List<Bookings> roomSpecificBookings = new List<Bookings>();
+                "\nSelect:" +
+                "\n1. Show all bookings from specific year" +
+                "\n2. Show all bookings from specific room\n" +
+                "\nEnter the number for the corresponding option");
 
             //input choise
             string choise = Console.ReadLine();
             Console.Clear();
 
+            //New list with only bookings with the right parameters
+            List<Bookings> roomSpecificBookings = new List<Bookings>();
+
             switch (choise)
             {
                 //Show all bookings from year 
                 case "1":
-                    Console.WriteLine("\nEnter the year off the bookings you want to display in the format YYYY");
+                    Console.WriteLine("Enter the year off the bookings you want to display in the format YYYY");
                     String yearInputString = Console.ReadLine();
 
                     //Convert input to datetime
@@ -192,7 +192,9 @@ namespace BokningssystemGrupp6.Classes
                         {
                             if (yearBooking.DateTimeStart <= startDate && yearBooking.DateTimeEnd >= endDate)
                             // Adds bookings to list if the meet the requirmets
-                            { roomSpecificBookings.Add(yearBooking); }
+                            { 
+                                roomSpecificBookings.Add(yearBooking); 
+                            }
                         }
                         ListAll(roomSpecificBookings);
                     }
