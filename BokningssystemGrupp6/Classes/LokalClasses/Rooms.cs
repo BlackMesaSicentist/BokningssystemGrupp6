@@ -249,10 +249,12 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
         }
         //Method to show specific rooms
+        //Used by UpdateBooking method and CreateAndDisplayListOfBookingsSpecificRoomAndDate
+        //They need a room name and this is a selection method to choose room and then returns room name
         public static String ChooseASpecificRoom(List<Rooms> rooms)
         {
-            String roomName;
-            int i = 1;
+            String roomName; //String that gets name and is returned
+            int i = 1; //Used to display each room numbered from 1 to rooms.count
             foreach (var r in rooms)
             {
                 Console.WriteLine($"{i}. {r.RoomName}");
@@ -261,14 +263,15 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             while (true)
             {
                 Console.WriteLine("\nEnter the number for the corresponding option");
-                string roomNum = Console.ReadLine();
+                string roomNum = Console.ReadLine(); //Input number to choose room
                 
-                if (int.TryParse(roomNum, out int choice)) //Input choiche form list
+                if (int.TryParse(roomNum, out int choice)) //Convert input to int
                 {
-                    if (choice > 0 && choice <= rooms.Count)
+                    //Makes sure the choice of room is within the lenght span of room
+                    if (choice > 0 && choice <= rooms.Count) 
                     {
-                        roomName = rooms[choice-1].RoomName;
-                        return roomName;
+                        roomName = rooms[choice-1].RoomName; //-1 on choice so it matches indexing of lists
+                        return roomName; //Returns room name
                     }
                     else { Console.WriteLine($"\n{roomNum} is not a valid choice, please try again"); continue; }
                 }
