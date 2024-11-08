@@ -39,15 +39,16 @@ namespace BokningssystemGrupp6.Classes
                     "\n0. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
-                    case "1": Console.Clear(); _rooms.CreateARoom(rooms); BackToMenu(); break; //Create a room
-                    case "2": Console.Clear(); Bookings.BookARoom(bookingsInfo, rooms); BackToMenu(); break; //Book a room
-                    case "3": Console.Clear(); Rooms.ListAll(rooms); BackToMenu(); break; //Rooms information.
-                    //Show bookings on a specific room at a specific year                                                                                                         
-                    case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); BackToMenu(); break; //Show bookings
-                    case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo, rooms); BackToMenu(); break; //Update existing booking
-                    // Show room list with sort
-                    //case "7": _roomsListAndSort.RoomsListAndSortStart(rooms); Rooms.BackToMenu(); break;
-                    case "0": menu1 = false; break; //Ends program
+                    //Create a room
+                    case "1": Console.Clear(); _rooms.CreateARoom(rooms); BackToMenu(); break; 
+                    //Book a room
+                    case "2": Console.Clear(); Bookings.BookARoom(bookingsInfo, rooms); BackToMenu(); break;
+                    //Show bookings by year or room
+                    case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); BackToMenu(); break;
+                    //Update existing booking
+                    case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo, rooms); BackToMenu(); break;
+                    //Ends program
+                    case "0": menu1 = false; break;
                     default:
                         {
                             Console.WriteLine("Invalid option, press \"Enter\"to try again");
@@ -59,12 +60,12 @@ namespace BokningssystemGrupp6.Classes
             }
         }
         // Back to menu and clear function
-            public static void BackToMenu()
-            {
-                Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
-                Console.ReadKey();
-                Console.Clear();
-            }
-        
+        public static void BackToMenu()
+        {
+            Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
     }
 }
