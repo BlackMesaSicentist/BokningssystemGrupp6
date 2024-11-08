@@ -50,6 +50,7 @@ namespace BokningssystemGrupp6.Classes
                     //case "7": Console.Clear(); _roomsListAndSort.RoomsListAndSortStart(rooms); BackToMenu(); break;
                     //Ends program
                     case "0": menu1 = false; break;
+                    case "99": Console.Clear(); Bookings.DeleteBooking(bookingsInfo, rooms); break; //Todo: remove after test of this method and fixing of menu
                     default:
                         {
                             Console.WriteLine("Invalid option, press \"Enter\"to try again");
