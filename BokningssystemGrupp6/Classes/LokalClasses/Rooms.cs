@@ -33,7 +33,13 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             RoomType = roomType;
             SeatAmount = seatAmount;
         }
-
+        //Method to get back to menu
+        public static void BackToMenu()
+        {
+            Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+            Console.ReadKey();
+            Console.Clear();
+        }
         public void CreateARoom(List<Rooms> rooms) {
 
             Console.Clear();
@@ -59,11 +65,12 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             // If user selects group room skip asking user for projector/whiteboard.
             if (roomSizeSelect != 3)
             {
-                Console.WriteLine("Do you need a projector? Y/N");
+                Console.WriteLine("Does the venue have a projector? Y/N");
                 hasProjector = AskUser();
-                Console.WriteLine("Do you need a whiteboard? Y/N");
+                Console.WriteLine("Does the venue have a whiteboard? Y/N");
                 hasWhiteboard = AskUser();
             }
+            //different types of venue
             if (roomSizeSelect == 1)
             {
                 Console.WriteLine("Adding Hall...");
@@ -86,9 +93,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Save.SaveFile(rooms);
 
             }
-
-            
-
         }
 
 
@@ -121,7 +125,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             return tempName;
         }
 
-
+        //Method to determine size
         public static (int, string, int) RoomSize()
         {
             Console.WriteLine("Choose room size:\n1.Hall\n2.Classroom\n3.Group Room");
@@ -194,7 +198,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
             return seatsOk;
         }
-
+        //Method to ask user yes or no
         public static bool AskUser()
         {
             while (true)
@@ -214,7 +218,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 }
             }
         }
-        // show all rooms + properties
+        //Method to show all rooms + properties
         public static void ListAll(List<Rooms> rooms)
         {
 
@@ -247,6 +251,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 Console.WriteLine("----------------------");
             }
         }
+        //Method to show specific rooms
         public static String ChooseASpecificRoom(List<Rooms> rooms)
         
 
@@ -254,27 +259,29 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         // public static void ChooseASpecificRoom(List<Rooms> rooms, String roomName)
         {
             String roomName;
-            int index = 0;
-            foreach (var room in rooms)
+            int i = 1;
+            foreach (var r in rooms)
             {
-                Console.WriteLine($"Alternativ {index + 1} \nNamn på lokal: {room.RoomName}, Typ av lokal: {room.RoomType}, Hur många personer får plats i lokalen: {room.SeatAmount}");
-                index++;
+                Console.WriteLine($"{i}. {r.RoomName}");
+                i++;
             }
             while (true)
             {
-                Console.WriteLine("Mata in siffran för motsvarande alternativ");
-                if (int.TryParse(Console.ReadLine(), out int choice)) //Input choiche form list
+                Console.WriteLine("\nEnter the number for the corresponding option");
+                string roomNum = Console.ReadLine();
+                
+                if (int.TryParse(roomNum, out int choice)) //Input choiche form list
                 {
                     if (choice > 0 && choice <= rooms.Count)
                     {
-                        choice--; // Have to shrink by 1 to match list index
-                        roomName = rooms[choice].RoomName;
+                        roomName = rooms[choice-1].RoomName;
                         return roomName;
                     }
-                    else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
+                    else { Console.WriteLine($"\n{choice} is not a valid choice, please try again"); continue; }
                 }
-                else { Console.WriteLine($"{choice} är inte ett giltigt val, försök igen"); continue; }
+                else { Console.WriteLine($"\n{choice} is not a valid choice, please try again"); continue; }
             }
         }
+
     }
 }

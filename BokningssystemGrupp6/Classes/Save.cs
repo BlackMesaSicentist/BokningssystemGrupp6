@@ -27,12 +27,13 @@ namespace BokningssystemGrupp6.Classes
 
             };
 
+            //Saves list of rooms
             if (listToSave is List<Rooms>)
             {
                 string listRoom = JsonSerializer.Serialize(listToSave, options);
                 File.WriteAllText("RoomList.json", listRoom);
             }
-
+            //Saves list of bookings
             if (listToSave is List<Bookings>)
             {
                 string listBooking = JsonSerializer.Serialize(listToSave, options);
@@ -40,32 +41,36 @@ namespace BokningssystemGrupp6.Classes
             }
 
         }
-        //Method to unpack lists
-        public static void UnPackFileBooking(List<Bookings> bookingList)
+        //Method to unpack bookinglist
+        public static void UnPackFileBooking(ref List<Bookings> bookingList)
         {
             //To be able to read ÅÄÖ
-            var options = new JsonSerializerOptions()
+            var options = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
                 // Converts (Deserialize) JSON to usable list using Polymorphic Deserialization
                 Converters = { new RoomsConverter() }
             };
-            //reads list for bookings
-            if (File.Exists("BookingsList.json"))
+
+            //Reads list for bookings
+            if (File.Exists("BookingList.json"))
             {
                 string readBooking = File.ReadAllText("BookingList.json");
-                if (String.IsNullOrEmpty(readBooking)) //Check if file contains no data
+
+                //Check if file contains no data
+                if (string.IsNullOrEmpty(readBooking))
                 {
                     //Todo: remove and replace with something better than just that text
-                    Console.WriteLine("BookingList Json is empty!");
+                    Console.WriteLine("BookingList JSON is empty!");
                 }
                 else
                 {
-                    bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);
+                    //Deserialize into the reference parameter
+                    bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking, options);
                 }
             }
-
         }
+        //Method to unpack roomlist
         public static void UnpackFileRooms(List<Rooms> roomList)
         {
 
@@ -84,6 +89,8 @@ namespace BokningssystemGrupp6.Classes
                 string readRoom = File.ReadAllText("RoomList.json");
                
                 if (String.IsNullOrEmpty(readRoom)) //Check if file contains no data
+                //Check if file contains no data
+                if (String.IsNullOrEmpty(readRoom))
                 {
                     //Todo: remove and replace with something better than just that text
                     Console.WriteLine("RoomList Json is empty!");
@@ -117,5 +124,6 @@ namespace BokningssystemGrupp6.Classes
                 }
             }
         }
+       
     }
 }

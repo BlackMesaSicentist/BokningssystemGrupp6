@@ -26,9 +26,9 @@ namespace BokningssystemGrupp6
             List<Bookings> bookingsInfo = new List<Bookings>();
           
 
-            //Method to deserialize lists
+            //Methods to deserialize lists
             Save.UnpackFileRooms(rooms);
-            Save.UnPackFileBooking(bookingsInfo);
+            Save.UnPackFileBooking(ref bookingsInfo);
 
             //Method to show and use menu
             menu.MainMenu(rooms, bookingsInfo);
