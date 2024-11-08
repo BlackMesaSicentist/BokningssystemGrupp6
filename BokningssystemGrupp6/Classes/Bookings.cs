@@ -268,7 +268,7 @@ namespace BokningssystemGrupp6.Classes
                                         //calculates and prints the bookings duration and the last booking made
                                         Console.WriteLine($"Total duration for your booking is: {totalTime}.");
 
-                                        break;
+                                        
                                     }
                                     else 
                                     {
@@ -281,7 +281,7 @@ namespace BokningssystemGrupp6.Classes
                                             {
                                                 //lägger till bokningen i listan
                                                 withoutChosenBooking.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
-                                                Bookings newest = withoutChosenBooking[withoutChosenBooking.Count];
+                                                Bookings newest = withoutChosenBooking[withoutChosenBooking.Count - 1];
 
                                                 //skrivs ut när bokningen är genomförd
                                                 Console.WriteLine("Grattis din bokning är genomförd med informationen nedan");
@@ -290,7 +290,7 @@ namespace BokningssystemGrupp6.Classes
                                                 ListSpecific(newest);
 
                                                 Console.WriteLine($"Din bokning är totalt {totalTime} timmar.");
-                                                break;
+                                                //break;
                                             }
 
                                             //kollar att bokningen krockar med en redan lagd bokning 
@@ -311,7 +311,7 @@ namespace BokningssystemGrupp6.Classes
 
                                     }
                                     bookingInfo.RemoveAt(index);
-                                    bookingInfo.Add(withoutChosenBooking[withoutChosenBooking.Count]);
+                                    bookingInfo.Add(withoutChosenBooking[withoutChosenBooking.Count -1 ]);
                                     isValidInput = true;
                                     Save.SaveFile(bookingInfo);
                                     break;
