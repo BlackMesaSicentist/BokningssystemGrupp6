@@ -10,31 +10,51 @@ namespace BokningssystemGrupp6.Classes
 {
     internal class Menu
     {
-        /*Might need list of Rooms and Bookings depending on what the methods need */
-        public static void MainMenu(List<Rooms> rooms, List<Bookings>bookingsInfo)
+
+        private readonly InputValidation _inputValidation;
+        private readonly Rooms _rooms;
+        private readonly RoomsListAndSort _roomsListAndSort;
+
+        public Menu(InputValidation inputValidation)
         {
+            _inputValidation = inputValidation;
+            _rooms = new Rooms(inputValidation);
+            _roomsListAndSort = new RoomsListAndSort(inputValidation);
+        }
+
+
+        public void MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<Rooms> rooms, List<Bookings> bookingsInfo)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
             bool menu1 = true;
-            String? menuChoice; // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
+            // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
+            String? menuChoice;
             while (menu1)
             {
-                Console.WriteLine("WELCOME!\n You are now able to book rooms for the school premises!" +
-                    "\n\n1. Rooms information \n2. Create a room \n3. Book a room " +
-                    "\n4. Show bookings \n5. Update existing booking \n6. Exit program");
+                Console.WriteLine("\n       WELCOME!\nYou are now able to book rooms on the school premises!" +
+                    "\n\n1. Create a room \n2. Book a room \n3. Show rooms \n4. Show bookings \n5. Update existing booking \n" +
+                    "\n7. Show room list with sort" + "\n0. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
-                    case "1": Rooms.ListAll(rooms); break; //Rooms information.
-                    case "2": Rooms.CreateARoom(rooms); break; //Create a room
-                    case "3": Bookings.BookARoom(bookingsInfo, rooms); break; //Book a room
-                    case "4": Bookings.ListAll(bookingsInfo); break; //Show bookings
-                    case "5": Bookings.UpdateBooking(bookingsInfo,rooms); break; //Update existing booking
-                    case "6": menu1 = false; break; //End program
+                    case "1": Console.Clear(); _rooms.CreateARoom(rooms); Rooms.BackToMenu(); break; //Create a room
+
+                    case "2": Console.Clear(); Bookings.BookARoom(bookingsInfo, rooms); Rooms.BackToMenu(); break; //Book a room
+                    case "3": Console.Clear(); Rooms.ListAll(rooms); Rooms.BackToMenu(); break; //Rooms information.
+                    case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); Rooms.BackToMenu(); break; //Show bookings
+                    case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo, rooms); Rooms.BackToMenu(); break; //Update existing booking
+                                                                                                                       //Show bookings on a specific room at a specific year
+                                                                                                                       //case "6": Console.Clear(); Bookings.CreateAndDisplayListOfBookingsSpecificRoomAndDate(bookingsInfo, rooms); Rooms.BackToMenu(); break;       
+
+                    // Show room list with sort
+                    case "7": _roomsListAndSort.RoomsListAndSortStart(rooms); Rooms.BackToMenu(); break;
+                    case "0": menu1 = false; break; //Ends program
                     default:
-                    {
-                        Console.WriteLine("Invalid option, press \"Enter\"to try again");
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
-                    }
+                        {
+                            Console.WriteLine("Invalid option, press \"Enter\"to try again");
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
+                        }
                 }
             }
         }

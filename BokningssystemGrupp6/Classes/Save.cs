@@ -18,147 +18,112 @@ namespace BokningssystemGrupp6.Classes
         //Method to save lists
         public static void SaveFile<T>(List<T> listToSave)
         {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
+                // Converts (Deserialize) JSON to usable list 
+                Converters = { new RoomsConverter() }
+
+            };
+
+            //Saves list of rooms
             if (listToSave is List<Rooms>)
             {
-                string listRoom = JsonSerializer.Serialize(listToSave);
+                string listRoom = JsonSerializer.Serialize(listToSave, options);
                 File.WriteAllText("RoomList.json", listRoom);
             }
-
+            //Saves list of bookings
             if (listToSave is List<Bookings>)
             {
-                string listBooking = JsonSerializer.Serialize(listToSave);
+                string listBooking = JsonSerializer.Serialize(listToSave, options);
                 File.WriteAllText("BookingList.json", listBooking);
             }
 
         }
-        //Method to unpack lists
-        public static void UnPackFileBooking(List<Bookings> bookingList)
+        //Method to unpack bookinglist
+        public static void UnPackFileBooking(ref List<Bookings> bookingList)
         {
             //To be able to read ÅÄÖ
-            var options = new JsonSerializerOptions()
+            var options = new JsonSerializerOptions
             {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin,
-                    UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
+                // Converts (Deserialize) JSON to usable list using Polymorphic Deserialization
+                Converters = { new RoomsConverter() }
             };
-            //reads list for bookings
-            if (File.Exists("BookingsList.json"))
+
+            //Reads list for bookings
+            if (File.Exists("BookingList.json"))
             {
                 string readBooking = File.ReadAllText("BookingList.json");
-                bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);
-            }
 
+                //Check if file contains no data
+                if (string.IsNullOrEmpty(readBooking))
+                {
+                    //Todo: remove and replace with something better than just that text
+                    Console.WriteLine("BookingList JSON is empty!");
+                }
+                else
+                {
+                    //Deserialize into the reference parameter
+                    bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking, options);
+                }
+            }
         }
+        //Method to unpack roomlist
         public static void UnpackFileRooms(List<Rooms> roomList)
         {
 
-
-        var options = new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA) }; 
-        
-        if (File.Exists("RoomList.json"))
+            //To be able to read ÅÄÖ
+            var options = new JsonSerializerOptions
             {
-            string readRoom = File.ReadAllText("RoomList.json");
-        var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom);
-        roomList.Clear(); 
-            
-            foreach (var element in tempList)
-            {
-                var roomType = element.GetProperty("RoomType").GetString(); var json = element.GetRawText();
+                WriteIndented = true,
 
-        Rooms room = roomType
-            switch
-        { 
-            "Hall" => JsonSerializer.Deserialize<Hall>(json),
-            "Classroom"=> JsonSerializer.Deserialize<ClassRoom>(json),
-            "Group room" => JsonSerializer.Deserialize<GroupRoom>(json), 
-            _ => throw new JsonException("$Unknown room type: { roomType }") };
-        roomList.Add(room);
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA),
+                Converters = { new RoomsConverter() }
+
+            };
+            //If file exist we deserialize to templist
+            if (File.Exists("RoomList.json"))
+            {
+                string readRoom = File.ReadAllText("RoomList.json");
+               
+                if (String.IsNullOrEmpty(readRoom)) //Check if file contains no data
+                //Check if file contains no data
+                if (String.IsNullOrEmpty(readRoom))
+                {
+                    //Todo: remove and replace with something better than just that text
+                    Console.WriteLine("RoomList Json is empty!");
+                }
+                else
+                {
+                    //* var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom);
+                    //Emptying the list so we don't get duplicates when we add in the end
+                    roomList.Clear();
+
+                    // Deserializer
+                    var tempList = JsonSerializer.Deserialize<List<Rooms>>(readRoom, options);
+                    roomList.AddRange(tempList);
+
+                    //* foreach (var element in tempList)
+                    //* {
+                    //*    var roomType = element.GetProperty("RoomType").GetString();
+                    //*    var json = element.GetRawText();
+
+                    //*    Rooms room = roomType 
+                    //*    switch
+                    //*    {
+                    //*        "Hall" => JsonSerializer.Deserialize<Hall>(json, options),
+                    //*        "Classroom" => JsonSerializer.Deserialize<Classroom>(json, options),
+                    //*        "Group room" => JsonSerializer.Deserialize<GroupRoom>(json, options),
+                    //*        _ => throw new JsonException($"Unknown room type: {roomType}")
+                    //*    };
+                    //*    //Adds back to list
+                    //*    roomList.Add(room);
+                    //* }
+                }
             }
         }
-        }
+       
     }
 }
-
-////Method to save lists
-////public static void SaveFile<T>(List<T> listToSave)
-////{
-////    if (listToSave is List<Rooms>)
-////    {
-////        string listRoom = JsonSerializer.Serialize(listToSave);
-////        File.WriteAllText("RoomList.json", listRoom);
-////    }
-
-////    if (listToSave is List<Bookings>)
-////    {
-////    string listBooking = JsonSerializer.Serialize(listToSave);
-////    File.WriteAllText("BookingList.json", listBooking);
-////    }
-
-////}
-
-//public static void SaveFileRooms(List<Rooms> listToSave)
-//{
-//    string listRoom = JsonSerializer.Serialize(listToSave);
-//    File.WriteAllText("RoomList.json", listRoom);
-//}
-//public static void SaveFileBookings(List<Bookings> listToSave)
-//{
-//    string listBooking = JsonSerializer.Serialize(listToSave);
-//    File.WriteAllText("BookingList.json", listBooking);
-//}
-
-////Method to unpack lists
-//public static void UnPackFile(List<Rooms> roomList, List<Bookings> bookingList)
-//{
-//    //To be able to read ÅÄÖ
-//    var options = new JsonSerializerOptions()
-//    {
-//        Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin,
-//            UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA)
-//    };
-//    //reads list for rooms
-//    if (File.Exists("RoomList.json"))
-//    {
-//        string readRoom = File.ReadAllText("RoomList.json");
-//        roomList = JsonSerializer.Deserialize<List<Rooms>>(readRoom);
-
-//    }
-//    //reads list for bookings
-//    if (File.Exists("BookingsList.json"))
-//    {
-//        string readBooking = File.ReadAllText("BookingList.json");
-//        bookingList = JsonSerializer.Deserialize<List<Bookings>>(readBooking);
-//    }
-
-//}
-
-
-
-
-
-
-
-
-//var options = new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Latin1Supplement, UnicodeRanges.LatinExtendedA) }; if (File.Exists(
-//"RoomList.json"
-//))
-//{
-//    string readRoom = File.ReadAllText(
-//"RoomList.json"
-//); var tempList = JsonSerializer.Deserialize<List<JsonElement>>(readRoom); roomList.Clear(); foreach (var element in tempList)
-//    {
-//        var roomType = element.GetProperty(
-//"RoomType"
-//).GetString(); var json = element.GetRawText(); Rooms room = roomType switch
-//{
-//"Hall"
-//=> JsonSerializer.Deserialize<Hall>(json),
-//"Classroom"
-//=> JsonSerializer.Deserialize<ClassRoom>(json),
-//"Group room"
-//=> JsonSerializer.Deserialize<GroupRoom>(json),
-//_ => throw new JsonException(
-//$"Unknown room type:
-//{ roomType }
-//"
-//)            }; roomList.Add(room);
-//}
