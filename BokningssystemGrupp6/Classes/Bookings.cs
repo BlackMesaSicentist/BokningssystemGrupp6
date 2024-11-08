@@ -58,7 +58,7 @@ namespace BokningssystemGrupp6.Classes
 
             }
             int roomNumber;
-
+            Console.WriteLine(i.ToString());
             // Room select input
             string roomNumberStr = Console.ReadLine().Trim();
 
@@ -84,7 +84,7 @@ namespace BokningssystemGrupp6.Classes
                         Console.WriteLine("Input must be a positive number. Try Again");
                     }
                     // Check if seats is larger than seat limit
-                    else if (_inputValidation.IsNumberlargerThanCompare(roomNumberStr, i))
+                    else if (_inputValidation.IsNumberlargerThanCompare(roomNumberStr, i-1))
                     {
                         Console.WriteLine("Input cannot be larger the amount of rooms, Try Again");
                     }
