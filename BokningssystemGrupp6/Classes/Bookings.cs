@@ -207,7 +207,7 @@ namespace BokningssystemGrupp6.Classes
 
                 for (int i = 0; i < specificUserBookings.Count; i++) //List bookings
                 {
-                    Console.WriteLine($"{i + 1}: ");
+                    Console.WriteLine($"-------------\n{i + 1}: ");
                     ListSpecific(bookingInfo[i]);
                 }
 
@@ -229,7 +229,8 @@ namespace BokningssystemGrupp6.Classes
                                 if (booking == specificUserBookings[choice]) 
                                 {
                                     withoutChosenBooking.RemoveAt(index);
-                                    
+
+
                                     Console.Write("Input start date and time for booking. \n(YYYY-MM-DD HH:MM):");
                                     string startTime = Console.ReadLine();
                                     Console.Write("Input end date and time for booking. \n(YYYY-MM-DD HH:MM):");
@@ -270,7 +271,7 @@ namespace BokningssystemGrupp6.Classes
                                         break;
                                     }
                                     else 
-                                    { 
+                                    {
                                         //kollar om dagen är fri från tidigare bokningar i den lokalen
                                         foreach (Bookings book in withoutChosenBooking)
                                         {
@@ -289,7 +290,7 @@ namespace BokningssystemGrupp6.Classes
                                                 ListSpecific(newest);
 
                                                 Console.WriteLine($"Din bokning är totalt {totalTime} timmar.");
-
+                                                break;
                                             }
 
                                             //kollar att bokningen krockar med en redan lagd bokning 
@@ -301,11 +302,13 @@ namespace BokningssystemGrupp6.Classes
                                                 Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
                                                 Console.ReadKey();
                                                 Console.Clear();
+
                                             }
-                                            
+                                            break;
                        
                                         }
-                                        break;
+                                        //break;
+
                                     }
                                     bookingInfo.RemoveAt(index);
                                     bookingInfo.Add(withoutChosenBooking[withoutChosenBooking.Count]);
