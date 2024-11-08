@@ -215,34 +215,37 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         //Method to show all rooms + properties
         public static void ListAll(List<Rooms> rooms)
         {
-
-
+            Console.WriteLine("ALL ROOMS");
+            Console.WriteLine("{0,-12}{1,-20}{2,-14}{3,-14}{4,-18}{5,-14}", "Type", "Name", "Seat amount", "Seat Limit", "Has Projector", "Has Whiteboard");
+            Console.WriteLine(new string('-', 100));
+          
             foreach (var room in rooms)
             {
 
-                Console.WriteLine($"Room Type: {room.GetType().Name}");
-                Console.WriteLine($"Room Name: {room.RoomName}");
-                Console.WriteLine($"Room Type Description: {room.RoomType}");
-                Console.WriteLine($"Seat Amount: {room.SeatAmount}");
+                Console.Write($"\n{room.GetType().Name,-12}");
+                Console.Write($"{room.RoomName,-20}");
+                Console.Write($"{room.SeatAmount,-15}");
 
                 if (room is Hall hall)
                 {
-                    Console.WriteLine($"Seat Limit: {hall.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {hall.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
+                    Console.Write($"{hall.SeatLimit,-15}");
+                    Console.Write($"{hall.HasProjector,-18}");
+                    Console.Write($"{hall.HasWhiteboard,-18}");
                 }
                 else if (room is Classroom classroom)
                 {
-                    Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {classroom.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {classroom.HasWhiteboard}");
+
+                    Console.Write($"{classroom.SeatLimit,-15}");
+                    Console.Write($"{classroom.HasProjector,-18}");
+                    Console.Write($"{classroom.HasWhiteboard,-18}");
                 }
                 else if (room is GroupRoom grouproom)
                 {
-                    Console.WriteLine($"Seat Limit: {grouproom.SeatLimit}");
+                  
+                    Console.Write($"{grouproom.SeatLimit,-15}");
                 }
-
-                Console.WriteLine("----------------------");
+                
+                
             }
         }
         //Method to show specific rooms
