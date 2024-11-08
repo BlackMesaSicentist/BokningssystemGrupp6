@@ -53,7 +53,7 @@ namespace BokningssystemGrupp6.Classes
                     case "0": menu1 = false; break;
                     default:
                         {
-                            Console.WriteLine("Invalid option, press \"Enter\"to try again");
+                            Console.WriteLine("Invalid option, press any key to try again");
                             Console.ReadKey();
                             Console.Clear();
                             break;

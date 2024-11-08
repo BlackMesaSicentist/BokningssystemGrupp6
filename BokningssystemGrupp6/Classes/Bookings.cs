@@ -216,11 +216,8 @@ namespace BokningssystemGrupp6.Classes
                         if (roomBooking.RoomName == specificRoom)
                         {
                             specificBookings.Add(roomBooking);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid choise");
-                        }
+                        }                    
+
                     }
                     ListAll(specificBookings);
                     break;
@@ -231,32 +228,6 @@ namespace BokningssystemGrupp6.Classes
                     break;
             }
         }
-
-
-
-        //Method to display list of bookings for a specific room and a specific 1 year interwall
-        public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
-        {
-            Console.WriteLine("Show bookings for which room?\n");
-
-            String specificRoom = Rooms.ChooseASpecificRoom(listOfRoom);
-
-            List<Bookings> roomSpecificBookings = new List<Bookings>(); //New list with only bookings with the right parameters
-            Console.WriteLine("\nEnter the year off the bookings you want to display in the format yyyy");
-
-            String yearInputString = Console.ReadLine();
-            if (DateTime.TryParseExact(yearInputString, "yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime startDate)) //Convert input to datetime
-            {
-                DateTime endDate = new DateTime(startDate.Year, 12, 31, 23, 59, 59);
-
-                foreach (Bookings booking in bookingInfo)
-                {
-                    if (booking.RoomName == specificRoom && booking.DateTimeStart <= startDate && booking.DateTimeEnd >= endDate) { roomSpecificBookings.Add(booking); } // Adds bookings to list if the meet the requirmets
-                }
-            }
-            ListAll(roomSpecificBookings);
-        }
-
 
         //Update an alreade existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
