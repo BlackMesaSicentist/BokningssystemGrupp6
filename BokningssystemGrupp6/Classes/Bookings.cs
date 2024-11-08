@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.Text;
@@ -129,7 +130,7 @@ namespace BokningssystemGrupp6.Classes
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
-            Console.WriteLine("ALL BOOKINGS");
+            Console.WriteLine("\nALL BOOKINGS");
             Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-26}{4,-24}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
             Console.WriteLine(new string('-', 100));
                 int i = 1;
@@ -151,6 +152,80 @@ namespace BokningssystemGrupp6.Classes
                 $"\nBooking ends at: {booking.DateTimeEnd} " +
                 $"\nTotal duration for this booking is: {booking.DateTimeEnd - booking.DateTimeStart}");
         }
+
+        //Method to list all bookings
+        public static void ListAllBookingsByYearOrRoom(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
+        {
+            //show all bookings
+            ListAll(bookingInfo);
+
+            //menu selection depending on how the user wants the information to display
+            Console.WriteLine(new string('-', 100));
+            Console.WriteLine("" +
+                "\n1. Show all bookings from year\n" +
+                "2. Show all bookings from specific room\n" +
+                "\nEnter the number for the corresponding option\n");
+
+            //New list with only bookings with the right parameters
+            List<Bookings> roomSpecificBookings = new List<Bookings>();
+
+            //input choise
+            string choise = Console.ReadLine();
+            Console.Clear();
+
+            switch (choise)
+            {
+                //Show all bookings from year 
+                case "1":
+                    Console.WriteLine("\nEnter the year off the bookings you want to display in the format YYYY");
+                    String yearInputString = Console.ReadLine();
+
+                    //Convert input to datetime
+                    if (DateTime.TryParseExact(yearInputString, "yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime startDate))
+                    {
+                        DateTime endDate = new DateTime(startDate.Year, 12, 31, 23, 59, 59);
+
+                        foreach (Bookings booking in bookingInfo)
+                        {
+                            if (booking.DateTimeStart <= startDate && booking.DateTimeEnd >= endDate)
+                            // Adds bookings to list if the meet the requirmets
+                            { roomSpecificBookings.Add(booking); }
+                        }
+                        ListAll(roomSpecificBookings);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid choise");
+                    }
+                    break;
+
+                //Show all bookings from specific room 
+                case "2":
+                    //int i = 1;
+                    //foreach (var room in listOfRoom)
+                    //{
+                    //    Console.WriteLine($"{i}. {room.RoomName}");
+                    //    i++;
+                    //}
+
+                    String specificRoom = Rooms.ChooseASpecificRoom(listOfRoom);
+                    Console.WriteLine("\nEnter the number for the corresponding option");
+                    //string sortByInt = Console.ReadLine();
+                    //foreach (Bookings booking in bookingInfo)
+                    //{
+                    //    ListAll(roomSpecificBookings);
+                    //}
+                    break;
+
+                //skrivs ut om användaren uppger ett felaktigt menyval
+                default:
+                    Console.WriteLine("Invalid choise, try again");
+                    break;
+            }
+        }
+
+
+
         //Method to display list of bookings for a specific room and a specific 1 year interwall
         public static void CreateAndDisplayListOfBookingsSpecificRoomAndDate(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
         {
