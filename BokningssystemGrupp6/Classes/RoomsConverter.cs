@@ -14,14 +14,15 @@ namespace BokningssystemGrupp6.Classes
     {
         public override Rooms Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            // Read the JSON object
+            //Read the JSON object
             using (JsonDocument doc = JsonDocument.ParseValue(ref reader))
             {
                 var root = doc.RootElement;
 
-                // Extract the RoomType to determine the class type
+                //Extract the RoomType to determine the class type
                 string roomType = root.GetProperty("RoomType").GetString();
 
+                //
                 Rooms room = roomType switch
                 {
                     "Hall" => JsonSerializer.Deserialize<Hall>(root.GetRawText(), options),

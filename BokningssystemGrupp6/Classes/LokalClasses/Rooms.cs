@@ -34,12 +34,12 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             SeatAmount = seatAmount;
         }
         //Method to get back to menu
-        public static void BackToMenu()
-        {
-            Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
-            Console.ReadKey();
-            Console.Clear();
-        }
+        //public static void BackToMenu()
+        //{
+        //    Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+        //    Console.ReadKey();
+        //    Console.Clear();
+        //}
         public void CreateARoom(List<Rooms> rooms) {
 
             Console.Clear();

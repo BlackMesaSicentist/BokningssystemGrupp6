@@ -42,8 +42,6 @@ namespace BokningssystemGrupp6.Classes
         {
 
             //retrieve booking information
-            Console.Write("Enter your email:");
-            string? mail = Console.ReadLine();
             Console.WriteLine("Select room:");
             int i = 1;
             foreach (var r in rooms)
@@ -53,6 +51,8 @@ namespace BokningssystemGrupp6.Classes
             }
             int roomNumber = Convert.ToInt32(Console.ReadLine())-1;
             string roomName = rooms[roomNumber].RoomName;
+            Console.Write("Enter your email:");
+            string? mail = Console.ReadLine();
             Console.Write("Input start date and time for booking.\n(YYYY-MM-DD HH:MM):");
             string startTime = Console.ReadLine();
             Console.Write("Input end date and time for booking. \n(YYYY-MM-DD HH:MM):");
@@ -62,6 +62,7 @@ namespace BokningssystemGrupp6.Classes
             //convert the input to a DateTime object
             DateTime dateTimeStart = DateTime.Parse(startTime);
             DateTime dateTimeEnd = DateTime.Parse(endTime);
+            TimeSpan totalTime= dateTimeEnd - dateTimeStart;
             try
             {
                 DateTime dateTimeS = DateTime.Parse(startTime);
@@ -71,9 +72,15 @@ namespace BokningssystemGrupp6.Classes
             catch (FormatException)
             {
                 Console.WriteLine("Invalid format, please input date and time in correct format.");
-                Rooms.BackToMenu();
+                Menu.BackToMenu();
             }
-            if (booked.Count == 0)
+            TimeSpan maxTime = TimeSpan.Parse("24:00:00");
+            if (totalTime > maxTime)
+            { 
+            
+            }
+
+                if (booked.Count == 0)
             {
                 //adds the booking to the list??
                 booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
@@ -117,7 +124,7 @@ namespace BokningssystemGrupp6.Classes
                         Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
                         //prints the booking it conflicts with
                         ListSpecific(book);
-                        Rooms.BackToMenu();
+                        Menu.BackToMenu();
                     }
                     break;
                 }
@@ -324,7 +331,7 @@ namespace BokningssystemGrupp6.Classes
                                     catch (FormatException)
                                     {
                                         Console.WriteLine("Incorrect format, please enter the date and time in the correct format.");
-                                        Rooms.BackToMenu();
+                                        Menu.BackToMenu();
 
                                     }
                                     if (withoutChosenBooking.Count == 0)
@@ -375,12 +382,13 @@ namespace BokningssystemGrupp6.Classes
                                                 Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
                                                 Console.ReadKey();
                                                 Console.Clear();
+                                                break;
 
                                             }
-                                            break;
+                                            
                        
                                         }
-                                        //break;
+                                        break;
 
                                     }
                                     bookingInfo.RemoveAt(index);

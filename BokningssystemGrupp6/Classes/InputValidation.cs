@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes
 {
-    // Class responsible for validation of user input
+    //Class responsible for validation of user input
     public class InputValidation
     {
 
-        // Check if input is empty
+        //Check if input is empty
         public bool IsEmpty(string input)
         {
             return string.IsNullOrWhiteSpace(input);
         }
 
-        // Check if input is a number
+        //Check if input is a number
         public bool IsNumber(string input)
         {
             return int.TryParse(input, out _);
         }
 
-        // Check if input is positive
+        //Check if input is positive
         public bool IsNumberNegative(string input)
         {
             if (int.TryParse(input, out int result))
@@ -35,17 +35,7 @@ namespace BokningssystemGrupp6.Classes
             return false;
         }
 
-        // Kollar om input är mellan 0 - 5
-        public bool IsDecimalBetweenZeroAndFive(string input)
-        {
-            if (decimal.TryParse(input, out decimal result))
-            {
-                return result >= 0 && result <= 5;
-            }
-            return false;
-        }
-
-        // Chec if input is larger than seat limit
+        // Check if input is larger than seat limit
         public bool IsGreaterThanSeatLimit(string input, int seatLimit)
         {
             if (int.TryParse(input, out int result))
@@ -72,7 +62,6 @@ namespace BokningssystemGrupp6.Classes
             return rooms.Any(a => a.RoomName.ToLower() == input.ToLower());
 
         }
-
 
         // Convert string to int
         public int ConvertToInt(string input)

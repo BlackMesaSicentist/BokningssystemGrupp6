@@ -22,8 +22,7 @@ namespace BokningssystemGrupp6.Classes
             _roomsListAndSort = new RoomsListAndSort(inputValidation);
         }
 
-
-        public void MainMenu(/*Might need list of Rooms and Bookings depending on what the methods need */List<Rooms> rooms, List<Bookings> bookingsInfo)
+        public void MainMenu(List<Rooms> rooms, List<Bookings> bookingsInfo)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             bool menu1 = true;
@@ -32,21 +31,22 @@ namespace BokningssystemGrupp6.Classes
             while (menu1)
             {
                 Console.WriteLine("\n       WELCOME!\nYou are now able to book rooms on the school premises!" +
-                    "\n\n1. Create a room \n2. Book a room \n3. Show rooms \n4. Show bookings \n5. Update existing booking \n" +
-                    "\n7. Show room list with sort" + "\n0. Exit program");
+                    "\n\n1. Create a room " +
+                    "\n2. Book a room " +
+                    "\n3. Show rooms " +
+                    "\n4. Show bookings " +
+                    "\n5. Update existing booking" +
+                    "\n0. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
-                    case "1": Console.Clear(); _rooms.CreateARoom(rooms); Rooms.BackToMenu(); break; //Create a room
-
-                    case "2": Console.Clear(); Bookings.BookARoom(bookingsInfo, rooms); Rooms.BackToMenu(); break; //Book a room
-                    case "3": Console.Clear(); Rooms.ListAll(rooms); Rooms.BackToMenu(); break; //Rooms information.
-                    case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); Rooms.BackToMenu(); break; //Show bookings
-                    case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo, rooms); Rooms.BackToMenu(); break; //Update existing booking
-                                                                                                                       //Show bookings on a specific room at a specific year
-                                                                                                                       //case "6": Console.Clear(); Bookings.CreateAndDisplayListOfBookingsSpecificRoomAndDate(bookingsInfo, rooms); Rooms.BackToMenu(); break;       
-
+                    case "1": Console.Clear(); _rooms.CreateARoom(rooms); BackToMenu(); break; //Create a room
+                    case "2": Console.Clear(); Bookings.BookARoom(bookingsInfo, rooms); BackToMenu(); break; //Book a room
+                    case "3": Console.Clear(); Rooms.ListAll(rooms); BackToMenu(); break; //Rooms information.
+                    //Show bookings on a specific room at a specific year                                                                                                         
+                    case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); BackToMenu(); break; //Show bookings
+                    case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo, rooms); BackToMenu(); break; //Update existing booking
                     // Show room list with sort
-                    case "7": _roomsListAndSort.RoomsListAndSortStart(rooms); Rooms.BackToMenu(); break;
+                    //case "7": _roomsListAndSort.RoomsListAndSortStart(rooms); Rooms.BackToMenu(); break;
                     case "0": menu1 = false; break; //Ends program
                     default:
                         {
@@ -58,5 +58,13 @@ namespace BokningssystemGrupp6.Classes
                 }
             }
         }
+        // Back to menu and clear function
+            public static void BackToMenu()
+            {
+                Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        
     }
 }
