@@ -63,7 +63,8 @@ namespace BokningssystemGrupp6.Classes
             //convert the input to a DateTime object
             DateTime dateTimeStart = DateTime.Parse(startTime);
             DateTime dateTimeEnd = DateTime.Parse(endTime);
-            TimeSpan totalTime= dateTimeEnd - dateTimeStart;
+            TimeSpan totalTime = dateTimeEnd - dateTimeStart;
+            DateTime dateTotalTime = DateTime.Parse(totalTime);
             try
             {
                 DateTime dateTimeS = DateTime.Parse(startTime);
@@ -75,7 +76,7 @@ namespace BokningssystemGrupp6.Classes
                 Console.WriteLine("Invalid format, please input date and time in correct format.");
                 Menu.BackToMenu();
             }
-            TimeSpan maxTime = TimeSpan.Parse("24:00:00");
+            DateTime maxTime = DateTime.Parse("01:00:00:00");
             if (totalTime > maxTime)
             { 
             
@@ -191,7 +192,7 @@ namespace BokningssystemGrupp6.Classes
 
                         foreach (Bookings yearBooking in bookingInfo)
                         {
-                            if (yearBooking.DateTimeStart <= startDate && yearBooking.DateTimeEnd >= endDate)
+                            if (yearBooking.DateTimeStart >= startDate && yearBooking.DateTimeEnd <= endDate)
                             // Adds bookings to list if the meet the requirmets
                             { 
                                 roomSpecificBookings.Add(yearBooking); 
