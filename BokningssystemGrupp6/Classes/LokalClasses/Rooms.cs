@@ -247,10 +247,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
         //Method to show specific rooms
         public static String ChooseASpecificRoom(List<Rooms> rooms)
-        
-
-        // What is this used for or should be used for?
-        // public static void ChooseASpecificRoom(List<Rooms> rooms, String roomName)
         {
             String roomName;
             int i = 1;

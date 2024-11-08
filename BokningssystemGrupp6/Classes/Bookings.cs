@@ -64,7 +64,7 @@ namespace BokningssystemGrupp6.Classes
             DateTime dateTimeStart = DateTime.Parse(startTime);
             DateTime dateTimeEnd = DateTime.Parse(endTime);
             TimeSpan totalTime = dateTimeEnd - dateTimeStart;
-            DateTime dateTotalTime = DateTime.Parse(totalTime);
+            //DateTime dateTotalTime = DateTime.Parse(totalTime);
             try
             {
                 DateTime dateTimeS = DateTime.Parse(startTime);
@@ -77,10 +77,10 @@ namespace BokningssystemGrupp6.Classes
                 Menu.BackToMenu();
             }
             DateTime maxTime = DateTime.Parse("01:00:00:00");
-            if (totalTime > maxTime)
-            { 
+            //if (totalTime > maxTime)
+            //{ 
             
-            }
+            //}
 
                 if (booked.Count == 0)
             {
@@ -176,7 +176,7 @@ namespace BokningssystemGrupp6.Classes
             Console.Clear();
 
             //New list with only bookings with the right parameters
-            List<Bookings> roomSpecificBookings = new List<Bookings>();
+            List<Bookings> specificBookings = new List<Bookings>();
 
             switch (choise)
             {
@@ -195,10 +195,10 @@ namespace BokningssystemGrupp6.Classes
                             if (yearBooking.DateTimeStart >= startDate && yearBooking.DateTimeEnd <= endDate)
                             // Adds bookings to list if the meet the requirmets
                             { 
-                                roomSpecificBookings.Add(yearBooking); 
+                                specificBookings.Add(yearBooking); 
                             }
                         }
-                        ListAll(roomSpecificBookings);
+                        ListAll(specificBookings);
                     }
                     else
                     {
@@ -208,24 +208,25 @@ namespace BokningssystemGrupp6.Classes
 
                 //Show all bookings from specific room 
                 case "2":
-                    //int i = 1;
-                    //foreach (var room in listOfRoom)
-                    //{
-                    //    Console.WriteLine($"{i}. {room.RoomName}");
-                    //    i++;
-                    //}
 
                     String specificRoom = Rooms.ChooseASpecificRoom(listOfRoom);
-                    Console.WriteLine("\nEnter the number for the corresponding option");
-                    //string sortByInt = Console.ReadLine();
-                    //foreach (Bookings booking in bookingInfo)
-                    //{
-                    //    ListAll(roomSpecificBookings);
-                    //}
+                    Console.Clear();
+                    foreach (Bookings roomBooking in bookingInfo)
+                    {
+                        if (roomBooking.RoomName == specificRoom)
+                        {
+                            specificBookings.Add(roomBooking);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid choise");
+                        }
+                    }
+                    ListAll(specificBookings);
                     break;
 
-                //skrivs ut om användaren uppger ett felaktigt menyval
-                default:
+            //skrivs ut om användaren uppger ett felaktigt menyval
+            default:
                     Console.WriteLine("Invalid choise, try again");
                     break;
             }
