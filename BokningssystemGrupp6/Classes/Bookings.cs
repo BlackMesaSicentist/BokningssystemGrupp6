@@ -105,10 +105,6 @@ namespace BokningssystemGrupp6.Classes
 
                             // skriver ut det sista objektet
                             ListSpecific(lastBooking);
-
-                            //calculates and prints the bookings duration and the last booking made
-                            TimeSpan totalTime = dateTimeEnd - dateTimeStart;
-                            Console.WriteLine($"\nTotal duration for your booking is: {totalTime}.");
                         }
                         else
                         {
@@ -185,9 +181,9 @@ namespace BokningssystemGrupp6.Classes
                     {
                         DateTime endDate = new DateTime(startDate.Year, 12, 31, 23, 59, 59);
 
-                        foreach (Bookings booking in bookingInfo)
+                        foreach (Bookings yearBooking in bookingInfo)
                         {
-                            if (booking.DateTimeStart <= startDate && booking.DateTimeEnd >= endDate)
+                            if (yearBooking.DateTimeStart <= startDate && yearBooking.DateTimeEnd >= endDate)
                             // Adds bookings to list if the meet the requirmets
                             { roomSpecificBookings.Add(booking); }
                         }
@@ -248,6 +244,8 @@ namespace BokningssystemGrupp6.Classes
             }
             ListAll(roomSpecificBookings);
         }
+
+
         //Update an alreade existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
         {
