@@ -43,6 +43,8 @@ namespace BokningssystemGrupp6.Classes
                     case "1": Console.Clear(); _rooms.CreateARoom(rooms); BackToMenu(); break; 
                     //Book a room
                     case "2": Console.Clear(); Bookings.BookARoom(bookingsInfo, rooms); BackToMenu(); break;
+                    //Show all rooms
+                    case "3": Console.Clear(); Rooms.ListAll(rooms); BackToMenu(); break;
                     //Show bookings by year or room
                     case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); BackToMenu(); break;
                     //Update existing booking
@@ -62,7 +64,7 @@ namespace BokningssystemGrupp6.Classes
         // Back to menu and clear function
         public static void BackToMenu()
         {
-            Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
+            Console.WriteLine("\nPress any key to return to menu");
             Console.ReadKey();
             Console.Clear();
         }
