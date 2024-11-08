@@ -33,7 +33,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             RoomType = roomType;
             SeatAmount = seatAmount;
         }
-   
+        
+        // Create a room
         public void CreateARoom(List<Rooms> rooms) {
 
             Console.Clear();
@@ -120,7 +121,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
 
         //Method to determine size
-        public static (int, string, int) RoomSize()
+        private static (int, string, int) RoomSize()
         {
             Console.WriteLine("Choose room size:\n1.Hall, 120 seat limit \n2.Classroom, 60 seat limit \n3.Group Room, 15 seat limit ");
             string? option;
@@ -151,7 +152,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             return (roomSelect, sizeName, seatLimit);
         }
 
-
+        // Seat input
         private int SeatsInput(List<Rooms> rooms, int seatLimit)
         {
             Console.WriteLine($"Enter seats: (Cant exceed: {seatLimit}) ");
@@ -192,8 +193,9 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
             return seatsOk;
         }
+
         //Method to ask user yes or no
-        public static bool AskUser()
+        private static bool AskUser()
         {
             while (true)
             {
@@ -212,6 +214,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 }
             }
         }
+
         //Method to show all rooms + properties
         public static void ListAll(List<Rooms> rooms)
         {
