@@ -121,7 +121,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
 
         //Method to determine size
-        public static (int, string, int) RoomSize()
+        private static (int, string, int) RoomSize()
         {
             Console.WriteLine("Choose room size:\n1.Hall\n2.Classroom\n3.Group Room");
             string? option;
@@ -195,7 +195,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
 
         //Method to ask user yes or no
-        public static bool AskUser()
+        private static bool AskUser()
         {
             while (true)
             {
