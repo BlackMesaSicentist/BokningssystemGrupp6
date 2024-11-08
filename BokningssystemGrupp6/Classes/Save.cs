@@ -88,7 +88,6 @@ namespace BokningssystemGrupp6.Classes
             {
                 string readRoom = File.ReadAllText("RoomList.json");
                
-                if (String.IsNullOrEmpty(readRoom)) //Check if file contains no data
                 //Check if file contains no data
                 if (String.IsNullOrEmpty(readRoom))
                 {
