@@ -47,6 +47,7 @@ namespace BokningssystemGrupp6.Classes
                     case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); BackToMenu(); break;
                     //Update existing booking
                     case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo, rooms); BackToMenu(); break;
+                    //case "7": Console.Clear(); _roomsListAndSort.RoomsListAndSortStart(rooms); BackToMenu(); break;
                     //Ends program
                     case "0": menu1 = false; break;
                     default:
