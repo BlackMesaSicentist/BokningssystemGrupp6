@@ -185,7 +185,7 @@ namespace BokningssystemGrupp6.Classes
                         {
                             if (yearBooking.DateTimeStart <= startDate && yearBooking.DateTimeEnd >= endDate)
                             // Adds bookings to list if the meet the requirmets
-                            { roomSpecificBookings.Add(booking); }
+                            { roomSpecificBookings.Add(yearBooking); }
                         }
                         ListAll(roomSpecificBookings);
                     }
