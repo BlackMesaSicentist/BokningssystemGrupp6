@@ -14,12 +14,14 @@ namespace BokningssystemGrupp6.Classes
         private readonly InputValidation _inputValidation;
         private readonly Rooms _rooms;
         private readonly RoomsListAndSort _roomsListAndSort;
+        private readonly Bookings _bookings;
 
         public Menu(InputValidation inputValidation)
         {
             _inputValidation = inputValidation;
             _rooms = new Rooms(inputValidation);
             _roomsListAndSort = new RoomsListAndSort(inputValidation);
+            _bookings = new Bookings(inputValidation);
         }
 
         public void MainMenu(List<Rooms> rooms, List<Bookings> bookingsInfo)
@@ -42,7 +44,7 @@ namespace BokningssystemGrupp6.Classes
                     //Create a room
                     case "1": Console.Clear(); _rooms.CreateARoom(rooms); BackToMenu(); break; 
                     //Book a room
-                    case "2": Console.Clear(); Bookings.BookARoom(bookingsInfo, rooms); BackToMenu(); break;
+                    case "2": Console.Clear(); _bookings.BookARoom(bookingsInfo, rooms); BackToMenu(); break;
                     //Show bookings by year or room
                     case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); BackToMenu(); break;
                     //Update existing booking

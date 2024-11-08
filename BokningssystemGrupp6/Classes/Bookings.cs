@@ -17,7 +17,7 @@ using BokningssystemGrupp6.Interfaces;
 namespace BokningssystemGrupp6.Classes
 {
     //Bookings inherits interface IListable
-    public class Bookings: IListable
+    public class Bookings : IListable
     {
         //Properties for Bookings
         public string Mail { get; set; }
@@ -25,10 +25,17 @@ namespace BokningssystemGrupp6.Classes
         public DateTime DateTimeStart { get; set; }
         public DateTime DateTimeEnd { get; set; }
 
+
+        private readonly InputValidation _inputValidation;
+        public Bookings(InputValidation inputValidation)
+        {
+            _inputValidation = inputValidation;
+        }
+
         //Construktor for Bookings      
         public Bookings()
         {
-            
+
         }
         public Bookings(string mail, string roomName, DateTime dateTimeStart, DateTime dateTimeEnd)
         {
@@ -38,7 +45,7 @@ namespace BokningssystemGrupp6.Classes
             DateTimeEnd = dateTimeEnd;
         }
         //Method to create booking
-        public static void BookARoom(List<Bookings> booked,List<Rooms> rooms)
+        public void BookARoom(List<Bookings> booked, List<Rooms> rooms)
         {
 
             //retrieve booking information
@@ -48,39 +55,160 @@ namespace BokningssystemGrupp6.Classes
             {
                 Console.WriteLine($"{i}. {r.RoomName}");
                 i++;
+
             }
-            int roomNumber = Convert.ToInt32(Console.ReadLine())-1;
+            int roomNumber;
+
+            // Room select input
+            string roomNumberStr = Console.ReadLine().Trim();
+
+            // Room selection validation
+            while (true)
+            {
+
+                try
+                {
+                    // Check if input is empty
+                    if (_inputValidation.IsEmpty(roomNumberStr))
+                    {
+                        Console.WriteLine("Field cannot be empty, Try again");
+                    }
+                    // Check if input is a number
+                    else if (!_inputValidation.IsNumber(roomNumberStr))
+                    {
+                        Console.WriteLine("Input must be a number. Try again.");
+                    }
+                    // Check if the number i negative
+                    else if (_inputValidation.IsNumberNegative(roomNumberStr))
+                    {
+                        Console.WriteLine("Input must be a positive number. Try Again");
+                    }
+                    // Check if seats is larger than seat limit
+                    else if (_inputValidation.IsNumberlargerThanCompare(roomNumberStr, i))
+                    {
+                        Console.WriteLine("Input cannot be larger the amount of rooms, Try Again");
+                    }
+                    else
+                    {
+                        // Convert string to int
+                        roomNumber = _inputValidation.ConvertToInt(roomNumberStr) - 1;
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}. Please try again.");
+                }
+                roomNumberStr = Console.ReadLine().Trim();
+
+            }
+
             string roomName = rooms[roomNumber].RoomName;
+
+            // Email input
             Console.Write("Enter your email:");
-            string? mail = Console.ReadLine();
+            string? mailStr = Console.ReadLine().Trim();
+            string mail;
+
+            while (true)
+            {
+                try
+                {
+                    // Check if the email is in the correct format (ex. abc@mail.com) or empty 
+                    if (!_inputValidation.IsEmail(mailStr))
+                    {
+                        Console.WriteLine("Email is incorrect, Try again");
+                    }
+                    else
+                    {
+                        mail = mailStr;
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}. Please try again.");
+                }
+                mailStr = Console.ReadLine().Trim();
+            }
+
+            // Booking start time
             Console.Write("Input start date and time for booking.\n(YYYY-MM-DD HH:MM):");
-            string startTime = Console.ReadLine();
+            string startTimeStr = Console.ReadLine();
+            DateTime dateTimeStart;
+            while (true)
+            {
+                try
+                {
+                    // Check if input is empty
+                    if (_inputValidation.IsEmpty(startTimeStr))
+                    {
+                        Console.WriteLine("Field cannot be empty, Try again");
+                    }
+                    // Check if input is in datetime
+                    else if (!_inputValidation.IsDateTime(startTimeStr))
+                    {
+                        Console.WriteLine("The time must be in the shown date time format (YYYY-MM-DD HH:MM). Try again.");
+                    }
+                    // Check if the datetime is after the current time
+                    else if (!_inputValidation.IsDateTimeAfterNowTime(startTimeStr))
+                    {
+                        Console.WriteLine("Start time must be after the current time. Try Again");
+                    }
+                    else
+                    {
+                        // Convert string to datetime
+                        dateTimeStart = _inputValidation.ConvertToDateTime(startTimeStr);
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}. Please try again.");
+                }
+                startTimeStr = Console.ReadLine().Trim();
+            }
+
+            // Booking end time
             Console.Write("Input end date and time for booking. \n(YYYY-MM-DD HH:MM):");
-            string endTime = Console.ReadLine();
+            string endTimeStr = Console.ReadLine();
+            DateTime dateTimeEnd;
+            while (true)
+            {
+                try
+                {
+                    // Check if input is empty
+                    if (_inputValidation.IsEmpty(endTimeStr))
+                    {
+                        Console.WriteLine("Field cannot be empty, Try again");
+                    }
+                    // Check if input is in datetime
+                    else if (!_inputValidation.IsDateTime(endTimeStr))
+                    {
+                        Console.WriteLine("The time must be in the shown date time format (YYYY-MM-DD HH:MM). Try again.");
+                    }
+                    // Check if the booking is longer than 24 hours
+                    else if (!_inputValidation.IsBookingTooLong(endTimeStr, dateTimeStart))
+                    {
+                        Console.WriteLine("Booking can be a maximum of 24 hours. Try Again");
+                    }
+                    else
+                    {
+                        // Convert string to datetime
+                        dateTimeEnd = _inputValidation.ConvertToDateTime(endTimeStr);
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}. Please try again.");
+                }
+                endTimeStr = Console.ReadLine().Trim();
+            }
             Console.Clear();
 
-            //convert the input to a DateTime object
-            DateTime dateTimeStart = DateTime.Parse(startTime);
-            DateTime dateTimeEnd = DateTime.Parse(endTime);
-            TimeSpan totalTime= dateTimeEnd - dateTimeStart;
-            try
-            {
-                DateTime dateTimeS = DateTime.Parse(startTime);
-                DateTime dateTimeE = DateTime.Parse(endTime);
 
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Invalid format, please input date and time in correct format.");
-                Menu.BackToMenu();
-            }
-            TimeSpan maxTime = TimeSpan.Parse("24:00:00");
-            if (totalTime > maxTime)
-            { 
-            
-            }
-
-                if (booked.Count == 0)
+            if (booked.Count == 0)
             {
                 //adds the booking to the list??
                 booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
@@ -90,60 +218,67 @@ namespace BokningssystemGrupp6.Classes
                 Console.WriteLine("Your booking is noted with the following information: ");
 
                 //calculates and prints the bookings duration and the last booking made
-                ListAll(booked); 
+                ListAll(booked);
             }
-            else 
+            else
             {
                 //checks if the day is free from previous bookings in that venue
                 foreach (Bookings book in booked)
                 {
-                    bool check = dateTimeStart < book.DateTimeEnd && book.DateTimeStart < dateTimeEnd;
-                    //free from previous bookings
-                    if (check == false)
+                    try
                     {
-                        //adds the booking to the list
-                        booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
-                        Save.SaveFile(booked);
-                        if (booked.Count > 0)
+                        bool check = dateTimeStart < book.DateTimeEnd && book.DateTimeStart < dateTimeEnd;
+                        //free from previous bookings
+                        if (check == false)
                         {
-                            //is printed when the booking is completed
-                            Bookings lastBooking = booked[booked.Count - 1];
-                            Console.WriteLine($"\nYour booking is noted with the following information: ");
-
-                            // skriver ut det sista objektet
-                            ListSpecific(lastBooking);
+                            //adds the booking to the list
+                            booked.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
+                            Save.SaveFile(booked);
+                            if (booked.Count > 0)
+                            {
+                                //is printed when the booking is completed
+                                Bookings lastBooking = booked[booked.Count - 1];
+                                Console.WriteLine($"\nYour booking is noted with the following information: ");
+                                // skriver ut det sista objektet
+                                ListSpecific(lastBooking);
+                            }
+                            else
+                            {
+                                Console.WriteLine("List is empty.");
+                            }
                         }
-                        else
+                        //if the booking conflicts with a previously made booking
+                        else if (check != false)
                         {
-                            Console.WriteLine("List is empty.");
+                            Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
+                            //prints the booking it conflicts with
+                            ListSpecific(book);
+                            Menu.BackToMenu();
                         }
+                        break;
                     }
-                    //if the booking conflicts with a previously made booking
-                    else if (check != false)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
-                        //prints the booking it conflicts with
-                        ListSpecific(book);
-                        Menu.BackToMenu();
+                        Console.WriteLine($"Error: {ex.Message}. Please try again.");
                     }
-                    break;
                 }
             }
         }
+
         //Method to list all bookings
         public static void ListAll(List<Bookings> bookingInfo)
         {
             Console.WriteLine("\nALL BOOKINGS");
-            Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-26}{4,-24}{5,-20}","", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+            Console.WriteLine("{0,-10}{1,-18}{2,-14}{3,-26}{4,-24}{5,-20}", "", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
             Console.WriteLine(new string('-', 100));
-                int i = 1;
+            int i = 1;
             foreach (Bookings booking in bookingInfo)
             {
-                Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", i+".",
+                Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", i + ".",
                     booking.Mail, booking.RoomName, booking.DateTimeStart, booking.DateTimeEnd, booking.DateTimeEnd - booking.DateTimeStart);
                 i++;
             }
-            
+
         }
         //Method to list data from specific booking feed into it
         public static void ListSpecific(Bookings booking)
@@ -257,7 +392,7 @@ namespace BokningssystemGrupp6.Classes
         public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
         {
             String roomName = Rooms.ChooseASpecificRoom(roomList);
-            
+
             List<Bookings> specificUserBookings = new List<Bookings>(); //New list for all bookings for the specific user
             Boolean isValidInput = false;
 
@@ -299,14 +434,14 @@ namespace BokningssystemGrupp6.Classes
                         if (choice <= specificUserBookings.Count && choice > 0) //Check if inside list range
                         {
                             // Have to shrink by 1 to actually match index for list
-                            choice--; 
+                            choice--;
                             // Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
                             List<Bookings> withoutChosenBooking = new List<Bookings>(bookingInfo);
                             int index = 0;
                             foreach (Bookings booking in withoutChosenBooking)
                             {
                                 //If booking is chosen removes old and adds new booking
-                                if (booking == specificUserBookings[choice]) 
+                                if (booking == specificUserBookings[choice])
                                 {
                                     withoutChosenBooking.RemoveAt(index);
 
@@ -348,9 +483,9 @@ namespace BokningssystemGrupp6.Classes
                                         //calculates and prints the bookings duration and the last booking made
                                         Console.WriteLine($"Total duration for your booking is: {totalTime}.");
 
-                                        
+
                                     }
-                                    else 
+                                    else
                                     {
                                         //kollar om dagen är fri från tidigare bokningar i den lokalen
                                         foreach (Bookings book in withoutChosenBooking)
@@ -385,14 +520,14 @@ namespace BokningssystemGrupp6.Classes
                                                 break;
 
                                             }
-                                            
-                       
+
+
                                         }
                                         break;
 
                                     }
                                     bookingInfo.RemoveAt(index);
-                                    bookingInfo.Add(withoutChosenBooking[withoutChosenBooking.Count -1 ]);
+                                    bookingInfo.Add(withoutChosenBooking[withoutChosenBooking.Count - 1]);
                                     isValidInput = true;
                                     Save.SaveFile(bookingInfo);
                                     break;
