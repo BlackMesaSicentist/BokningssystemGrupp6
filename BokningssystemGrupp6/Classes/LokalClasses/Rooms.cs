@@ -33,13 +33,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             RoomType = roomType;
             SeatAmount = seatAmount;
         }
-        //Method to get back to menu
-        //public static void BackToMenu()
-        //{
-        //    Console.WriteLine("\nTryck valfri tangent för att återgå till meny");
-        //    Console.ReadKey();
-        //    Console.Clear();
-        //}
+        
+        // Create a room
         public void CreateARoom(List<Rooms> rooms) {
 
             Console.Clear();
@@ -157,7 +152,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             return (roomSelect, sizeName, seatLimit);
         }
 
-
+        // Seat input
         private int SeatsInput(List<Rooms> rooms, int seatLimit)
         {
             Console.WriteLine($"Enter seats: (Cant exceed: {seatLimit}) ");
@@ -198,6 +193,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
             return seatsOk;
         }
+
         //Method to ask user yes or no
         public static bool AskUser()
         {
@@ -218,6 +214,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 }
             }
         }
+
         //Method to show all rooms + properties
         public static void ListAll(List<Rooms> rooms)
         {
@@ -255,7 +252,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public static String ChooseASpecificRoom(List<Rooms> rooms)
         
 
-        // What is this used for or should be used for?
         // public static void ChooseASpecificRoom(List<Rooms> rooms, String roomName)
         {
             String roomName;
