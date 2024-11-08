@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -90,7 +91,7 @@ namespace BokningssystemGrupp6.Classes
                 Console.WriteLine("Your booking is noted with the following information: ");
 
                 //calculates and prints the bookings duration and the last booking made
-                ListAll(booked); 
+                Console.WriteLine(booked.Last()); 
             }
             else 
             {
