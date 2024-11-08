@@ -162,7 +162,7 @@ namespace BokningssystemGrupp6.Classes
             //menu selection depending on how the user wants the information to display
             Console.WriteLine(new string('-', 100));
             Console.WriteLine("" +
-                "\n1. Show all bookings from year\n" +
+                "\n1. Show all bookings from specific year\n" +
                 "2. Show all bookings from specific room\n" +
                 "\nEnter the number for the corresponding option\n");
 
