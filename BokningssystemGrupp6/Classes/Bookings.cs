@@ -217,7 +217,6 @@ namespace BokningssystemGrupp6.Classes
                         {
                             specificBookings.Add(roomBooking);
                         }                    
-
                     }
                     ListAll(specificBookings);
                     break;
@@ -360,12 +359,10 @@ namespace BokningssystemGrupp6.Classes
                                                 Console.Clear();
                                                 break;
 
-                                            }
-                                            
+                                            }  
                        
                                         }
                                         break;
-
                                     }
                                     bookingInfo.RemoveAt(index);
                                     bookingInfo.Add(withoutChosenBooking[withoutChosenBooking.Count -1 ]);

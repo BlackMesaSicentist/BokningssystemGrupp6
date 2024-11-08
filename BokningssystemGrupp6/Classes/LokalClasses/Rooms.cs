@@ -267,9 +267,9 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                         roomName = rooms[choice-1].RoomName;
                         return roomName;
                     }
-                    else { Console.WriteLine($"\n{choice} is not a valid choice, please try again"); continue; }
+                    else { Console.WriteLine($"\n{roomNum} is not a valid choice, please try again"); continue; }
                 }
-                else { Console.WriteLine($"\n{choice} is not a valid choice, please try again"); continue; }
+                else { Console.WriteLine($"\n{roomNum} is not a valid choice, please try again"); continue; }
             }
         }
 
