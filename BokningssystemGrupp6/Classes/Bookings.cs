@@ -332,6 +332,7 @@ namespace BokningssystemGrupp6.Classes
                                     Console.Clear();
 
                                     //Converts the input to a DateTime object
+                                    //Todo: fix so it dosnt crash when enter wrong format
                                     DateTime dateTimeStart = DateTime.Parse(startTime);
                                     DateTime dateTimeEnd = DateTime.Parse(endTime);
 
