@@ -78,6 +78,10 @@ namespace BokningssystemGrupp6.Classes
                     {
                         Console.WriteLine("Input must be a number. Try again.");
                     }
+                    else if (_inputValidation.IsGreaterThanZero(roomNumberStr))
+                    {
+                        Console.WriteLine("Input cannot be 0");
+                    }
                     //Check if the number i negative
                     else if (_inputValidation.IsNumberNegative(roomNumberStr))
                     {
