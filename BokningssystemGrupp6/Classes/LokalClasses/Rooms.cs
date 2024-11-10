@@ -209,7 +209,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         }
 
         //Method to show all rooms + properties
-        public static void ListAll(List<Rooms> rooms)
+        internal static void ListAll(List<Rooms> rooms, RoomsListAndSort roomsListAndSort)
         {
             Console.WriteLine("ALL ROOMS");
             Console.WriteLine("{0,-12}{1,-20}{2,-14}{3,-14}{4,-18}{5,-14}", "Type", "Name", "Seat amount", "Seat Limit", "Has Projector", "Has Whiteboard");
@@ -240,6 +240,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.Write($"{false,-18}");
                 }              
             }
+            Console.WriteLine("\n");
+            roomsListAndSort.RoomsListAndSortStart(rooms);
         }
 
         //Method to show specific rooms
