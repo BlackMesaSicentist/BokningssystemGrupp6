@@ -10,14 +10,24 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public RoomsListAndSort(InputValidation inputValidation)
         {
             _inputValidation = inputValidation;
-            // Default value, needed for menu selection validation
+            //Default value, needed for menu selection validation
             sortOption = -1;
         }
 
         //Method to list and sort rooms
         public void RoomsListAndSortStart(List<Rooms> rooms)
         {
-            Console.WriteLine("List of rooms\nSelect list option:\n0. Show all rooms\n1. Show halls\n2. Show classrooms\n3. Show group rooms\n4. Rooms in order of number of seats, large - small\n5. Rooms in order of number of seats, small - large\n6. Rooms with projector\n7. Rooms with whiteboard\n8. Go back\n");
+            Console.WriteLine("" +
+                "List of rooms\nSelect list option:" +
+                "\n0. Show all rooms" +
+                "\n1. Show halls" +
+                "\n2. Show classrooms" +
+                "\n3. Show group rooms" +
+                "\n4. Rooms in order of number of seats, large - small" +
+                "\n5. Rooms in order of number of seats, small - large" +
+                "\n6. Rooms with projector" +
+                "\n7. Rooms with whiteboard" +
+                "\n8. Go back\n");
 
             string? menuChoice;
             sortOption = -1;
@@ -134,31 +144,35 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     break;
             }
             // Display the filtered or sorted list
+            Console.WriteLine("ALL ROOMS OF CHOICE");
+            Console.WriteLine("{0,-12}{1,-20}{2,-14}{3,-14}{4,-18}{5,-14}", "Type", "Name", "Seat amount", 
+                "Seat Limit", "Has Projector", "Has Whiteboard");
+            Console.WriteLine(new string('-', 100));
+
             foreach (var room in sortRoomList)
             {
-                Console.WriteLine($"Room Type: {room.GetType().Name}");
-                Console.WriteLine($"Room Name: {room.RoomName}");
-                Console.WriteLine($"Room Type Description: {room.RoomType}");
-                Console.WriteLine($"Seat Amount: {room.SeatAmount}");
+                Console.Write($"\n{room.GetType().Name,-12}");
+                Console.Write($"{room.RoomName,-20}");
+                Console.Write($"{room.SeatAmount,-15}");
 
                 if (room is Hall hall)
                 {
-                    Console.WriteLine($"Seat Limit: {hall.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {hall.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {hall.HasWhiteboard}");
+                    Console.Write($"{hall.SeatLimit,-15}");
+                    Console.Write($"{hall.HasProjector,-18}");
+                    Console.Write($"{hall.HasWhiteboard,-18}");
                 }
                 else if (room is Classroom classroom)
                 {
-                    Console.WriteLine($"Seat Limit: {classroom.SeatLimit}");
-                    Console.WriteLine($"Has Projector: {classroom.HasProjector}");
-                    Console.WriteLine($"Has Whiteboard: {classroom.HasWhiteboard}");
+                    Console.Write($"{classroom.SeatLimit,-15}");
+                    Console.Write($"{classroom.HasProjector,-18}");
+                    Console.Write($"{classroom.HasWhiteboard,-18}");
                 }
-                else if (room is GroupRoom groupRoom)
+                else if (room is GroupRoom grouproom)
                 {
-                    Console.WriteLine($"Seat Limit: {groupRoom.SeatLimit}");
+                    Console.Write($"{grouproom.SeatLimit,-15}");
+                    Console.Write($"{false,-18}");
+                    Console.Write($"{false,-18}");
                 }
-
-                Console.WriteLine("----------------------");
             }
         }
     }
