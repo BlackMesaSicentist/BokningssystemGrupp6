@@ -17,6 +17,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         //Method to list and sort rooms
         public void RoomsListAndSortStart(List<Rooms> rooms)
         {
+
+            // Menu options
             Console.WriteLine("" +
                 "Select list option:" +
                 "\n1. Show all rooms in category and alphabetical order\n" +
@@ -30,13 +32,15 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 "\n0. Go back\n");
 
             string? menuChoice;
+            // Reset option before starting the loop
             sortOption = -1;
 
+            // Loop for valid user input
             while (true)
             {
                 Console.Write("Enter your choice: ");
                 menuChoice = Console.ReadLine();
-
+                // Input validation
                 if (_inputValidation.IsEmpty(menuChoice))
                 {
                     Console.WriteLine("Field cannot be empty. Try again.");
@@ -53,6 +57,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     continue;
                 }
 
+                // Menu choice
                 switch (menuChoice)
                 {
                     case "1":
@@ -102,10 +107,12 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             RoomInfoWithSort(rooms);
         }
 
+        // Method to filter and sort rooms based menu choice
         private void RoomInfoWithSort(List<Rooms> rooms)
         {
             List<Rooms> sortRoomList = rooms;
 
+            // Menu choice options functions
             switch (sortOption)
             {
                 case 1: // Show all rooms sorted in category and alphabetical order
@@ -151,7 +158,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.WriteLine("Invalid selection");
                     break;
             }
-            // Display the filtered or sorted list
+            // Display the filtered or sorted list of rooms
             Console.WriteLine("ALL ROOMS OF CHOICE");
             Console.WriteLine("{0,-12}{1,-20}{2,-14}{3,-14}{4,-18}{5,-14}", "Type", "Name", "Seat amount", 
                 "Seat Limit", "Has Projector", "Has Whiteboard");
