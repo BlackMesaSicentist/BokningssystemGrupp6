@@ -27,7 +27,7 @@ namespace BokningssystemGrupp6.Classes
         public DateTime DateTimeStart { get; set; }
         public DateTime DateTimeEnd { get; set; }
 
-
+        //Input validations
         private readonly InputValidation _inputValidation;
         public Bookings(InputValidation inputValidation)
         {
@@ -100,7 +100,6 @@ namespace BokningssystemGrupp6.Classes
                     Console.WriteLine($"Error: {ex.Message}. Please try again.");
                 }
                 roomNumberStr = Console.ReadLine().Trim();
-
             }
 
             string roomName = rooms[roomNumber].RoomName;
@@ -109,7 +108,6 @@ namespace BokningssystemGrupp6.Classes
             Console.Write("Enter your email:");
             string? mailStr = Console.ReadLine().Trim();
             string mail;
-
             while (true)
             {
                 try
@@ -131,7 +129,6 @@ namespace BokningssystemGrupp6.Classes
                 }
                 mailStr = Console.ReadLine().Trim();
             }
-
             //Booking start time
             Console.Write("Input start date and time for booking.\n(YYYY-MM-DD HH:MM):");
             string startTimeStr = Console.ReadLine();
@@ -168,7 +165,6 @@ namespace BokningssystemGrupp6.Classes
                 }
                 startTimeStr = Console.ReadLine().Trim();
             }
-
             //Booking end time
             Console.Write("Input end date and time for booking. \n(YYYY-MM-DD HH:MM):");
             string endTimeStr = Console.ReadLine();
@@ -210,7 +206,6 @@ namespace BokningssystemGrupp6.Classes
                 endTimeStr = Console.ReadLine().Trim();
             }
             Console.Clear();
-
             if (booked.Count == 0)
             {
                 //Adds the booking to the list
@@ -299,7 +294,7 @@ namespace BokningssystemGrupp6.Classes
         //Method to list all bookings
         public static void ListAllBookingsByYearOrRoom(List<Bookings> bookingInfo, List<Rooms> listOfRoom)
         {
-            //show all bookings
+            //Show all bookings
             ListAll(bookingInfo);
 
             //Menu selection depending on how the user wants the information to display
@@ -359,7 +354,7 @@ namespace BokningssystemGrupp6.Classes
                     }
                     ListAll(specificBookings);
                     break;
-                //skrivs ut om användaren uppger ett felaktigt menyval
+                //Skrivs ut om användaren uppger ett felaktigt menyval
                 default:
                     Console.WriteLine("Invalid choise, try again");
                     break;
@@ -449,8 +444,7 @@ namespace BokningssystemGrupp6.Classes
                                     string endTime = Console.ReadLine();
                                     Console.Clear();
 
-                                    //Converts the input to a DateTime object
-                                    //Todo: fix so it dosnt crash when enter wrong format
+                                    //Converts the input to a DateTime object                                
                                     DateTime dateTimeStart = DateTime.Parse(startTime);
                                     DateTime dateTimeEnd = DateTime.Parse(endTime);
 
