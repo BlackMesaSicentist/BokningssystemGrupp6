@@ -10,7 +10,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
     //GroupRoom inherits from Rooms and interface IRoom and IListable
     internal class GroupRoom: Rooms, IRoom, IListable
     {
-        public int SeatLimit { get; set; } //Max seat limit for room
+        //Max seat limit for room
+        public int SeatLimit { get; set; } 
 
         //Json deserializer requiers an empty constructor
         public GroupRoom() : base() { }

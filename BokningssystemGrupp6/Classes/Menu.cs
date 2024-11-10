@@ -67,10 +67,9 @@ namespace BokningssystemGrupp6.Classes
         // Back to menu and clear function
         public static void BackToMenu()
         {
-            Console.WriteLine("\nPress any key to return to menu");
+            Console.WriteLine("\n\nPress any key to return to menu");
             Console.ReadKey();
             Console.Clear();
         }
-
     }
 }

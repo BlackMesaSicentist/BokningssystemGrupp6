@@ -10,12 +10,11 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public RoomsListAndSort(InputValidation inputValidation)
         {
             _inputValidation = inputValidation;
-            sortOption = -1; // Default value, needed for menu selection validation
+            // Default value, needed for menu selection validation
+            sortOption = -1;
         }
 
-
-
-
+        //Method to list and sort rooms
         public void RoomsListAndSortStart(List<Rooms> rooms)
         {
             Console.WriteLine("List of rooms\nSelect list option:\n0. Show all rooms\n1. Show halls\n2. Show classrooms\n3. Show group rooms\n4. Rooms in order of number of seats, large - small\n5. Rooms in order of number of seats, small - large\n6. Rooms with projector\n7. Rooms with whiteboard\n8. Go back\n");
@@ -88,10 +87,8 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                         Console.Clear();
                         continue;
                 }
-
                 if (sortOption != -1) break;
             }
-
             RoomInfoWithSort(rooms);
         }
 
@@ -136,9 +133,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.WriteLine("Invalid selection");
                     break;
             }
-
-
-
             // Display the filtered or sorted list
             foreach (var room in sortRoomList)
             {
@@ -166,15 +160,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
                 Console.WriteLine("----------------------");
             }
-
-
-
-
         }
-
-
-
-
-
     }
 }

@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace BokningssystemGrupp6.Classes.LokalClasses
 {
+    //Classroom inherits from Rooms and interface IRoom and IListable
     internal class Classroom : Rooms, IRoom, IListable
     {
-        public int SeatLimit { get; set; } //Max amount of seats that fit in this room
-        public bool HasProjector { get; set; } //If the room has a projector
-        public bool HasWhiteboard { get; set; } //If the rom has a whiteboard
+        //Max amount of seats that fit in this room
+        public int SeatLimit { get; set; }
+        //If the room has a projector
+        public bool HasProjector { get; set; }
+        //If the rom has a whiteboard
+        public bool HasWhiteboard { get; set; }
 
         //Json deserializer requiers an empty constructor
         public Classroom() :base (){ }

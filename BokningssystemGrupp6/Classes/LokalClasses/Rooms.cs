@@ -11,13 +11,13 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
     //Rooms inherits interface IRoom and IListable
     public class Rooms: IRoom, IListable
     {
-
         private readonly InputValidation _inputValidation;
         public Rooms(InputValidation inputValidation)
         {
             _inputValidation = inputValidation;
         }
 
+        //Properties for Rooms
         public string RoomName { get; set; }
         public string RoomType { get; set; }
         public int SeatAmount { get; set; }
@@ -34,55 +34,50 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             SeatAmount = seatAmount;
         }
         
-        // Create a room
+        //Method to create a room
         public void CreateARoom(List<Rooms> rooms) {
 
             Console.Clear();
 
-            // Room name
+            //Room name
             string roomName = RoomNameInput(rooms);
-            //Console.WriteLine("Enter name of the room: ");
-            //string? roomName = Console.ReadLine();
 
-            // Room type int / list type / seat limit
+            //Room type int / list type / seat limit
             var (roomSizeSelect, roomType, seatLimit) = RoomSize();
 
-
-            //Console.WriteLine("Enter how many seats: ");
-            //int seats = Convert.ToInt32(Console.ReadLine());
-
-            // Seats
+            //Seats
             int seats = SeatsInput(rooms, seatLimit);
 
-            // Projector and whiteboard select
+            //Projector and whiteboard select
             bool hasProjector = false;
             bool hasWhiteboard = false;
-            // If user selects group room skip asking user for projector/whiteboard.
+
+            //If user selects group room skip asking user for projector/whiteboard.
             if (roomSizeSelect != 3)
             {
                 Console.WriteLine("Does the venue have a projector? Y/N");
                 hasProjector = AskUser();
                 Console.WriteLine("Does the venue have a whiteboard? Y/N");
                 hasWhiteboard = AskUser();
-            }
-            //different types of venue
+            }       
+            //Adds to list th choosen type of venue
             if (roomSizeSelect == 1)
             {
-                Console.WriteLine("\nNew hall has been added");
+                Console.WriteLine("\nCongratulations, a new hall has been added!");
 
                 rooms.Add(new Hall(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 2)
             {
-                Console.WriteLine("\nNew classroom has been added");
+                Console.WriteLine("\nCongratulations, a new classroom has been added!");
               
                 rooms.Add(new Classroom(roomName, roomType, seats, seatLimit, hasProjector, hasWhiteboard));
                 Save.SaveFile(rooms);
             }
             else if (roomSizeSelect == 3)
             {
-                Console.WriteLine("\nNew group room has been added");
+                Console.WriteLine("\nCongratulations, a new group room has been added!");
                 
                 rooms.Add(new GroupRoom(roomName, roomType, seats, seatLimit));
                 Save.SaveFile(rooms);
@@ -90,20 +85,20 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             }
         }
 
-
+        //Method to take input about roomname
         private string RoomNameInput(List<Rooms> rooms)
         {
             Console.WriteLine("Enter name of the room: ");
             string tempName = Console.ReadLine().Trim();
-            // Input validation
+            //Input validation
             while (true)
             {
-                // Check if input is empty
+                //Check if input is empty
                 if (_inputValidation.IsEmpty(tempName))
                 {
                     Console.WriteLine("Field cannot be empty, Try again");
                 }
-                // Check if input is already used
+                //Check if input is already used
                 else if (_inputValidation.IsNameUsed(rooms, tempName))
                 {
                     Console.WriteLine("Name is alread used. Try again.");
@@ -112,15 +107,13 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 {
                     break;
                 }
-
-                // If input is wrong, a new input can be input
+                //If input is wrong, a new input can be input
                 tempName = Console.ReadLine();
             }
-
             return tempName;
         }
 
-        //Method to determine size
+        //Method to determine roomsize for cleaner code
         private static (int, string, int) RoomSize()
         {
             Console.WriteLine("Choose room size:\n1.Hall, 120 seat limit \n2.Classroom, 60 seat limit \n3.Group Room, 15 seat limit ");
@@ -152,7 +145,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             return (roomSelect, sizeName, seatLimit);
         }
 
-        // Seat input
+        //Method for seat input for cleaner code
         private int SeatsInput(List<Rooms> rooms, int seatLimit)
         {
             Console.WriteLine($"Enter seats: (Cant exceed: {seatLimit}) ");
@@ -162,30 +155,30 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
             while (true)
             {
-                // Check if input is empty
+                //Check if input is empty
 
                 if (_inputValidation.IsEmpty(tempSeatsStr))
                 {
                     Console.WriteLine("Field cannot be empty, Try again");
                 }
-                // Check if input is a number
+                //Check if input is a number
                 else if (!_inputValidation.IsNumber(tempSeatsStr))
                 {
                     Console.WriteLine("Input must be a number. Try again.");
                 }
-                // Check if the number i negative
+                //Check if the number i negative
                 else if (_inputValidation.IsNumberNegative(tempSeatsStr))
                 {
                     Console.WriteLine("Input must be a positive number. Try Again");
                 }
-                // Check if seats is larger than seat limit
+                //Check if seats is larger than seat limit
                 else if (_inputValidation.IsGreaterThanSeatLimit(tempSeatsStr, seatLimit))
                 {
                     Console.WriteLine("Input cannot be larger than seat limit, Try Again");
                 }
                 else
                 {
-                    // Convert string to int
+                    //Convert string to int
                     seatsOk = _inputValidation.ConvertToInt(tempSeatsStr);
                     break;
                 }
@@ -224,7 +217,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
           
             foreach (var room in rooms)
             {
-
                 Console.Write($"\n{room.GetType().Name,-12}");
                 Console.Write($"{room.RoomName,-20}");
                 Console.Write($"{room.SeatAmount,-15}");
@@ -237,27 +229,26 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 }
                 else if (room is Classroom classroom)
                 {
-
                     Console.Write($"{classroom.SeatLimit,-15}");
                     Console.Write($"{classroom.HasProjector,-18}");
                     Console.Write($"{classroom.HasWhiteboard,-18}");
                 }
                 else if (room is GroupRoom grouproom)
                 {
-                  
                     Console.Write($"{grouproom.SeatLimit,-15}");
-                }
-                
-                
+                    Console.Write($"{false,-18}");
+                    Console.Write($"{false,-18}");
+                }              
             }
         }
+
         //Method to show specific rooms
-        //Used by UpdateBooking method and CreateAndDisplayListOfBookingsSpecificRoomAndDate
-        //They need a room name and this is a selection method to choose room and then returns room name
         public static String ChooseASpecificRoom(List<Rooms> rooms)
         {
-            String roomName; //String that gets name and is returned
-            int i = 1; //Used to display each room numbered from 1 to rooms.count
+            //String that gets name and is returned
+            String roomName;
+            //Used to display each room numbered from 1 to rooms.count
+            int i = 1; 
             foreach (var r in rooms)
             {
                 Console.WriteLine($"{i}. {r.RoomName}");
@@ -266,15 +257,18 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             while (true)
             {
                 Console.WriteLine("\nEnter the number for the corresponding option");
-                string roomNum = Console.ReadLine(); //Input number to choose room
-                
-                if (int.TryParse(roomNum, out int choice)) //Convert input to int
+                //Input number to choose room
+                string roomNum = Console.ReadLine();
+
+                //Convert input to int
+                if (int.TryParse(roomNum, out int choice))
                 {
                     //Makes sure the choice of room is within the lenght span of room
                     if (choice > 0 && choice <= rooms.Count) 
                     {
-                        roomName = rooms[choice-1].RoomName; //-1 on choice so it matches indexing of lists
-                        return roomName; //Returns room name
+                        //-1 on choice so it matches indexing of lists
+                        roomName = rooms[choice-1].RoomName; 
+                        return roomName; 
                     }
                     else { Console.WriteLine($"\n{roomNum} is not a valid choice, please try again"); continue; }
                 }
