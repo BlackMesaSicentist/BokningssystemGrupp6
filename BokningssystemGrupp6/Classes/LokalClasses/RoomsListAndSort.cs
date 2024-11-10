@@ -19,7 +19,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         {
             Console.WriteLine("" +
                 "Select list option:" +
-                "\n1. Show all rooms" +
+                "\n1. Show all rooms in category and alphabetical order\n" +
                 "\n2. Show halls" +
                 "\n3. Show classrooms" +
                 "\n4. Show group rooms" +
@@ -56,40 +56,40 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 switch (menuChoice)
                 {
                     case "1":
-                        sortOption = 0;
-                        Console.WriteLine("Show all rooms");
+                        sortOption = 1;
+                        Console.WriteLine("Show all rooms in category and alphabetical order\n");
                         break;
                     case "2":
-                        sortOption = 1;
+                        sortOption = 2;
                         Console.WriteLine("Show halls");
                         break;
                     case "3":
-                        sortOption = 2;
+                        sortOption = 3;
                         Console.WriteLine("Show classrooms");
                         break;
                     case "4":
-                        sortOption = 3;
+                        sortOption = 4;
                         Console.WriteLine("Show group rooms");
                         break;
                     case "5":
-                        sortOption = 4;
+                        sortOption = 5;
                         Console.WriteLine("Rooms in order of number of seats, large to small");
                         break;
                     case "6":
-                        sortOption = 5;
+                        sortOption = 6;
                         Console.WriteLine("Rooms in order of number of seats, small to large");
                         break;
                     case "7":
-                        sortOption = 6;
+                        sortOption = 7;
                         Console.WriteLine("Rooms with projector");
                         break;
                     case "8":
-                        sortOption = 7;
+                        sortOption = 8;
                         Console.WriteLine("Rooms with whiteboard");
                         break;
                     case "0":
                         Console.WriteLine("Going back...");
-                        sortOption = 8;
+                        sortOption = 0;
                         break;
                     default:
                         Console.WriteLine("Not a valid selection. Press \"Enter\" and try again.");
@@ -108,37 +108,45 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
             switch (sortOption)
             {
-                case 1: // Show halls
+                case 1: // Show all rooms sorted in category and alphabetical order
+                    Console.WriteLine("Show all rooms in category and alphabetical order\n");
+                    sortRoomList = rooms
+                        // Sort by category: Hall -> Classroom -> GroupRoom
+                        .OrderBy(room => room is Hall ? 1 : room is Classroom ? 2 : 3)
+                        // Sort the rooms alphabetically
+                        .ThenBy(room => room.RoomName) 
+                        .ToList();
+                    break;
+                case 2: // Show halls
                     Console.WriteLine("Show halls\n");
                     sortRoomList = rooms.OfType<Hall>().Cast<Rooms>().ToList();
                     break;
-                case 2: // Show classrooms
+                case 3: // Show classrooms
                     Console.WriteLine("Show classrooms\n");
                     sortRoomList = rooms.OfType<Classroom>().Cast<Rooms>().ToList();
                     break;
-                case 3: // Show group rooms
+                case 4: // Show group rooms
                     Console.WriteLine("Show group rooms\n");
                     sortRoomList = rooms.OfType<GroupRoom>().Cast<Rooms>().ToList();
                     break;
-                case 4: // Rooms in order of number of seats, large - small
+                case 5: // Rooms in order of number of seats, large - small
                     Console.WriteLine("Rooms in order of number of seats, large - small\n");
                     sortRoomList = sortRoomList.OrderByDescending(room => room.SeatAmount).ToList();
                     break;
-                case 5: // Rooms in order of number of seats, small - large
+                case 6: // Rooms in order of number of seats, small - large
                     Console.WriteLine("Rooms in order of number of seats, small - large\n");
                     sortRoomList = sortRoomList.OrderBy(room => room.SeatAmount).ToList();
                     break;
-                case 6: // Rooms with projector
+                case 7: // Rooms with projector
                     Console.WriteLine("Rooms with projector\n");
                     sortRoomList = rooms.Where(room => room is Hall hall && hall.HasProjector).Cast<Rooms>().ToList();
                     break;
-                case 7: // Rooms with whiteboard
+                case 8: // Rooms with whiteboard
                     Console.WriteLine("Rooms with whiteboard\n");
                     sortRoomList = rooms.Where(room => room is Hall hall && hall.HasWhiteboard).Cast<Rooms>().ToList();
                     break;
-                case 8: // Show all rooms
-                    Console.WriteLine("Show all rooms\n");
-                    break;
+                case 0:
+                    return;
                 default:
                     Console.WriteLine("Invalid selection");
                     break;

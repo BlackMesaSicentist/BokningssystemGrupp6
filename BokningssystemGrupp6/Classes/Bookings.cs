@@ -50,7 +50,7 @@ namespace BokningssystemGrupp6.Classes
         //Method to create booking
         public void BookARoom(List<Bookings> booked, List<Rooms> rooms)
         {            
-            Console.WriteLine("Select room:");
+            Console.WriteLine("Select room, or type 'quit' to cancel:");
             int i = 1;
             foreach (var r in rooms)
             {
@@ -61,6 +61,9 @@ namespace BokningssystemGrupp6.Classes
             
             //Room select input
             string roomNumberStr = Console.ReadLine().Trim();
+
+            // Check if input is "quit" and if it is cancel the booking
+            if (roomNumberStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
 
             //Room selection validation
             while (true)
@@ -102,6 +105,9 @@ namespace BokningssystemGrupp6.Classes
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}. Please try again.");
+                    // Check if input is "quit" and if it is cancel the booking
+                    if (roomNumberStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
+
                 }
                 roomNumberStr = Console.ReadLine().Trim();
             }
@@ -109,8 +115,10 @@ namespace BokningssystemGrupp6.Classes
             string roomName = rooms[roomNumber].RoomName;
 
             //Email input
-            Console.Write("Enter your email:");
+            Console.Write("Enter your email, or type 'quit' to cancel:");
             string? mailStr = Console.ReadLine().Trim();
+            // Check if input is "quit" and if it is cancel the booking
+            if (mailStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
             string mail;
             while (true)
             {
@@ -130,12 +138,16 @@ namespace BokningssystemGrupp6.Classes
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}. Please try again.");
+                    // Check if input is "quit" and if it is cancel the booking
+                    if (mailStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
                 }
                 mailStr = Console.ReadLine().Trim();
             }
             //Booking start time
             Console.Write("Input start date and time for booking.\n(YYYY-MM-DD HH:MM):");
-            string startTimeStr = Console.ReadLine();
+            string startTimeStr = Console.ReadLine().Trim();
+            // Check if input is "quit" and if it is cancel the booking
+            if (startTimeStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
             DateTime dateTimeStart;
             while (true)
             {
@@ -166,12 +178,16 @@ namespace BokningssystemGrupp6.Classes
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}. Please try again.");
+                    // Check if input is "quit" and if it is cancel the booking
+                    if (startTimeStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
                 }
                 startTimeStr = Console.ReadLine().Trim();
             }
             //Booking end time
             Console.Write("Input end date and time for booking. \n(YYYY-MM-DD HH:MM):");
-            string endTimeStr = Console.ReadLine();
+            string endTimeStr = Console.ReadLine().Trim();
+            // Check if input is "quit" and if it is cancel the booking
+            if (endTimeStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
             DateTime dateTimeEnd;
             while (true)
             {
@@ -206,6 +222,8 @@ namespace BokningssystemGrupp6.Classes
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}. Please try again.");
+                    // Check if input is "quit" and if it is cancel the booking
+                    if (endTimeStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
                 }
                 endTimeStr = Console.ReadLine().Trim();
             }
