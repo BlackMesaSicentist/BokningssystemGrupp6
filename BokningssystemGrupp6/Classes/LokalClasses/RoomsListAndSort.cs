@@ -87,11 +87,11 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                         break;
                     case "7":
                         sortOption = 7;
-                        Console.WriteLine("Rooms with projector");
+                        Console.WriteLine("Show rooms with projector");
                         break;
                     case "8":
                         sortOption = 8;
-                        Console.WriteLine("Rooms with whiteboard");
+                        Console.WriteLine("Show rooms with whiteboard");
                         break;
                     case "0":
                         Console.WriteLine("Going back...");
