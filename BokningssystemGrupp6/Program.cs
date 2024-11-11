@@ -6,17 +6,17 @@ using BokningssystemGrupp6.Interfaces;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Collections.Generic;
+using System.Dynamic;
 //Av: Angelica Bergström, David Berglin, Adam Axelsson-Hedman, Alexander Bullerjahn
 
 namespace BokningssystemGrupp6
 {
-
     internal class Program
     {
         static void Main(string[] args)
         {
-
-            InputValidation inputValidation = new InputValidation();
+         
+        InputValidation inputValidation = new InputValidation();
             Menu menu = new Menu(inputValidation);
 
             //List for rooms (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
