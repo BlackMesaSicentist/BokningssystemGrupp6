@@ -38,6 +38,7 @@ namespace BokningssystemGrupp6.Classes
                     "\n3. Show rooms " +
                     "\n4. Show bookings " +
                     "\n5. Update existing booking" +
+                    "\n6. Remove existing booking" +
                     "\n0. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
@@ -51,9 +52,10 @@ namespace BokningssystemGrupp6.Classes
                     case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); BackToMenu(); break;
                     //Update existing booking
                     case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo, rooms); BackToMenu(); break;
+                    //remove booking
+                    case "6": Console.Clear(); Bookings.DeleteBooking(bookingsInfo, rooms); break; 
                     //Ends program
                     case "0": menu1 = false; break;
-                    case "99": Console.Clear(); Bookings.DeleteBooking(bookingsInfo, rooms); break; //Todo: remove after test of this method and fixing of menu
                     default:
                         {
                             Console.WriteLine("Invalid option, press any key to try again");
