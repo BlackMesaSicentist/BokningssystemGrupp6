@@ -54,7 +54,7 @@ namespace BokningssystemGrupp6.Classes
             int i = 1;
             foreach (var r in rooms)
             {
-                Console.WriteLine($"{i}. {r.RoomName}");
+                Console.WriteLine($"{i}. {r.RoomName}, {r.RoomType}");
                 i++;
 
 

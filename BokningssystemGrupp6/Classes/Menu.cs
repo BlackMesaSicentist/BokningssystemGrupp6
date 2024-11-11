@@ -38,7 +38,7 @@ namespace BokningssystemGrupp6.Classes
                     "\n3. Show rooms " +
                     "\n4. Show bookings " +
                     "\n5. Update existing booking" +
-                    "\n6. remove existing booking" +
+                    "\n6. Remove existing booking" +
                     "\n0. Exit program");
                 switch (menuChoice = Console.ReadLine())
                 {
