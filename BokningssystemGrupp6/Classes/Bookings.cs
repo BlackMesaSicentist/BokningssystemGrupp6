@@ -56,6 +56,14 @@ namespace BokningssystemGrupp6.Classes
             {
                 Console.WriteLine($"{i}. {r.RoomName}");
                 i++;
+
+
+            }
+            if (i == 1)
+            {
+                Console.WriteLine("No room is available. Press a key to go back to continue.");
+                Console.ReadKey();
+                return;
             }
             int roomNumber;
             
@@ -71,6 +79,8 @@ namespace BokningssystemGrupp6.Classes
 
                 try
                 {
+                    if (roomNumberStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
+
                     //Check if input is empty
                     if (_inputValidation.IsEmpty(roomNumberStr))
                     {
