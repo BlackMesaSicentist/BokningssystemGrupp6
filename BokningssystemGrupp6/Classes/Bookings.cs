@@ -482,9 +482,8 @@ namespace BokningssystemGrupp6.Classes
                             //Prints the last item
                             ListSpecific(withoutChosenBookingOnlyAndSpecificRoom[withoutChosenBookingOnlyAndSpecificRoom.Count - 1]);
 
-                            Console.WriteLine("Press \"Enter\" to return to main menu");
-                            Console.ReadKey();
-
+                            Menu.BackToMenu();
+                            
                             isNewBookingSuccess = true;
                             isValidInput = true;
                         }
@@ -502,8 +501,8 @@ namespace BokningssystemGrupp6.Classes
                                     ListSpecific(book);
                                     isValidInput = true;
 
-                                    Console.WriteLine("Press \"Enter\" to return to main menu");
-                                    Console.ReadKey();
+                                    Menu.BackToMenu();
+
                                     break;
                                 }
                             }
@@ -519,10 +518,7 @@ namespace BokningssystemGrupp6.Classes
                                 //Prints the last item
                                 ListSpecific(newest);
 
-                                Console.WriteLine($"Total duration for your booking is: {totalTime}.");
-
-                                Console.WriteLine("Press \"Enter\" to return to main menu");
-                                Console.ReadKey();
+                                Menu.BackToMenu();
 
                                 //It is allowed to save
                                 isNewBookingSuccess = true; 
@@ -544,10 +540,9 @@ namespace BokningssystemGrupp6.Classes
                         }
                         break;
                     }
-                    else { 
-                        Console.WriteLine($"{choice} is not a valid choice \nPress \"Enter\" and try again \n"); 
-                        
-                        Console.ReadKey();
+                    else {
+                        Menu.BackToMenu();
+
                         Console.Clear();
                         continue; 
                     }
@@ -575,7 +570,7 @@ namespace BokningssystemGrupp6.Classes
                 }
 
                 Console.WriteLine("\nEnter the number for the corresponding option");
-                //Input choiche form list
+                //Input choice form list
                 if (int.TryParse(Console.ReadLine(), out int choice)) 
                 {
                     //Check if inside list range
