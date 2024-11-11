@@ -395,12 +395,16 @@ namespace BokningssystemGrupp6.Classes
         }
 
         //Method to update an alreade existing booking
+        //Method to update an already existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
         {
             
             //Check if ok to save list at the last step, makes sure it dosnt remove anything from the list
+
+            //Check if ok to save list at the last step, makes sure it doesn't remove anything from the list
             Boolean isNewBookingSuccess = false;
 
+            //Used to temporary save the booking that is going to be removed
             Bookings bookingToRemove = new Bookings();
 
             //Used to end loops to end method if all conditions are fulfilled 
@@ -430,22 +434,28 @@ namespace BokningssystemGrupp6.Classes
                     i++;
                 }
 
-                Console.WriteLine("\nEnter the number for the corresponding option");
-                //Input choiche form list
-                if (int.TryParse(Console.ReadLine(), out int choice)) 
+                Console.WriteLine("\nEnter the number for the corresponding option " +
+                    "or type 'quit' to cancel");
+                //Input choice
+                String? choiceString = Console.ReadLine();
+
+                if (choiceString.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
+
+                //Check if choice is valid character and convert
+                if (int.TryParse(choiceString, out int choiceInt)) 
                 {
                     //Check if inside list range
-                    if (choice <= bookingInfo.Count && choice > 0)
+                    if (choiceInt <= bookingInfo.Count && choiceInt > 0)
                     {
                         //Have to shrink by 1 to actually match index for list
-                        choice--;
+                        choiceInt--;
                         Console.WriteLine("Choose room you want to book \n");
                         String roomName = Rooms.ChooseASpecificRoom(roomList);
-                        //Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
+                        //Creates a new list so a list without the booking to be change so it dosen't create a booking conflict with dates
                         List<Bookings> withoutChosenBookingOnlyAndSpecificRoom = new List<Bookings>();
-                        bookingToRemove = bookingInfo[choice];
+                        bookingToRemove = bookingInfo[choiceInt];
   
-                        //Adds only bookings for the chosen room, else it might check for conflicts in rooms that arent relevant
+                        //Adds only bookings for the chosen room, else it might check for conflicts in rooms that aren't relevant
                         foreach (Bookings booking in bookingInfo)
                         {
                             if (booking.RoomName == roomName)
@@ -457,10 +467,13 @@ namespace BokningssystemGrupp6.Classes
                         String mail = Console.ReadLine();
 
                         Console.Write("Input start date and time for booking. \n(YYYY-MM-DD HH:MM):");
-                        string startTime = Console.ReadLine();
+                        String startTime = Console.ReadLine();
                         Console.Write("Input end date and time for booking. \n(YYYY-MM-DD HH:MM):");
                         string endTime = Console.ReadLine();
                         Console.Clear();
+
+                        if (startTime.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
+                        if (endTime.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
 
                         try
                         {
@@ -525,7 +538,7 @@ namespace BokningssystemGrupp6.Classes
                                 isNewBookingSuccess = true; 
                             }
                         }
-                        //Checks if the new booking fulfills all requirments
+                        //Checks if the new booking fulfills all requirements
                         if (isNewBookingSuccess == true)
                         {
                             foreach (Bookings bookingRemove in bookingInfo)
@@ -582,19 +595,25 @@ namespace BokningssystemGrupp6.Classes
                     i++;
                 }
 
-                Console.WriteLine("\nEnter the number for the corresponding option");
+                Console.WriteLine("\nEnter the number for the corresponding option " +
+                    "or type 'quit' to cancel");
+
                 //Input choice form list
-                if (int.TryParse(Console.ReadLine(), out int choice)) 
+                String choiceString = Console.ReadLine();
+                if (choiceString.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
+
+                //Check if choiceString is valid character and convert if it is
+                if (int.TryParse(choiceString, out int choiceInt)) 
                 {
                     //Check if inside list range
-                    if (choice <= bookingInfo.Count && choice > 0) 
+                    if (choiceInt <= bookingInfo.Count && choiceInt > 0) 
                     {
                         //List booking to be removed
                         Console.WriteLine("You have removed booking:");
-                        ListSpecific(bookingInfo[choice - 1]);
+                        ListSpecific(bookingInfo[choiceInt - 1]);
 
                         //Remove and save booing
-                        bookingInfo.RemoveAt(choice - 1);
+                        bookingInfo.RemoveAt(choiceInt - 1);
                         Save.SaveFile(bookingInfo);
 
                         break;
