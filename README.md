@@ -112,3 +112,36 @@ mergekonflikter.
 7. Sedan approve PR.
 8. Pull på main testa att allt funkar i denna.
 9. Börja om på steg 7.
+
+
+
+
+
+
+## Filformat och kodstruktur
+BokningssystemGrupp6/                # Huvudmap med alla filer och dokument i projektet. 
+├── BokningssystemGrupp6/            # Mapp med projektets kodfiler som används för att köra projektet.
+│   ├── Classes/                     # Mapp med klasser som utför olika funktioner i bokningssystemet
+│   │   ├── LokalClasses/            # Mapp med klasser som utför saker som har med rum och lokaler att göra.
+│   │   │   ├── Classroom.cs         # Innehåller kod för klassrum, ärver från Rooms-klassen.
+│   │   │   ├── GroupRoom.cs         # Innehåller kod för grupprum, ärver från Rooms-klassen.
+│   │   │   ├── Hall.cs              # Innehåller kod för salar, ärver från Rooms-klassen.
+│   │   │   ├── Rooms.cs             # Bas-klass med egenskaper och metoder för rum (Rooms), så som att skapa rum, visa rum, etcetera. Rummens data sparas i en JSON-fil
+│   │   │   └── RoomsListAndSort.cs  # Kod för att sortera och visa rummen i olika ordningar, som antal platser, rummens egenskaper.
+│   │   ├── Bookings.cs              # Innehåller metoder för att boka, ändra, ta bort och visa bokningar. Sparar bokningar i JSON-fil
+│   │   ├── InputValidation.cs       # Metoder för inputvalidering, ex. kontroll av siffervärden, input format, etc.
+│   │   ├── Menu.cs                  # Huvudmenyn och den som först visas när man kör programmet och visar de funktioner som man kan utföra.
+│   │   ├── RoomsConverter.cs        # Utför hanteringen av polymorf serialisering och deserialisering för att kunna skapa en lista där olika typer av underklasser där de ärver från en gemensam klass med där de kan innehålla olika mycket information. Den används för att både läsa och skriva till JSON-filerna.
+│   │   └── Save.cs                  # Hantering av att läsa och spara objektlistor (rum och bokningar) i JSON-filerna.
+│   ├── Interfaces/                  # Mapp för interface-filer.
+│   │   ├── IListable.cs             # Interface som definierar metoder som används i flera klasser.
+│   │   └── IRoom.cs                 # Interface som definierar egenskaper för rum.
+│   ├── BokningssystemGrupp6.csproj  # Projektfil för byggprocessen.
+│   └── Programs.cs                  # Startfil, skapar objekt och listor som används i de andra filerna. Deserialiserar JSON-filerna och startar sedan MainMenu metoden.
+├── .gitignore                       # Gitignore-fil med grundinställningar för Visual Studio-projekt.
+├── BokningssystemGrupp6.sln         # Lösningsfil för hela C#-projektet.
+└── README.md                        # Projektbeskrivning och instruktioner för att köra programmet.
+
+
+
+
