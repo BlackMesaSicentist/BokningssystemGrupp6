@@ -370,7 +370,7 @@ namespace BokningssystemGrupp6.Classes
                     }
                     else
                     {
-                        Console.WriteLine("Invalid choise");
+                        Console.WriteLine("Invalid option");
                     }
                     break;
                 //Show all bookings from specific room 
@@ -389,7 +389,7 @@ namespace BokningssystemGrupp6.Classes
                     break;
                 //Skrivs ut om användaren uppger ett felaktigt menyval
                 default:
-                    Console.WriteLine("Invalid choise, try again");
+                    Console.WriteLine("Invalid option, try again");
                     break;
             }
         }
@@ -500,7 +500,7 @@ namespace BokningssystemGrupp6.Classes
                                 //Checks that the booking conflicts with an already made booking
                                 if (checkIfBookingOverlaps != false)
                                 {
-                                    Console.WriteLine("Sorry but the date and time you have chosen is in conflict with an already place booking");
+                                    Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
                                     //Print the booking it conflicts with
                                     ListSpecific(book);
                                     isValidInput = true;
