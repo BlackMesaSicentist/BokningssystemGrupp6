@@ -410,6 +410,13 @@ namespace BokningssystemGrupp6.Classes
 
             do
             {
+                //Checks if there is no bookings in list and breaks if it cant find any
+                if (bookingInfo.Count == 0)
+                {
+                    Console.WriteLine("Im sorry but there is no existing booking that can be updated");
+                    isValidInput = true;
+                    break;
+                }
                 Console.WriteLine("Here is a list of existing bookings \n");
                 //List bookings
                 for (int i = 0; i < bookingInfo.Count; i++) 
@@ -508,7 +515,7 @@ namespace BokningssystemGrupp6.Classes
                             }
                             if (checkIfBookingOverlaps == false)
                             {
-                                //Adds the booking to the list
+                                //Adds the booking to the temp list
                                 withoutChosenBookingOnlyAndSpecificRoom.Add(new Bookings(mail, roomName, dateTimeStart, dateTimeEnd));
                                 Bookings newest = withoutChosenBookingOnlyAndSpecificRoom[withoutChosenBookingOnlyAndSpecificRoom.Count - 1];
 
@@ -527,23 +534,28 @@ namespace BokningssystemGrupp6.Classes
                                 isNewBookingSuccess = true; 
                             }
                         }
+                        //Checks if the new booking fulfills all requirments
                         if (isNewBookingSuccess == true)
                         {
                             foreach (Bookings bookingRemove in bookingInfo)
                             {
+                                //Remove booking
                                 if (bookingRemove == bookingToRemove)
                                 {
                                     bookingInfo.Remove(bookingRemove);
                                     break;
                                 }
                             }
+                            //Add to and save bookinglist
                             bookingInfo.Add(withoutChosenBookingOnlyAndSpecificRoom[withoutChosenBookingOnlyAndSpecificRoom.Count - 1]);
                             isValidInput = true;
                             Save.SaveFile(bookingInfo);
                         }
                         break;
                     }
-                    else { 
+                    //If choice is not valid, loop and input choice again
+                    else
+                    { 
                         Console.WriteLine($"{choice} is not a valid choice \nPress \"Enter\" and try again \n"); 
                         
                         Console.ReadKey();
@@ -552,8 +564,8 @@ namespace BokningssystemGrupp6.Classes
                     }
                 }
             }
-                while (isValidInput == false);
-            }
+            while (isValidInput == false);
+        }
 
         //Method to delete previous booking
         public static void DeleteBooking(List<Bookings>bookingInfo, List<Rooms>roomList)
@@ -561,6 +573,14 @@ namespace BokningssystemGrupp6.Classes
    
             while (true)
             {
+                //Checks if there is no bookings in list and breaks if it cant find any
+                if (bookingInfo.Count == 0)
+                {
+                    Console.WriteLine("Im sorry but there is no existing booking that can be removed " +
+                        "\nPress \"Enter\" to return to main menu");
+                    Console.ReadKey();
+                    break;
+                }
                 //List bookings
                 for (int i = 0; i < bookingInfo.Count; i++) 
                 {
@@ -575,10 +595,11 @@ namespace BokningssystemGrupp6.Classes
                     //Check if inside list range
                     if (choice <= bookingInfo.Count && choice > 0) 
                     {
- 
+                        //List booking to be removed
                         Console.WriteLine($"You have removed booking:");
                         ListSpecific(bookingInfo[choice - 1]);
 
+                        //Remove and save booing
                         bookingInfo.RemoveAt(choice - 1);
                         Save.SaveFile(bookingInfo);
 
@@ -589,6 +610,7 @@ namespace BokningssystemGrupp6.Classes
                         break;
                     }
                 }  
+                //If choice is not valid, loop and input choice again
                 else
                 {
                     Console.WriteLine("Not a valid choice, press enter and try again");
