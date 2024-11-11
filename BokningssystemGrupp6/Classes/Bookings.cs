@@ -400,7 +400,7 @@ namespace BokningssystemGrupp6.Classes
 
             do
             {
-                Console.WriteLine("Här är en lista på alla befintliga bookningar \n");
+                Console.WriteLine("Here is a list of existing bookings \n");
                 //List bookings
                 for (int i = 0; i < bookingInfo.Count; i++) 
                 {
@@ -417,7 +417,7 @@ namespace BokningssystemGrupp6.Classes
                     {
                         //Have to shrink by 1 to actually match index for list
                         choice--;
-                        Console.WriteLine("Välj vilket rum där du vill lägga din nya booking \n");
+                        Console.WriteLine("Choose room you want to book \n");
                         String roomName = Rooms.ChooseASpecificRoom(roomList);
                         //Creates a new list so a list without the booking to be change so it dosent create a booking conflict with dates
                         List<Bookings> withoutChosenBookingOnlyAndSpecificRoom = new List<Bookings>();
@@ -471,6 +471,9 @@ namespace BokningssystemGrupp6.Classes
                             //Calculates and prints the bookings duration and the last booking made
                             Console.WriteLine($"Total duration for your booking is: {totalTime}.");
 
+                            Console.WriteLine("Press \"Enter\" to return to main menu");
+                            Console.ReadKey();
+
                             isNewBookingSuccess = true;
                             isValidInput = true;
                         }
@@ -483,10 +486,13 @@ namespace BokningssystemGrupp6.Classes
                                 //Checks that the booking conflicts with an already made booking
                                 if (checkIfBookingOverlaps != false)
                                 {
-                                    Console.WriteLine("Din valda tid & datum krockar tyvärr med en redan lagd bokning");
+                                    Console.WriteLine("Sorry but the date and time you have chosen is in conflict with an already place booking");
                                     //Print the booking it conflicts with
                                     ListSpecific(book);
                                     isValidInput = true;
+
+                                    Console.WriteLine("Press \"Enter\" to return to main menu");
+                                    Console.ReadKey();
                                     break;
                                 }
                             }
@@ -497,12 +503,15 @@ namespace BokningssystemGrupp6.Classes
                                 Bookings newest = withoutChosenBookingOnlyAndSpecificRoom[withoutChosenBookingOnlyAndSpecificRoom.Count - 1];
 
                                 //Printed when the booking is completed
-                                Console.WriteLine("Grattis din bokning är genomförd med informationen nedan");
+                                Console.WriteLine("Your booking is noted with the following information: ");
 
                                 //Prints the last item
                                 ListSpecific(newest);
 
-                                Console.WriteLine($"Din bokning är totalt {totalTime} timmar.");
+                                Console.WriteLine($"Total duration for your booking is: {totalTime}.");
+
+                                Console.WriteLine("Press \"Enter\" to return to main menu");
+                                Console.ReadKey();
 
                                 //It is allowed to save
                                 isNewBookingSuccess = true; 
@@ -524,7 +533,13 @@ namespace BokningssystemGrupp6.Classes
                         }
                         break;
                     }
-                    else { Console.WriteLine($"{choice} är inte ett giltigt val \nFörsök igen \n"); continue; }
+                    else { 
+                        Console.WriteLine($"{choice} is not a valid choice \nPress \"Enter\" and try again \n"); 
+                        
+                        Console.ReadKey();
+                        Console.Clear();
+                        continue; 
+                    }
                 }
             }
                 while (isValidInput == false);
@@ -533,9 +548,7 @@ namespace BokningssystemGrupp6.Classes
         //Method to delete previous booking
         public static void DeleteBooking(List<Bookings>bookingInfo, List<Rooms>roomList)
         {
-            //Used to specify what booking to remove
-            Bookings bookingToRemove = new Bookings();
-
+   
             while (true)
             {
                 //List bookings
@@ -545,25 +558,30 @@ namespace BokningssystemGrupp6.Classes
                     ListSpecific(bookingInfo[i]);
                 }
 
-                Console.WriteLine("Mata in siffran som motsvarar bokningen som ni vill ta bort:");
+                Console.WriteLine("Enter the number for the corresponding option");
                 //Input choiche form list
                 if (int.TryParse(Console.ReadLine(), out int choice)) 
                 {
                     //Check if inside list range
                     if (choice <= bookingInfo.Count && choice > 0) 
                     {
-                        bookingToRemove = bookingInfo[choice - 1];
-                        Console.WriteLine($"Du har tagit bort bokning:");
-                        ListSpecific(bookingToRemove);
+ 
+                        Console.WriteLine($"You have removed booking:");
+                        ListSpecific(bookingInfo[choice - 1]);
+
                         bookingInfo.RemoveAt(choice - 1);
                         Save.SaveFile(bookingInfo);
+
+                        Console.WriteLine("Press \"Enter\" to continue:");
+                        Console.ReadKey();
+                        Console.Clear();
 
                         break;
                     }
                 }  
                 else
                 {
-                    Console.WriteLine("Inte ett giltigt val, tryck på enter och försök igen");
+                    Console.WriteLine("Not a valid choice, press enter and try again");
                     Console.ReadKey();
                     Console.Clear();
                     continue;
