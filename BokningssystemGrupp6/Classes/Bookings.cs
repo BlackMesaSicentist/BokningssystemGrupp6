@@ -583,18 +583,16 @@ namespace BokningssystemGrupp6.Classes
                         bookingInfo.RemoveAt(choice - 1);
                         Save.SaveFile(bookingInfo);
 
-                        Console.WriteLine("Press \"Enter\" to continue:");
-                        Console.ReadKey();
-                        Console.Clear();
+                        Menu.BackToMenu();
 
                         break;
                     }
                 }  
                 else
                 {
-                    Console.WriteLine("Not a valid choice, press enter and try again");
-                    Console.ReadKey();
-                    Console.Clear();
+                    Console.WriteLine("Not a valid choice");
+                    Menu.BackToMenu();
+
                     continue;
                 }
             }
