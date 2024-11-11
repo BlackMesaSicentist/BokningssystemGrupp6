@@ -394,7 +394,7 @@ namespace BokningssystemGrupp6.Classes
             }
         }
 
-        //Update an alreade existing booking
+        //Method to update an alreade existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
         {
             
@@ -563,10 +563,15 @@ namespace BokningssystemGrupp6.Classes
             while (true)
             {
                 //List bookings
-                for (int i = 0; i < bookingInfo.Count; i++) 
+                Console.WriteLine("ALL EXISTING BOOKINGS");
+                Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", "", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+                Console.WriteLine(new string('-', 100));
+                int i = 1;
+                foreach (Bookings booking in bookingInfo)
                 {
-                    Console.WriteLine($"-------------\n{i + 1}: ");
-                    ListSpecific(bookingInfo[i]);
+                    Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", i + ".",
+                        booking.Mail, booking.RoomName, booking.DateTimeStart, booking.DateTimeEnd, booking.DateTimeEnd - booking.DateTimeStart);
+                    i++;
                 }
 
                 Console.WriteLine("Enter the number for the corresponding option");
