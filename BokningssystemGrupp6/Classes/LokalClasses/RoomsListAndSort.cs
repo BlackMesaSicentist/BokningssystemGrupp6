@@ -21,7 +21,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             // Menu options
             Console.WriteLine("" +
                 "Select list option:" +
-                "\n1. Show all rooms in category and alphabetical order\n" +
+                "\n1. Show all rooms in category and alphabetical order" +
                 "\n2. Show halls" +
                 "\n3. Show classrooms" +
                 "\n4. Show group rooms" +
