@@ -47,7 +47,7 @@ namespace BokningssystemGrupp6.Classes
                     //Book a room
                     case "2": Console.Clear(); _bookings.BookARoom(bookingsInfo, rooms); BackToMenu(); break;
                     //Show all rooms
-                    case "3": Console.Clear(); Rooms.ListAll(rooms); BackToMenu(); break;
+                    case "3": Console.Clear(); Rooms.ListAll(rooms, _roomsListAndSort); BackToMenu(); break;
                     //Show bookings by year or room
                     case "4": Console.Clear(); Bookings.ListAllBookingsByYearOrRoom(bookingsInfo, rooms); BackToMenu(); break;
                     //Update existing booking
