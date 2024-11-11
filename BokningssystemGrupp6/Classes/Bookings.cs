@@ -574,7 +574,7 @@ namespace BokningssystemGrupp6.Classes
                     i++;
                 }
 
-                Console.WriteLine("Enter the number for the corresponding option");
+                Console.WriteLine("\nEnter the number for the corresponding option");
                 //Input choiche form list
                 if (int.TryParse(Console.ReadLine(), out int choice)) 
                 {
