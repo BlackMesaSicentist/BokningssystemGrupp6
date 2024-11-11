@@ -394,7 +394,7 @@ namespace BokningssystemGrupp6.Classes
             }
         }
 
-        //Update an alreade existing booking
+        //Method to update an alreade existing booking
         public static void UpdateBooking(List<Bookings> bookingInfo, List<Rooms> roomList)
         {
             
@@ -490,9 +490,8 @@ namespace BokningssystemGrupp6.Classes
                             //Prints the last item
                             ListSpecific(withoutChosenBookingOnlyAndSpecificRoom[withoutChosenBookingOnlyAndSpecificRoom.Count - 1]);
 
-                            Console.WriteLine("Press \"Enter\" to return to main menu");
-                            Console.ReadKey();
-
+                            Menu.BackToMenu();
+                            
                             isNewBookingSuccess = true;
                             isValidInput = true;
                         }
@@ -510,8 +509,8 @@ namespace BokningssystemGrupp6.Classes
                                     ListSpecific(book);
                                     isValidInput = true;
 
-                                    Console.WriteLine("Press \"Enter\" to return to main menu");
-                                    Console.ReadKey();
+                                    Menu.BackToMenu();
+
                                     break;
                                 }
                             }
@@ -527,10 +526,7 @@ namespace BokningssystemGrupp6.Classes
                                 //Prints the last item
                                 ListSpecific(newest);
 
-                                Console.WriteLine($"Total duration for your booking is: {totalTime}.");
-
-                                Console.WriteLine("Press \"Enter\" to return to main menu");
-                                Console.ReadKey();
+                                Menu.BackToMenu();
 
                                 //It is allowed to save
                                 isNewBookingSuccess = true; 
@@ -555,12 +551,9 @@ namespace BokningssystemGrupp6.Classes
                         }
                         break;
                     }
-                    //If choice is not valid, loop and input choice again
-                    else
-                    { 
-                        Console.WriteLine($"{choice} is not a valid choice \nPress \"Enter\" and try again \n"); 
-                        
-                        Console.ReadKey();
+                    else {
+                        Menu.BackToMenu();
+
                         Console.Clear();
                         continue; 
                     }
@@ -584,14 +577,19 @@ namespace BokningssystemGrupp6.Classes
                     break;
                 }
                 //List bookings
-                for (int i = 0; i < bookingInfo.Count; i++) 
+                Console.WriteLine("ALL EXISTING BOOKINGS");
+                Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", "", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+                Console.WriteLine(new string('-', 100));
+                int i = 1;
+                foreach (Bookings booking in bookingInfo)
                 {
-                    Console.WriteLine($"-------------\n{i + 1}: ");
-                    ListSpecific(bookingInfo[i]);
+                    Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", i + ".",
+                        booking.Mail, booking.RoomName, booking.DateTimeStart, booking.DateTimeEnd, booking.DateTimeEnd - booking.DateTimeStart);
+                    i++;
                 }
 
-                Console.WriteLine("Enter the number for the corresponding option");
-                //Input choiche form list
+                Console.WriteLine("\nEnter the number for the corresponding option");
+                //Input choice form list
                 if (int.TryParse(Console.ReadLine(), out int choice)) 
                 {
                     //Check if inside list range
