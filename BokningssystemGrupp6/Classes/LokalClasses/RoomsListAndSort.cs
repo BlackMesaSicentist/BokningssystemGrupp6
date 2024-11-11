@@ -40,7 +40,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             {
                 Console.Write("Enter your choice: ");
                 menuChoice = Console.ReadLine();
-                Console.Clear();
                 //Input validation
                 if (_inputValidation.IsEmpty(menuChoice))
                 {
@@ -100,7 +99,6 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     default:
                         Console.WriteLine("Not a valid selection. Press \"Enter\" and try again.");
                         Console.ReadKey();
-                        Console.Clear();
                         continue;
                 }
                 if (sortOption != -1) break;
@@ -111,6 +109,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         //Method to filter and sort rooms based menu choice
         private void RoomInfoWithSort(List<Rooms> rooms)
         {
+            Console.Clear();
             List<Rooms> sortRoomList = rooms;
 
             //Menu choice options functions
