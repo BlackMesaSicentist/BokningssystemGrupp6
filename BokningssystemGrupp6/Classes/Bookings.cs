@@ -476,8 +476,6 @@ namespace BokningssystemGrupp6.Classes
                         catch (FormatException)
                         {
                             Console.WriteLine("Incorrect format, please enter the date and time in the correct format.");
-                            Menu.BackToMenu();
-
                         }
                         if (withoutChosenBookingOnlyAndSpecificRoom.Count == 0)
                         {
@@ -489,8 +487,6 @@ namespace BokningssystemGrupp6.Classes
 
                             //Prints the last item
                             ListSpecific(withoutChosenBookingOnlyAndSpecificRoom[withoutChosenBookingOnlyAndSpecificRoom.Count - 1]);
-
-                            Menu.BackToMenu();
                             
                             isNewBookingSuccess = true;
                             isValidInput = true;
@@ -509,8 +505,6 @@ namespace BokningssystemGrupp6.Classes
                                     ListSpecific(book);
                                     isValidInput = true;
 
-                                    Menu.BackToMenu();
-
                                     break;
                                 }
                             }
@@ -525,8 +519,6 @@ namespace BokningssystemGrupp6.Classes
 
                                 //Prints the last item
                                 ListSpecific(newest);
-
-                                Menu.BackToMenu();
 
                                 //It is allowed to save
                                 isNewBookingSuccess = true; 
@@ -551,10 +543,12 @@ namespace BokningssystemGrupp6.Classes
                         }
                         break;
                     }
-                    else {
-                        Menu.BackToMenu();
-
+                    else
+                    {
+                        Console.WriteLine("Not a valid option \n Press any key to try again");
+                        Console.ReadKey();
                         Console.Clear();
+
                         continue; 
                     }
                 }
@@ -571,8 +565,7 @@ namespace BokningssystemGrupp6.Classes
                 //Checks if there is no bookings in list and breaks if it cant find any
                 if (bookingInfo.Count == 0)
                 {
-                    Console.WriteLine("Im sorry but there is no existing booking that can be removed " +
-                        "\nPress \"Enter\" to return to main menu");
+                    Console.WriteLine("Im sorry but there is no existing booking that can be removed");
                     Console.ReadKey();
                     break;
                 }
@@ -603,16 +596,15 @@ namespace BokningssystemGrupp6.Classes
                         bookingInfo.RemoveAt(choice - 1);
                         Save.SaveFile(bookingInfo);
 
-                        Menu.BackToMenu();
-
                         break;
                     }
                 }  
                 //If choice is not valid, loop and input choice again
                 else
                 {
-                    Console.WriteLine("Not a valid option");
-                    Menu.BackToMenu();
+                    Console.WriteLine("Not a valid choice \nPress any key to try again");
+                    Console.ReadKey();
+                    Console.Clear();
 
                     continue;
                 }
