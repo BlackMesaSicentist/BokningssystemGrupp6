@@ -21,14 +21,14 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             //Menu options
             Console.WriteLine("" +
                 "Select list option:" +
-                "\n1. Show all rooms in category and alphabetical order" +
+                "\n1. View all rooms by type in alphabetical order" +
                 "\n2. Show halls" +
                 "\n3. Show classrooms" +
                 "\n4. Show group rooms" +
-                "\n5. Rooms in order of number of seats, large - small" +
-                "\n6. Rooms in order of number of seats, small - large" +
-                "\n7. Rooms with projector" +
-                "\n8. Rooms with whiteboard" +
+                "\n5. Show rooms by number of seats, descending order" +
+                "\n6. Show rooms by number of seats, rising order" +
+                "\n7. Show rooms with projector" +
+                "\n8. Show rooms with whiteboard" +
                 "\n0. Go back\n");
 
             string? menuChoice;
@@ -61,40 +61,40 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 //Menu choice
                 switch (menuChoice)
                 {
+                    //View all rooms by type in alphabetical order
                     case "1":
                         sortOption = 1;
-                        Console.WriteLine("View all rooms by type in alphabetical order\n");
                         break;
+                    //Show halls
                     case "2":
                         sortOption = 2;
-                        Console.WriteLine("Show halls");
                         break;
+                    //Show classrooms
                     case "3":
                         sortOption = 3;
-                        Console.WriteLine("Show classrooms");
                         break;
+                    //Show group rooms
                     case "4":
                         sortOption = 4;
-                        Console.WriteLine("Show group rooms");
                         break;
+                    //Show rooms by number of seats, descending order
                     case "5":
                         sortOption = 5;
-                        Console.WriteLine("Show rooms by number of seats, descending order");
                         break;
+                    //Show rooms by number of seats, rising order
                     case "6":
                         sortOption = 6;
-                        Console.WriteLine("Show rooms by number of seats, rising order");
                         break;
+                    //Show rooms with projector
                     case "7":
                         sortOption = 7;
-                        Console.WriteLine("Show rooms with projector");
                         break;
+                    //Show rooms with whiteboard
                     case "8":
                         sortOption = 8;
-                        Console.WriteLine("Show rooms with whiteboard");
                         break;
+                    //Going back
                     case "0":
-                        Console.WriteLine("Going back...");
                         sortOption = 0;
                         break;
                     default:
