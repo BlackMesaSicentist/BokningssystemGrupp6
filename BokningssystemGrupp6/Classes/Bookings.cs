@@ -341,7 +341,7 @@ namespace BokningssystemGrupp6.Classes
                     }
                     else
                     {
-                        Console.WriteLine("Invalid choise");
+                        Console.WriteLine("Invalid option");
                     }
                     break;
                 //Show all bookings from specific room 
@@ -360,7 +360,7 @@ namespace BokningssystemGrupp6.Classes
                     break;
                 //Skrivs ut om användaren uppger ett felaktigt menyval
                 default:
-                    Console.WriteLine("Invalid choise, try again");
+                    Console.WriteLine("Invalid option, try again");
                     break;
             }
         }
@@ -490,7 +490,7 @@ namespace BokningssystemGrupp6.Classes
                                             //Checks that the booking conflicts with an already made booking
                                             if (checkIfBookingOverlaps != false)
                                             {
-                                                Console.WriteLine("Din valda tid & datum krockar tyvärr med en redan lagd bokning");
+                                                Console.WriteLine("Unfortunately, your selected time & date clashes with an previous booking");
                                                 //Print the booking it conflicts with
                                                 ListSpecific(book);
                                                 isValidInput = true;
@@ -506,12 +506,12 @@ namespace BokningssystemGrupp6.Classes
                                             Bookings newest = withoutChosenBookingOnlySelectedRoom[withoutChosenBookingOnlySelectedRoom.Count - 1];
 
                                             //Printed when the booking is completed
-                                            Console.WriteLine("Grattis din bokning är genomförd med informationen nedan");
+                                            Console.WriteLine("Your booking is noted with the following information:");
 
                                             //Prints the last item
                                             ListSpecific(newest);
 
-                                            Console.WriteLine($"Din bokning är totalt {totalTime} timmar.");
+                                            Console.WriteLine($"Total duration for your booking is: {totalTime}.");
 
                                             //It is allowed to save
                                             isNewBookingSuccess = true; 
@@ -536,7 +536,7 @@ namespace BokningssystemGrupp6.Classes
                                 index++;
                             }
                         }
-                        else { Console.WriteLine($"{choice} är inte ett giltigt val \nFörsök igen \n"); continue; }
+                        else { Console.WriteLine($"{choice} Not a valid option \nTry again \n"); continue; }
                     }
                 }
                 while (isValidInput == false);
@@ -605,11 +605,14 @@ namespace BokningssystemGrupp6.Classes
                             {
                                 if (booking == bookingToRemove)
                                 {
-                                    Console.WriteLine($"Du har tagit bort bokning:");
+                                    Console.WriteLine("You have removed booking:");
                                     ListSpecific(booking);
                                     bookingInfo.Remove(booking);
                                     Save.SaveFile(bookingInfo);
                                     isValidInput = true;
+                                    Console.WriteLine();
+                                    Console.WriteLine("Press enter to return to menu.");
+                                    Console.ReadKey();
                                     break;
                                 }
                             }
@@ -617,7 +620,7 @@ namespace BokningssystemGrupp6.Classes
                     }
                     else
                     {
-                        Console.WriteLine("Inte ett giltigt val, tryck på enter för  försök igen");
+                        Console.WriteLine("Not a valid option. Try again.");
                         Console.ReadKey();
                         Console.Clear();
                         continue;
