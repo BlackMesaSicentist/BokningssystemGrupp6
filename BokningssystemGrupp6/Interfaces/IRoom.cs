@@ -9,8 +9,11 @@ namespace BokningssystemGrupp6.Interfaces
     //Interface for rooms properties
     public interface IRoom
     {
-        string RoomName { get; set; } //Name of room
-        string RoomType { get; set; } //Type of room
-        int SeatAmount { get; set; } //Amount of seats in room
+        //Name of room
+        string RoomName { get; set; }
+        //Type of room
+        string RoomType { get; set; }
+        //Amount of seats in room
+        int SeatAmount { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace BokningssystemGrupp6.Classes
 
         public void MainMenu(List<Rooms> rooms, List<Bookings> bookingsInfo)
         {
-            Console.Title = "Bokningssystem of Team 6";
+            Console.Title = "Booking system of Team 6";
             Console.ForegroundColor = ConsoleColor.Blue;
             bool menu1 = true;
             // Declared a variable outside the switch, makes the code friendly to modification, can be removed and placed in the switch statement
@@ -54,7 +54,7 @@ namespace BokningssystemGrupp6.Classes
                     //Update existing booking
                     case "5": Console.Clear(); Bookings.UpdateBooking(bookingsInfo, rooms); BackToMenu(); break;
                     //remove booking
-                    case "6": Console.Clear(); Bookings.DeleteBooking(bookingsInfo, rooms); break; 
+                    case "6": Console.Clear(); Bookings.DeleteBooking(bookingsInfo, rooms); BackToMenu(); break; 
                     //Ends program
                     case "0": menu1 = false; break;
                     default:

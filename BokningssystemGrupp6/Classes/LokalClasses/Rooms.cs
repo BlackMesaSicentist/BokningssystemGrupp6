@@ -22,7 +22,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public string RoomType { get; set; }
         public int SeatAmount { get; set; }
 
-        //Construktor for Rooms
+        //Constructor for Rooms, Json deserializer requiers an empty constructor
         protected Rooms()
         {
 
@@ -42,18 +42,18 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
 
             //Room name
             string roomName = RoomNameInput(rooms);
-            // Cancels and returns to the menu if the input is "quit"
+            //Cancels and returns to the menu if the input is "quit"
             if (roomName == null) return;
 
 
             //Room type int / list type / seat limit
             var (roomSizeSelect, roomType, seatLimit) = RoomSize();
-            // Cancels and returns to the menu if the input is "quit"
+            //Cancels and returns to the menu if the input is "quit"
             if (roomType.ToLower() == "quit") return;
 
             //Seats
             int seats = SeatsInput(rooms, seatLimit);
-            // Cancels and returns to the menu if the input is "quit"
+            //Cancels and returns to the menu if the input is "quit"
             if (seats == -1) return;
 
             //Projector and whiteboard select
@@ -66,16 +66,16 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             {
                 Console.WriteLine("Does the venue have a projector?");
                 bool? projectorBool = AskUser();
-                // Cancels and returns to the menu if the input is "quit"
+                //Cancels and returns to the menu if the input is "quit"
                 if (projectorBool == null) return;
-                // If it is not null convert to non-null bool
+                //If it is not null convert to non-null bool
                 hasProjector = projectorBool.Value;
 
                 Console.WriteLine("Does the venue have a whiteboard?");
                 bool? whiteboardBool = AskUser();
-                // Cancels and returns to the menu if the input is "quit"
+                //Cancels and returns to the menu if the input is "quit"
                 if (whiteboardBool == null) return;
-                // If it is not null convert to non-null bool
+                //If it is not null convert to non-null bool
                 hasWhiteboard = whiteboardBool.Value;
             }
             //Adds to list th choosen type of venue
@@ -309,9 +309,9 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                         roomName = rooms[choice - 1].RoomName;
                         return roomName;
                     }
-                    else { Console.WriteLine($"\n{roomNum} is not a valid choice, please try again"); continue; }
+                    else { Console.WriteLine($"\n{roomNum} is not a valid option, please try again"); continue; }
                 }
-                else { Console.WriteLine($"\n{roomNum} is not a valid choice, please try again"); continue; }
+                else { Console.WriteLine($"\n{roomNum} is not a valid option, please try again"); continue; }
             }
         }
 

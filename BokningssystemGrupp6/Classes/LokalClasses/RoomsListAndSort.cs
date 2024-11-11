@@ -18,7 +18,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
         public void RoomsListAndSortStart(List<Rooms> rooms)
         {
 
-            // Menu options
+            //Menu options
             Console.WriteLine("" +
                 "Select list option:" +
                 "\n1. Show all rooms in category and alphabetical order" +
@@ -32,16 +32,16 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 "\n0. Go back\n");
 
             string? menuChoice;
-            // Reset option before starting the loop
+            //Reset option before starting the loop
             sortOption = -1;
 
-            // Loop for valid user input
+            //Loop for valid user input
             while (true)
             {
                 Console.Write("Enter your choice: ");
                 menuChoice = Console.ReadLine();
                 Console.Clear();
-                // Input validation
+                //Input validation
                 if (_inputValidation.IsEmpty(menuChoice))
                 {
                     Console.WriteLine("Field cannot be empty. Try again.");
@@ -58,7 +58,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     continue;
                 }
 
-                // Menu choice
+                //Menu choice
                 switch (menuChoice)
                 {
                     case "1":
@@ -108,48 +108,48 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             RoomInfoWithSort(rooms);
         }
 
-        // Method to filter and sort rooms based menu choice
+        //Method to filter and sort rooms based menu choice
         private void RoomInfoWithSort(List<Rooms> rooms)
         {
             List<Rooms> sortRoomList = rooms;
 
-            // Menu choice options functions
+            //Menu choice options functions
             switch (sortOption)
             {
-                case 1: // Show all rooms sorted in category and alphabetical order
+                case 1: //Show all rooms sorted in category and alphabetical order
                     Console.WriteLine("Show all rooms in category and alphabetical order\n");
                     sortRoomList = rooms
-                        // Sort by category: Hall -> Classroom -> GroupRoom
+                        //Sort by category: Hall -> Classroom -> GroupRoom
                         .OrderBy(room => room is Hall ? 1 : room is Classroom ? 2 : 3)
-                        // Sort the rooms alphabetically
+                        //Sort the rooms alphabetically
                         .ThenBy(room => room.RoomName) 
                         .ToList();
                     break;
-                case 2: // Show halls
+                case 2: //Show halls
                     Console.WriteLine("Show halls\n");
                     sortRoomList = rooms.OfType<Hall>().Cast<Rooms>().ToList();
                     break;
-                case 3: // Show classrooms
+                case 3: //Show classrooms
                     Console.WriteLine("Show classrooms\n");
                     sortRoomList = rooms.OfType<Classroom>().Cast<Rooms>().ToList();
                     break;
-                case 4: // Show group rooms
+                case 4: //Show group rooms
                     Console.WriteLine("Show group rooms\n");
                     sortRoomList = rooms.OfType<GroupRoom>().Cast<Rooms>().ToList();
                     break;
-                case 5: // Rooms in order of number of seats, large - small
+                case 5: //Rooms in order of number of seats, large - small
                     Console.WriteLine("Rooms in order of number of seats, large - small\n");
                     sortRoomList = sortRoomList.OrderByDescending(room => room.SeatAmount).ToList();
                     break;
-                case 6: // Rooms in order of number of seats, small - large
+                case 6: //Rooms in order of number of seats, small - large
                     Console.WriteLine("Rooms in order of number of seats, small - large\n");
                     sortRoomList = sortRoomList.OrderBy(room => room.SeatAmount).ToList();
                     break;
-                case 7: // Rooms with projector
+                case 7: //Rooms with projector
                     Console.WriteLine("Rooms with projector\n");
                     sortRoomList = rooms.Where(room => room is Hall hall && hall.HasProjector).Cast<Rooms>().ToList();
                     break;
-                case 8: // Rooms with whiteboard
+                case 8: //Rooms with whiteboard
                     Console.WriteLine("Rooms with whiteboard\n");
                     sortRoomList = rooms.Where(room => room is Hall hall && hall.HasWhiteboard).Cast<Rooms>().ToList();
                     break;
@@ -159,7 +159,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     Console.WriteLine("Invalid selection");
                     break;
             }
-            // Display the filtered or sorted list of rooms
+            //Display the filtered or sorted list of rooms
             Console.WriteLine("ALL ROOMS OF CHOICE");
             Console.WriteLine("{0,-12}{1,-20}{2,-14}{3,-14}{4,-18}{5,-14}", "Type", "Name", "Seat amount", 
                 "Seat Limit", "Has Projector", "Has Whiteboard");

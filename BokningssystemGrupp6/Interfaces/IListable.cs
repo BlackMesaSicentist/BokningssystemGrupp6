@@ -13,11 +13,13 @@ namespace BokningssystemGrupp6.Interfaces
 
         //List a speicifc object from list
         public void ListSpecific() 
-        { }
+        { 
+        }
         
         //List all objects from a list
         public void ListAll() 
-        { }
+        { 
+        }
 
     }
 }

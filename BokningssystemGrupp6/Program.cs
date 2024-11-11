@@ -16,7 +16,7 @@ namespace BokningssystemGrupp6
         static void Main(string[] args)
         {
          
-        InputValidation inputValidation = new InputValidation();
+            InputValidation inputValidation = new InputValidation();
             Menu menu = new Menu(inputValidation);
 
             //List for rooms (string roomName, string size, int maxPeople, bool hasWhiteboard, bool hasProjector)
@@ -25,7 +25,6 @@ namespace BokningssystemGrupp6
             //List for bookings (string userName, string roomName, DateTime DateTimeStart, DateTime DateTimeEnd)
             List<Bookings> bookingsInfo = new List<Bookings>();
           
-
             //Methods to deserialize lists
             Save.UnpackFileRooms(rooms);
             Save.UnPackFileBooking(ref bookingsInfo);

@@ -98,7 +98,7 @@ namespace BokningssystemGrupp6.Classes
                     //Emptying the list so we don't get duplicates when we add in the end
                     roomList.Clear();
 
-                    // Deserializer
+                    //Deserializer
                     var tempList = JsonSerializer.Deserialize<List<Rooms>>(readRoom, options);
                     roomList.AddRange(tempList);
                 }

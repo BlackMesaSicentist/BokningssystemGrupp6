@@ -349,7 +349,7 @@ namespace BokningssystemGrupp6.Classes
             {
                 //Show all bookings from year 
                 case "1":
-                    Console.WriteLine("Enter the year off the bookings you want to display in the format YYYY");
+                    Console.WriteLine("Enter the year of the bookings you want to display in the format YYYY");
                     String yearInputString = Console.ReadLine();
 
                     //Convert input to datetime
@@ -387,7 +387,7 @@ namespace BokningssystemGrupp6.Classes
                     }
                     ListAll(specificBookings);
                     break;
-                //Skrivs ut om användaren uppger ett felaktigt menyval
+                //If user selects invalid option.
                 default:
                     Console.WriteLine("Invalid option, try again");
                     break;
@@ -413,11 +413,11 @@ namespace BokningssystemGrupp6.Classes
                 //Checks if there is no bookings in list and breaks if it cant find any
                 if (bookingInfo.Count == 0)
                 {
-                    Console.WriteLine("Im sorry but there is no existing booking that can be updated");
+                    Console.WriteLine("No existing booking that can be updated");
                     isValidInput = true;
                     break;
                 }
-                Console.WriteLine("Here is a list of existing bookings \n");
+                Console.WriteLine("Existing bookings: \n");
                 //List bookings
                 Console.WriteLine("ALL EXISTING BOOKINGS");
                 Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", "", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
@@ -462,11 +462,6 @@ namespace BokningssystemGrupp6.Classes
                         string endTime = Console.ReadLine();
                         Console.Clear();
 
-                        //Converts the input to a DateTime object                                
-                        DateTime dateTimeStart = DateTime.Parse(startTime);
-                        DateTime dateTimeEnd = DateTime.Parse(endTime);
-
-                        TimeSpan totalTime = dateTimeEnd - dateTimeStart;
                         try
                         {
                             DateTime dateTimeS = DateTime.Parse(startTime);
@@ -477,6 +472,12 @@ namespace BokningssystemGrupp6.Classes
                         {
                             Console.WriteLine("Incorrect format, please enter the date and time in the correct format.");
                         }
+                        //Converts the input to a DateTime object                                
+                        DateTime dateTimeStart = DateTime.Parse(startTime);
+                        DateTime dateTimeEnd = DateTime.Parse(endTime);
+
+                        TimeSpan totalTime = dateTimeEnd - dateTimeStart;
+
                         if (withoutChosenBookingOnlyAndSpecificRoom.Count == 0)
                         {
                             //Adds the booking to the list
@@ -565,7 +566,7 @@ namespace BokningssystemGrupp6.Classes
                 //Checks if there is no bookings in list and breaks if it cant find any
                 if (bookingInfo.Count == 0)
                 {
-                    Console.WriteLine("Im sorry but there is no existing booking that can be removed");
+                    Console.WriteLine("There is no existing booking that can be removed");
                     Console.ReadKey();
                     break;
                 }
@@ -589,7 +590,7 @@ namespace BokningssystemGrupp6.Classes
                     if (choice <= bookingInfo.Count && choice > 0) 
                     {
                         //List booking to be removed
-                        Console.WriteLine($"You have removed booking:");
+                        Console.WriteLine("You have removed booking:");
                         ListSpecific(bookingInfo[choice - 1]);
 
                         //Remove and save booing
