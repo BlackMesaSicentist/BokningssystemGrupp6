@@ -40,6 +40,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
             {
                 Console.Write("Enter your choice: ");
                 menuChoice = Console.ReadLine();
+                Console.Clear();
                 // Input validation
                 if (_inputValidation.IsEmpty(menuChoice))
                 {
@@ -62,7 +63,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                 {
                     case "1":
                         sortOption = 1;
-                        Console.WriteLine("Show all rooms in category and alphabetical order\n");
+                        Console.WriteLine("View all rooms by type in alphabetical order\n");
                         break;
                     case "2":
                         sortOption = 2;
@@ -78,11 +79,11 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                         break;
                     case "5":
                         sortOption = 5;
-                        Console.WriteLine("Rooms in order of number of seats, large to small");
+                        Console.WriteLine("Show rooms by number of seats, descending order");
                         break;
                     case "6":
                         sortOption = 6;
-                        Console.WriteLine("Rooms in order of number of seats, small to large");
+                        Console.WriteLine("Show rooms by number of seats, rising order");
                         break;
                     case "7":
                         sortOption = 7;
