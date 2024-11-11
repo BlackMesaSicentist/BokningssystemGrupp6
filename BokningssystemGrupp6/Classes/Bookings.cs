@@ -116,7 +116,7 @@ namespace BokningssystemGrupp6.Classes
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error: {ex.Message}. Please try again.");
-                    // Check if input is "quit" and if it is cancel the booking
+                    //Check if input is "quit" and if it is cancel the booking
                     if (roomNumberStr.Equals("quit", StringComparison.OrdinalIgnoreCase)) return;
 
                 }
@@ -409,16 +409,20 @@ namespace BokningssystemGrupp6.Classes
             Boolean checkIfBookingOverlaps = false; 
 
             do
-            {
-                Console.WriteLine("Here is a list of existing bookings \n");
+            {           
                 //List bookings
-                for (int i = 0; i < bookingInfo.Count; i++) 
+                Console.WriteLine("ALL EXISTING BOOKINGS");
+                Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", "", "Email", "Room", "Booking starts", "Booking ends ", "Duration");
+                Console.WriteLine(new string('-', 100));
+                int i = 1;
+                foreach (Bookings booking in bookingInfo)
                 {
-                    Console.WriteLine($"-------------\n{i + 1}: ");
-                    ListSpecific(bookingInfo[i]);
+                    Console.WriteLine("{0,-4}{1,-24}{2,-14}{3,-26}{4,-23}{5,-20}", i + ".",
+                        booking.Mail, booking.RoomName, booking.DateTimeStart, booking.DateTimeEnd, booking.DateTimeEnd - booking.DateTimeStart);
+                    i++;
                 }
 
-                Console.WriteLine("Enter the number for the corresponding option");
+                Console.WriteLine("\nEnter the number for the corresponding option");
                 //Input choiche form list
                 if (int.TryParse(Console.ReadLine(), out int choice)) 
                 {
@@ -477,9 +481,6 @@ namespace BokningssystemGrupp6.Classes
 
                             //Prints the last item
                             ListSpecific(withoutChosenBookingOnlyAndSpecificRoom[withoutChosenBookingOnlyAndSpecificRoom.Count - 1]);
-
-                            //Calculates and prints the bookings duration and the last booking made
-                            Console.WriteLine($"Total duration for your booking is: {totalTime}.");
 
                             Console.WriteLine("Press \"Enter\" to return to main menu");
                             Console.ReadKey();
