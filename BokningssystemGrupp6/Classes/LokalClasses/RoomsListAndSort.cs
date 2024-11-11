@@ -100,7 +100,7 @@ namespace BokningssystemGrupp6.Classes.LokalClasses
                     default:
                         Console.WriteLine("Not a valid selection. Press \"Enter\" and try again.");
                         Console.ReadKey();
-                        Console.Clear();
+                        
                         continue;
                 }
                 if (sortOption != -1) break;
